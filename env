@@ -1,2 +1,0 @@
-export PATH=$HOME/bin:$HOME/go/bin:/usr/local/go/bin:/usr/local/bin:$PATH
-export EDITOR=vim

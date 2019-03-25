@@ -94,5 +94,3 @@ source $ZSH/oh-my-zsh.sh
 #
 # Example aliases
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-test -s ~/.alias && . ~/.alias || true
-
