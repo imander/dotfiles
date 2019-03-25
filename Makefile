@@ -2,7 +2,11 @@ DIR := $(shell pwd)
 GIT := $(shell git describe --always --dirty)
 
 .PHONY: all
-all: env alias zsh vim tmux
+all: submods env alias zsh vim tmux
+
+.PHONY: submods
+submods:
+	git submodule update --init --recursive
 
 .PHONY: env
 env:
