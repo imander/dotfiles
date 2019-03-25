@@ -6,6 +6,9 @@ set autowrite
 " use the system clipboard
 set clipboard=unnamedplus
 
+" map jk to exit insert mode
+inoremap jk <Esc>
+
 set tabstop=2
 set shiftwidth=2
 set expandtab
@@ -15,6 +18,12 @@ let g:go_highlight_function_calls = 1
 let g:rehash256 = 1
 let g:molokai_original = 1
 colorscheme molokai
+
+" better defaults for moving between panes
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 let mapleader = "\<Space>"
 
