@@ -4,7 +4,7 @@ set relativenumber
 set autowrite
 
 " use the system clipboard
-set clipboard=unnamedplus
+" set clipboard=unnamedplus
 
 " map jk to exit insert mode
 inoremap jk <Esc>
@@ -37,9 +37,13 @@ let g:airline#extensions#tabline#enabled = 1
 map <leader>ft :NERDTreeToggle<cr>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd VimEnter * set winfixwidth
+let g:NERDTreeNodeDelimiter = "\u00a0"
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
+let NERDTreeQuitOnOpen = 1
+
 " Quit vim if nerdtree is only buffer open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
