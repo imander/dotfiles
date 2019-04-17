@@ -63,6 +63,7 @@ ZSH_THEME="bira-imander"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  git-flow
 )
 
 source $ZSH/oh-my-zsh.sh
