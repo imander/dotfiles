@@ -1,1 +1,1 @@
-autocmd BufWritePre * :GoImports
+autocmd BufWritePre <buffer> :GoImports
