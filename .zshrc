@@ -63,6 +63,7 @@ ZSH_THEME="bira"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  git-flow-avh
 )
 
 source $ZSH/oh-my-zsh.sh
