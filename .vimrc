@@ -12,7 +12,6 @@ inoremap jk <Esc>
 set tabstop=2
 set shiftwidth=2
 set expandtab
-set pastetoggle=<leader>p
 
 let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
