@@ -34,7 +34,7 @@ zsh:
 	@ln -s "$(DIR)/.zshrc" "$(HOME)/.zshrc"
 	@ln -s "$(DIR)/oh-my-zsh" "$(HOME)/.oh-my-zsh"
 	@$(RM) "$(HOME)/.oh-my-zsh/themes/bira-imander.zsh-theme"
-	@ln -s "$(DIR)/bira-imander.zsh-theme" "$(HOME)/.oh-my-zsh/themes/bira-imander.zsh-theme"
+	@ln -s "$(DIR)/bira.zsh-theme" "$(HOME)/.oh-my-zsh/custom/themes/bira.zsh-theme"
 
 .PHONY: bash
 bash:
