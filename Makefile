@@ -6,7 +6,7 @@ all: submods env alias zsh bash vim tmux
 
 .PHONY: submods
 submods:
-	@git submodule update --init --recursive
+	@git submodule update --init --recursive --merge
 
 .PHONY: env
 env:
