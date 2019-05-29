@@ -8,6 +8,29 @@ set autowrite
 
 " map jk to exit insert mode
 inoremap jk <Esc>
+" map jkl to exit insert mode and write changes
+inoremap jkl <Esc> w:<cr>
+
+" Mappings for leader keys
+nnoremap <leader>ft :NERDTreeToggle<cr>
+nnoremap <leader>w :w<cr>
+noremap <leader>q :q<cr>
+
+nnoremap <leader>s :set spell!<cr>
+" fix spelling with first suggestion
+nnoremap <leader>f 1z=
+
+" record macro with qq stop with q and apply with Q
+nnoremap Q @q
+vnoremap Q :norm @q<cr>
+
+" toggle through buffers with shift+direction
+noremap <S-l> :bnext<cr>
+noremap <S-h> :bprevious<cr>
+noremap <leader>bd :bdelete<cr>
+
+set pastetoggle=<leader>z
+
 
 set tabstop=2
 set shiftwidth=2
@@ -34,7 +57,6 @@ autocmd! bufwritepost .vimrc source %
 let g:airline#extensions#tabline#enabled = 1
 
 " set nerdtree toggle shortcut and make open at startup
-map <leader>ft :NERDTreeToggle<cr>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd VimEnter * set winfixwidth
