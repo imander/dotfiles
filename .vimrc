@@ -5,6 +5,7 @@ set autowrite
 
 " use the system clipboard
 " set clipboard=unnamedplus
+let mapleader = "\<Space>"
 
 " map jk to exit insert mode
 inoremap jk <Esc>
@@ -29,9 +30,13 @@ noremap <S-l> :bnext<cr>
 noremap <S-h> :bprevious<cr>
 noremap <leader>bd :bdelete<cr>
 
+" better defaults for moving between panes
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 set pastetoggle=<leader>z
-
-
 set tabstop=2
 set shiftwidth=2
 set expandtab
@@ -41,14 +46,6 @@ let g:go_highlight_function_calls = 1
 let g:rehash256 = 1
 let g:molokai_original = 1
 colorscheme molokai
-
-" better defaults for moving between panes
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-let mapleader = "\<Space>"
 
 " edit vimrc quickly and reload .vimrc
 map <leader>v :edit ~/.vimrc<cr>
@@ -68,7 +65,6 @@ let NERDTreeQuitOnOpen = 1
 
 " Quit vim if nerdtree is only buffer open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
 
 " disable tab complete for you complete me
 " this is usefule since tab is used for ultisnips
