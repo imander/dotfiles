@@ -35,3 +35,13 @@ alias dkill="docker kill"
 alias dps="docker ps"
 alias dpsa="docker ps -a"
 alias dpurge="docker images |egrep '<none>'|awk '{print \$3}'|xargs docker rmi --force"
+
+function gh {
+    url=$(git remote -v | grep origin | head -1 | awk '{print $2}' | sed -e 's/:/\//' -e 's/git@/https:\/\//' -e 's/\.git$//')
+    if [[ "$url" = "" ]]; then
+      echo "Unable to open git repo!"
+      exit 1
+    fi
+    echo "Fetching: ${url}"
+    open $url
+}
