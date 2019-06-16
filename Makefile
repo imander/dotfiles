@@ -1,5 +1,8 @@
-DIR := $(shell pwd)
-GIT := $(shell git describe --always --dirty)
+DIR				:= $(shell pwd)
+GIT				:= $(shell git describe --always --dirty)
+PLUGDIR		:= $(DIR)/.vim/pack/plugins/start
+GH				:= https://github.com
+zsh_dir   := ~/.oh-my-zsh
 
 .PHONY: all
 all: submods env alias zsh bash vim tmux
@@ -25,11 +28,14 @@ endif
 	@ln -sfn "$(DIR)/conky" "$(HOME)/.config/conky"
 
 .PHONY: zsh
-zsh:
-	@ln -sfn "$(DIR)/.zshrc" "$(HOME)/.zshrc"
-	@ln -sfn "$(DIR)/oh-my-zsh" "$(HOME)/.oh-my-zsh"
-	@ln -sfn "$(DIR)/bira.zsh-theme" "$(HOME)/.oh-my-zsh/custom/themes/bira.zsh-theme"
-	@ln -sfn "$(DIR)/avit.zsh-theme" "$(HOME)/.oh-my-zsh/custom/themes/avit.zsh-theme"
+zsh: $(zsh_dir)
+	@ln -sfn $(DIR)/.zshrc $(HOME)/.zshrc
+	@ln -sfn $(DIR)/zsh_themes/* $(HOME)/.oh-my-zsh/custom/themes/
+
+$(zsh_dir): 
+	@wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh 
+	@sh install.sh --unattended
+	@$(RM) install.sh
 
 .PHONY: bash
 bash:
@@ -42,8 +48,16 @@ tmux:
 
 .PHONY: vim
 vim:
-	@ln -sfn "$(DIR)/.vimrc" "$(HOME)/.vimrc"
-	@ln -sfn "$(DIR)/.vim" "$(HOME)/.vim"
+	$(eval GIT := .git)
+	@$(RM) -r $(PLUGDIR)
+	@mkdir -p $(PLUGDIR)
+	@cd $(PLUGDIR) && while read line; do git clone $(GH)/$$line$(GIT); done < $(DIR)/vim.plugins
+	@ln -sfn $(DIR)/.vimrc $(HOME)/.vimrc
+	@ln -sfn $(DIR)/.vim $(HOME)/.vim
+
+vim-ycm:
+	@cd $(PLUGDIR)/YouCompleteMe && git submodule update --init --recursive && \
+	python install.py
 
 .PHONY: commit
 commit:
