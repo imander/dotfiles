@@ -17,6 +17,7 @@ alias rmfoo='rm ~/foo'
 alias vfoo='vim ~/foo'
 alias myip="curl http://ipinfo.io/ip"
 alias gtest='go test -v --bench . --benchmem'
+alias gfind='find . -name "*.go" -not -path "*/vendor/*"'
 
 # Kubernetes aliases
 alias kc='kubectl'
@@ -37,11 +38,18 @@ alias dpsa="docker ps -a"
 alias dpurge="docker images |egrep '<none>'|awk '{print \$3}'|xargs docker rmi --force"
 
 function gh {
-    url=$(git remote -v | grep origin | head -1 | awk '{print $2}' | sed -e 's/:/\//' -e 's/git@/https:\/\//' -e 's/\.git$//')
-    if [[ "$url" = "" ]]; then
-      echo "Unable to open git repo!"
-      exit 1
-    fi
-    echo "Fetching: ${url}"
-    open $url
+  if [[ -x "$(command -v open)" ]]; then
+    cmd=open
+  elif [[ -x "$(command -v xdg-open)" ]]; then
+    cmd=xdg-open
+  fi
+
+  url=$(git remote -v | grep origin | head -1 | awk '{print $2}' | sed -e 's/:/\//' -e 's/git@/https:\/\//' -e 's/\.git$//')
+  if [[ "$url" = "" ]] || [[ "$cmd" = "" ]]; then
+    echo "Unable to open git repo!"
+    return 1
+  fi
+
+  echo "Fetching: ${url}"
+  $cmd $url > /dev/null 2>&1
 }
