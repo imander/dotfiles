@@ -16,6 +16,7 @@ inoremap jkl <Esc> w:<cr>
 nnoremap <leader>ft :NERDTreeToggle<cr>
 nnoremap <leader>w :w<cr>
 noremap <leader>q :q<cr>
+noremap <leader>wq :wq<cr>
 
 nnoremap <leader>s :set spell!<cr>
 " fix spelling with first suggestion
