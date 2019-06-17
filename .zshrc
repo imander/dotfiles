@@ -64,6 +64,7 @@ ZSH_THEME="avit"
 plugins=(
   git
   git-flow-avh
+  kubectl
 )
 
 source $ZSH/oh-my-zsh.sh
