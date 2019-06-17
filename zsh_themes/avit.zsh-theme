@@ -22,7 +22,7 @@ function _current_dir() {
 }
 
 function _user_host() {
-  echo "%{$fg[cyan]%}%n@%m%{$reset_color%}:"
+  echo "%{$FG[010]%}%n@%m%{$reset_color%}:"
 }
 
 function _user_shell() {
