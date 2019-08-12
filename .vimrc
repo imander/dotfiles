@@ -7,6 +7,9 @@ set autowrite
 " set clipboard=unnamedplus
 let mapleader = "\<Space>"
 
+" shortcut to save file with sudo
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+
 " map jk to exit insert mode
 inoremap jk <Esc>
 " map jkl to exit insert mode and write changes
