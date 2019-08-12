@@ -1,6 +1,3 @@
-# set environment variables
-test -s ~/.env && . ~/.env || true
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -90,3 +87,6 @@ source $ZSH/oh-my-zsh.sh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 unsetopt share_history
+
+# set environment variables last to take preference
+test -s ~/.env && . ~/.env || true

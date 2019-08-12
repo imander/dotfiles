@@ -20,13 +20,13 @@ alias gtest='go test -v --bench . --benchmem'
 alias gfind='find . -name "*.go" -not -path "*/vendor/*"'
 
 # Kubernetes aliases
-alias kc='kubectl'
-alias kcd="kubectl delete"
-alias kca="kubectl apply -f"
-alias pods="kubectl get pods -o wide"
-alias pod="kubectl describe pod"
-alias svcs="kubectl get svc"
-alias svc="kubectl describe svc"
+# alias kc='kubectl'
+# alias kcd="kubectl delete"
+# alias kca="kubectl apply -f"
+# alias pods="kubectl get pods -o wide"
+# alias pod="kubectl describe pod"
+# alias svcs="kubectl get svc"
+# alias svc="kubectl describe svc"
 
 # Docker aliases
 alias drun="docker run --rm"
@@ -37,6 +37,7 @@ alias dps="docker ps"
 alias dpsa="docker ps -a"
 alias dpurge="docker images |egrep '<none>'|awk '{print \$3}'|xargs docker rmi --force"
 
+alias ghb='gh -b'
 function gh {
   if [[ -x "$(command -v open)" ]]; then
     cmd=open
@@ -48,6 +49,11 @@ function gh {
   if [[ "$url" = "" ]] || [[ "$cmd" = "" ]]; then
     echo "Unable to open git repo!"
     return 1
+  fi
+
+  branch=$(git rev-parse --abbrev-ref HEAD)
+  if [[ "$1" = "-b" ]]; then
+    url="$url/tree/$branch"
   fi
 
   echo "Fetching: ${url}"
