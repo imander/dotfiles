@@ -40,6 +40,9 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" toggle through errors
+nnoremap <leader>e :lnext<cr>
+
 set pastetoggle=<leader>z
 set tabstop=2
 set shiftwidth=2

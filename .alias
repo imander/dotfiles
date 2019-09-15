@@ -1,13 +1,14 @@
 alias vi='vim'
-alias ll='ls -l'
-alias la='ls -la'
-alias l.='ls -d .*'
+alias ll='ls -lh'
+alias la='ls -lah'
 alias ld='ls -dl'
-alias ltr='ls -ltr|tail'
-alias lh='ls -ald .*'
+alias ltr='ls -ltrh|tail'
 alias c='clear'
 alias cd..='cd ..'
-alias ..='cd ..'
+alias .='cd ..'
+alias ..='cd ../..'
+alias ...='cd ../../..'
+alias ....='cd ../../../..'
 alias docs='cd ~/Documents'
 alias dl='cd ~/Downloads'
 alias ipgrep='egrep -o '\''[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'\'''
@@ -15,18 +16,13 @@ alias foo='cat > ~/foo'
 alias cfoo='cat ~/foo'
 alias rfoo='rm ~/foo*'
 alias vfoo='vim ~/foo'
-alias myip="curl http://ipinfo.io/ip"
+alias ipe='curl http://ipinfo.io/ip'
+alias lports='netstat -ant | grep LISTEN'
+alias python='python3'
+
+# golang stuff
 alias gtest='go test -v --bench . --benchmem'
 alias gfind='find . -name "*.go" -not -path "*/vendor/*"'
-
-# Kubernetes aliases
-alias kc='kubectl'
-alias kcd="kubectl delete"
-alias kca="kubectl apply -f"
-alias pods="kubectl get pods -o wide"
-alias pod="kubectl describe pod"
-alias svcs="kubectl get svc"
-alias svc="kubectl describe svc"
 
 # Docker aliases
 alias drun="docker run --rm"
@@ -37,6 +33,9 @@ alias dps="docker ps"
 alias dpsa="docker ps -a"
 alias dpurge="docker images |egrep '<none>'|awk '{print \$3}'|xargs docker rmi --force"
 
+# open a git repo in the browser the -b switch opens the specific branch
+alias gpristine='git reset --hard && git clean -df'
+alias ghb='gh -b'
 function gh {
   if [[ -x "$(command -v open)" ]]; then
     cmd=open
@@ -48,6 +47,11 @@ function gh {
   if [[ "$url" = "" ]] || [[ "$cmd" = "" ]]; then
     echo "Unable to open git repo!"
     return 1
+  fi
+
+  branch=$(git rev-parse --abbrev-ref HEAD)
+  if [[ "$1" = "-b" ]]; then
+    url="$url/tree/$branch"
   fi
 
   echo "Fetching: ${url}"
