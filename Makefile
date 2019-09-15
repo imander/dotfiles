@@ -49,15 +49,23 @@ tmux:
 .PHONY: vim
 vim:
 	$(eval GIT := .git)
-	@$(RM) -r $(PLUGDIR)
 	@mkdir -p $(PLUGDIR)
-	@cd $(PLUGDIR) && while read line; do git clone $(GH)/$$line$(GIT); done < $(DIR)/vim.plugins
+	@cd $(PLUGDIR) && while read line; do \
+		plug_dir=`cut -d/ -f2 <<< $$line`; \
+		if [[ ! -z $$line ]] && [[ ! -d $$plug_dir ]]; then \
+			git clone $(GH)/$$line$(GIT); \
+		fi \
+	done < $(DIR)/vim.plugins 
 	@ln -sfn $(DIR)/.vimrc $(HOME)/.vimrc
 	@ln -sfn $(DIR)/.vim $(HOME)/.vim
 
 vim-ycm:
 	@cd $(PLUGDIR)/YouCompleteMe && git submodule update --init --recursive && \
 	python install.py
+
+vim-md:
+	mkdir -p '.vim/after/ftplugin/markdown/'
+	cp $(PLUGDIR)/vim-instant-markdown/after/ftplugin/markdown/instant-markdown.vim .vim/after/ftplugin/markdown/
 
 .PHONY: commit
 commit:
