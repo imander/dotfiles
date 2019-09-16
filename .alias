@@ -16,9 +16,10 @@ alias foo='cat > ~/foo'
 alias cfoo='cat ~/foo'
 alias rfoo='rm ~/foo*'
 alias vfoo='vim ~/foo'
-alias ipe='curl http://ipinfo.io/ip'
+alias eip='curl http://ipinfo.io/ip'
+alias iip=internal_ip
 alias lports='netstat -ant | grep LISTEN'
-alias python='python3'
+alias s='source'
 
 # golang stuff
 alias gtest='go test -v --bench . --benchmem'
@@ -56,4 +57,12 @@ function gh {
 
   echo "Fetching: ${url}"
   $cmd $url > /dev/null 2>&1
+}
+
+function internal_ip {
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    ifconfig| egrep '(^[a-zA-Z]|\sinet[^6])' | egrep -B1 '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | awk -v RS=$'--' 'NF {print $1, $6}'|column -t
+  else
+    ip addr | egrep -o '(^[0-9]+:\s+[0-9a-z]+|\sinet[^6].*)' | egrep -B1 '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | awk -v RS=$'--' 'NF {print $2, $4}' | column -t
+  fi
 }
