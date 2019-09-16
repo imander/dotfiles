@@ -19,6 +19,7 @@ inoremap jkl <Esc> w:<cr>
 nnoremap <leader>ft :NERDTreeToggle<cr>
 nnoremap <leader>w :w<cr>
 noremap <leader>q :q<cr>
+noremap <leader>qq :q!<cr>
 noremap <leader>wq :wq<cr>
 
 nnoremap <leader>s :set spell!<cr>
@@ -42,6 +43,12 @@ nnoremap <C-H> <C-W><C-H>
 
 " toggle through errors
 nnoremap <leader>e :lnext<cr>
+
+" execute lines with interpreters
+noremap <leader>tb :terminal bash<cr>
+noremap <leader>tp :terminal python<cr>
+noremap <leader>p3 :terminal python3<cr>
+noremap <leader>tr :terminal ruby<cr>
 
 set pastetoggle=<leader>z
 set tabstop=2
