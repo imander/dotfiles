@@ -20,6 +20,7 @@ alias eip='curl http://ipinfo.io/ip'
 alias iip=internal_ip
 alias lports='netstat -ant | grep LISTEN'
 alias s='source'
+alias f=ifind
 
 # golang stuff
 alias gtest='go test -v --bench . --benchmem'
@@ -65,4 +66,8 @@ function internal_ip {
   else
     ip addr | egrep -o '(^[0-9]+:\s+[0-9a-z]+|\sinet[^6].*)' | egrep -B1 '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | awk -v RS=$'--' 'NF {print $2, $4}' | column -t
   fi
+}
+
+function ifind {
+  find . -iname "*$1*"
 }
