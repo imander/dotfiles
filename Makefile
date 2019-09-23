@@ -66,6 +66,7 @@ vim-ycm:
 vim-md:
 	mkdir -p '.vim/after/ftplugin/markdown/'
 	cp $(PLUGDIR)/vim-instant-markdown/after/ftplugin/markdown/instant-markdown.vim .vim/after/ftplugin/markdown/
+	sudo npm -g install instant-markdown-d
 
 .PHONY: commit
 commit:
