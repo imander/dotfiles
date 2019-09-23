@@ -25,7 +25,8 @@ conky:
 ifeq (, $(shell which conky))
 	sudo pacman -S conky
 endif
-	@ln -sfn "$(DIR)/conky" "$(HOME)/.config/conky"
+	cp -r conky-fonts "$(HOME)/.local/share/fonts/"
+	ln -sfn "$(DIR)/conky" "$(HOME)/.config/conky"
 
 .PHONY: zsh
 zsh: $(zsh_dir)

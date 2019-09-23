@@ -1,0 +1,275 @@
+{
+    "@context": [
+        "https://raw.githubusercontent.com/geojson/geojson-ld/master/contexts/geojson-base.jsonld",
+        {
+            "wx": "https://api.weather.gov/ontology#",
+            "geo": "http://www.opengis.net/ont/geosparql#",
+            "unit": "http://codes.wmo.int/common/unit/",
+            "@vocab": "https://api.weather.gov/ontology#"
+        }
+    ],
+    "type": "Feature",
+    "geometry": {
+        "type": "GeometryCollection",
+        "geometries": [
+            {
+                "type": "Point",
+                "coordinates": [
+                    -118.30080289999999,
+                    34.182908500000003
+                ]
+            },
+            {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            -118.31656340000001,
+                            34.192084700000002
+                        ],
+                        [
+                            -118.31190040000001,
+                            34.169874200000002
+                        ],
+                        [
+                            -118.28504500000001,
+                            34.173730599999999
+                        ],
+                        [
+                            -118.28970290000001,
+                            34.195941599999998
+                        ],
+                        [
+                            -118.31656340000001,
+                            34.192084700000002
+                        ]
+                    ]
+                ]
+            }
+        ]
+    },
+    "properties": {
+        "updated": "2019-09-17T22:16:42+00:00",
+        "units": "us",
+        "forecastGenerator": "BaselineForecastGenerator",
+        "generatedAt": "2019-09-17T23:55:21+00:00",
+        "updateTime": "2019-09-17T22:16:42+00:00",
+        "validTimes": "2019-09-17T16:00:00+00:00/P7DT21H",
+        "elevation": {
+            "value": 181.96560000000002,
+            "unitCode": "unit:m"
+        },
+        "periods": [
+            {
+                "number": 1,
+                "name": "This Afternoon",
+                "startTime": "2019-09-17T16:00:00-07:00",
+                "endTime": "2019-09-17T18:00:00-07:00",
+                "isDaytime": true,
+                "temperature": 83,
+                "temperatureUnit": "F",
+                "temperatureTrend": null,
+                "windSpeed": "5 to 10 mph",
+                "windDirection": "S",
+                "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
+                "shortForecast": "Sunny",
+                "detailedForecast": "Sunny, with a high near 83. South wind 5 to 10 mph."
+            },
+            {
+                "number": 2,
+                "name": "Tonight",
+                "startTime": "2019-09-17T18:00:00-07:00",
+                "endTime": "2019-09-18T06:00:00-07:00",
+                "isDaytime": false,
+                "temperature": 64,
+                "temperatureUnit": "F",
+                "temperatureTrend": null,
+                "windSpeed": "0 to 5 mph",
+                "windDirection": "SSE",
+                "icon": "https://api.weather.gov/icons/land/night/few?size=medium",
+                "shortForecast": "Mostly Clear",
+                "detailedForecast": "Mostly clear, with a low around 64. South southeast wind 0 to 5 mph."
+            },
+            {
+                "number": 3,
+                "name": "Wednesday",
+                "startTime": "2019-09-18T06:00:00-07:00",
+                "endTime": "2019-09-18T18:00:00-07:00",
+                "isDaytime": true,
+                "temperature": 82,
+                "temperatureUnit": "F",
+                "temperatureTrend": null,
+                "windSpeed": "0 to 10 mph",
+                "windDirection": "SSE",
+                "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
+                "shortForecast": "Sunny",
+                "detailedForecast": "Sunny, with a high near 82. South southeast wind 0 to 10 mph."
+            },
+            {
+                "number": 4,
+                "name": "Wednesday Night",
+                "startTime": "2019-09-18T18:00:00-07:00",
+                "endTime": "2019-09-19T06:00:00-07:00",
+                "isDaytime": false,
+                "temperature": 64,
+                "temperatureUnit": "F",
+                "temperatureTrend": null,
+                "windSpeed": "5 mph",
+                "windDirection": "SSE",
+                "icon": "https://api.weather.gov/icons/land/night/fog?size=medium",
+                "shortForecast": "Patchy Fog",
+                "detailedForecast": "Patchy fog after 11pm. Partly cloudy, with a low around 64. South southeast wind around 5 mph."
+            },
+            {
+                "number": 5,
+                "name": "Thursday",
+                "startTime": "2019-09-19T06:00:00-07:00",
+                "endTime": "2019-09-19T18:00:00-07:00",
+                "isDaytime": true,
+                "temperature": 79,
+                "temperatureUnit": "F",
+                "temperatureTrend": null,
+                "windSpeed": "5 mph",
+                "windDirection": "S",
+                "icon": "https://api.weather.gov/icons/land/day/fog/sct?size=medium",
+                "shortForecast": "Patchy Fog then Mostly Sunny",
+                "detailedForecast": "Patchy fog before 11am. Mostly sunny, with a high near 79. South wind around 5 mph."
+            },
+            {
+                "number": 6,
+                "name": "Thursday Night",
+                "startTime": "2019-09-19T18:00:00-07:00",
+                "endTime": "2019-09-20T06:00:00-07:00",
+                "isDaytime": false,
+                "temperature": 60,
+                "temperatureUnit": "F",
+                "temperatureTrend": null,
+                "windSpeed": "0 to 5 mph",
+                "windDirection": "SE",
+                "icon": "https://api.weather.gov/icons/land/night/skc?size=medium",
+                "shortForecast": "Clear",
+                "detailedForecast": "Clear, with a low around 60."
+            },
+            {
+                "number": 7,
+                "name": "Friday",
+                "startTime": "2019-09-20T06:00:00-07:00",
+                "endTime": "2019-09-20T18:00:00-07:00",
+                "isDaytime": true,
+                "temperature": 84,
+                "temperatureUnit": "F",
+                "temperatureTrend": null,
+                "windSpeed": "0 to 5 mph",
+                "windDirection": "SE",
+                "icon": "https://api.weather.gov/icons/land/day/skc?size=medium",
+                "shortForecast": "Sunny",
+                "detailedForecast": "Sunny, with a high near 84."
+            },
+            {
+                "number": 8,
+                "name": "Friday Night",
+                "startTime": "2019-09-20T18:00:00-07:00",
+                "endTime": "2019-09-21T06:00:00-07:00",
+                "isDaytime": false,
+                "temperature": 63,
+                "temperatureUnit": "F",
+                "temperatureTrend": null,
+                "windSpeed": "0 to 5 mph",
+                "windDirection": "ESE",
+                "icon": "https://api.weather.gov/icons/land/night/skc?size=medium",
+                "shortForecast": "Clear",
+                "detailedForecast": "Clear, with a low around 63."
+            },
+            {
+                "number": 9,
+                "name": "Saturday",
+                "startTime": "2019-09-21T06:00:00-07:00",
+                "endTime": "2019-09-21T18:00:00-07:00",
+                "isDaytime": true,
+                "temperature": 87,
+                "temperatureUnit": "F",
+                "temperatureTrend": null,
+                "windSpeed": "0 to 5 mph",
+                "windDirection": "SE",
+                "icon": "https://api.weather.gov/icons/land/day/skc?size=medium",
+                "shortForecast": "Sunny",
+                "detailedForecast": "Sunny, with a high near 87."
+            },
+            {
+                "number": 10,
+                "name": "Saturday Night",
+                "startTime": "2019-09-21T18:00:00-07:00",
+                "endTime": "2019-09-22T06:00:00-07:00",
+                "isDaytime": false,
+                "temperature": 64,
+                "temperatureUnit": "F",
+                "temperatureTrend": null,
+                "windSpeed": "0 to 5 mph",
+                "windDirection": "E",
+                "icon": "https://api.weather.gov/icons/land/night/few?size=medium",
+                "shortForecast": "Mostly Clear",
+                "detailedForecast": "Mostly clear, with a low around 64."
+            },
+            {
+                "number": 11,
+                "name": "Sunday",
+                "startTime": "2019-09-22T06:00:00-07:00",
+                "endTime": "2019-09-22T18:00:00-07:00",
+                "isDaytime": true,
+                "temperature": 87,
+                "temperatureUnit": "F",
+                "temperatureTrend": null,
+                "windSpeed": "0 to 10 mph",
+                "windDirection": "SE",
+                "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
+                "shortForecast": "Sunny",
+                "detailedForecast": "Sunny, with a high near 87."
+            },
+            {
+                "number": 12,
+                "name": "Sunday Night",
+                "startTime": "2019-09-22T18:00:00-07:00",
+                "endTime": "2019-09-23T06:00:00-07:00",
+                "isDaytime": false,
+                "temperature": 64,
+                "temperatureUnit": "F",
+                "temperatureTrend": null,
+                "windSpeed": "5 to 10 mph",
+                "windDirection": "SSE",
+                "icon": "https://api.weather.gov/icons/land/night/few?size=medium",
+                "shortForecast": "Mostly Clear",
+                "detailedForecast": "Mostly clear, with a low around 64."
+            },
+            {
+                "number": 13,
+                "name": "Monday",
+                "startTime": "2019-09-23T06:00:00-07:00",
+                "endTime": "2019-09-23T18:00:00-07:00",
+                "isDaytime": true,
+                "temperature": 82,
+                "temperatureUnit": "F",
+                "temperatureTrend": null,
+                "windSpeed": "5 mph",
+                "windDirection": "SSE",
+                "icon": "https://api.weather.gov/icons/land/day/few?size=medium",
+                "shortForecast": "Sunny",
+                "detailedForecast": "Sunny, with a high near 82."
+            },
+            {
+                "number": 14,
+                "name": "Monday Night",
+                "startTime": "2019-09-23T18:00:00-07:00",
+                "endTime": "2019-09-24T06:00:00-07:00",
+                "isDaytime": false,
+                "temperature": 63,
+                "temperatureUnit": "F",
+                "temperatureTrend": null,
+                "windSpeed": "0 to 5 mph",
+                "windDirection": "ESE",
+                "icon": "https://api.weather.gov/icons/land/night/few?size=medium",
+                "shortForecast": "Mostly Clear",
+                "detailedForecast": "Mostly clear, with a low around 63."
+            }
+        ]
+    }
+}
