@@ -87,7 +87,7 @@ ${voffset 2}${color 7B9494}${voffset -6}${font PizzaDude Bullets:size=12}O${colo
 ${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}U${color}${font}${goto 50}Down: ${downspeed wlp0s20f3}${alignr}${color 7B9494}${downspeedgraph wlp0s20f3 15,200}${color}
 ${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}N${color}${font}${goto 50}Upload: ${alignr}${totalup wlp0s20f3}
 ${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}T${color}${font}${goto 50}Download: ${alignr}${totaldown wlp0s20f3}
-${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}Z${color}${font}${goto 50}Signal: ${wireless_link_qual wlp0s20f3}% ${alignr}${color 7B9494}${wireless_link_bar 15,200 wlp0s20f3}${color}
+${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}Z${color}${font}${goto 50}Signal: ${wireless_link_qual_perc wlp0s20f3}% ${alignr}${color 7B9494}${wireless_link_bar 15,200 wlp0s20f3}${color}
 ${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}a${color}${font}${goto 50}Local Ip: ${alignr}${addr wlp0s20f3}
 ${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}b${color}${font}${goto 50}Public Ip: ${alignr}${execi 300 $HOME/.config/conky/scripts/ip.sh}
 ${else}${if_existing /proc/net/route enp0s31f6}
