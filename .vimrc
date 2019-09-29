@@ -82,10 +82,28 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 " disable tab complete for you complete me
 " this is usefule since tab is used for ultisnips
-let g:ycm_key_list_select_completion=[]
-let g:ycm_key_list_previous_completion=[]
+" let g:ycm_key_list_select_completion=[]
+" let g:ycm_key_list_previous_completion=[]
 
 " Set ultisnips triggers
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<tab>"
+" let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+" Coc completion to use tab
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"

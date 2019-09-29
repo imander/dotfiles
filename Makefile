@@ -4,6 +4,9 @@ PLUGDIR		:= $(DIR)/.vim/pack/plugins/start
 GH				:= https://github.com
 zsh_dir   := ~/.oh-my-zsh
 
+# Filetype plugin for vim-markdown
+VIM_MD := .vim/after/ftplugin/markdown/instant-markdown.vim
+
 .PHONY: all
 all: submods env alias zsh bash vim tmux
 
@@ -59,15 +62,28 @@ vim:
 	done < $(DIR)/vim.plugins 
 	@ln -sfn $(DIR)/.vimrc $(HOME)/.vimrc
 	@ln -sfn $(DIR)/.vim $(HOME)/.vim
+	@$(MAKE) $(PLUGDIR)/coc.nvim-release $(VIM_MD) clean-plugins
 
-vim-ycm:
-	@cd $(PLUGDIR)/YouCompleteMe && git submodule update --init --recursive && \
-	python install.py
+$(PLUGDIR)/coc.nvim-release:
+	mkdir -p ~/.vim/pack/coc/start
+	cd ~/.vim/pack/coc/start
+	curl --fail -L https://github.com/neoclide/coc.nvim/archive/release.tar.gz|tar xzfv -
+	vim -c 'CocInstall -sync coc-go coc-json coc-snippets|q'
 
-vim-md:
+$(VIM_MD):
 	mkdir -p '.vim/after/ftplugin/markdown/'
 	cp $(PLUGDIR)/vim-instant-markdown/after/ftplugin/markdown/instant-markdown.vim .vim/after/ftplugin/markdown/
 	sudo npm -g install instant-markdown-d
+
+.PHONY: clean-plugins
+clean-plugins:
+	@cat $(DIR)/vim.plugins | cut -f2 -d/ > desired_plugins
+	@ls -1 $(PLUGDIR) > current_plugins
+	@grep -vf desired_plugins current_plugins |grep -v coc.nvim-release | while read line; do \
+		echo removing $(PLUGDIR)/$$line; \
+		rm -rf $(PLUGDIR)/$$line; \
+	done 
+	@$(RM) desired_plugins current_plugins
 
 .PHONY: commit
 commit:
