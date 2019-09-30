@@ -65,9 +65,7 @@ vim:
 	@$(MAKE) $(PLUGDIR)/coc.nvim-release $(VIM_MD) clean-plugins
 
 $(PLUGDIR)/coc.nvim-release:
-	mkdir -p ~/.vim/pack/coc/start
-	cd ~/.vim/pack/coc/start
-	curl --fail -L https://github.com/neoclide/coc.nvim/archive/release.tar.gz|tar xzfv -
+	cd $(PLUGDIR) && curl --fail -L https://github.com/neoclide/coc.nvim/archive/release.tar.gz|tar xzfv -
 	vim -c 'CocInstall -sync coc-go coc-json coc-snippets|q'
 
 $(VIM_MD):
