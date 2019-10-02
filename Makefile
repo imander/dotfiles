@@ -1,8 +1,9 @@
-DIR				:= $(shell pwd)
-GIT				:= $(shell git describe --always --dirty)
-PLUGDIR		:= $(DIR)/.vim/pack/plugins/start
-GH				:= https://github.com
-zsh_dir   := ~/.oh-my-zsh
+SHELL    := '/bin/bash'
+DIR      := $(shell pwd)
+GIT      := $(shell git describe --always --dirty)
+PLUGDIR  := $(DIR)/.vim/pack/plugins/start
+GH       := https://github.com
+zsh_dir  := ~/.oh-my-zsh
 
 # Filetype plugin for vim-markdown
 VIM_MD := .vim/after/ftplugin/markdown/instant-markdown.vim
