@@ -70,7 +70,6 @@ $(PLUGDIR)/coc.nvim-release:
 	vim -c 'CocInstall -sync coc-go|q'
 	vim -c 'CocInstall -sync coc-json|q'
 	vim -c 'CocInstall -sync coc-snippets|q'
-	vim -c 'CocInstall -sync coc-pairs|q'
 
 $(VIM_MD):
 	mkdir -p '.vim/after/ftplugin/markdown/'
