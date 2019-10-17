@@ -1,4 +1,5 @@
 syntax enable
+
 set number
 set relativenumber
 set autowrite
@@ -8,12 +9,10 @@ set autowrite
 let mapleader = "\<Space>"
 
 " shortcut to save file with sudo
-command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 " map jk to exit insert mode
 inoremap jk <Esc>
-" map jkl to exit insert mode and write changes
-inoremap jkl <Esc> w:<cr>
 
 " Mappings for leader keys
 nnoremap <leader>ft :NERDTreeToggle<cr>
@@ -107,3 +106,5 @@ let g:coc_snippet_next = '<tab>'
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+

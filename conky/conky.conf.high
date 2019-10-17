@@ -63,7 +63,7 @@ conky.config = {
 }
 
 conky.text = [[
-${font OpenLogos:size=50}${color 1793d1}B${color}${font}${voffset -45}
+${font OpenLogos:size=50}${color 1793d1}B${color}${font}${voffset -85}
 ${alignr}${execi 900 whoami}@${nodename}
 ${alignr}${kernel}
 ${alignr}${execi 600 $HOME/.config/conky/scripts/updates.sh} updates available
