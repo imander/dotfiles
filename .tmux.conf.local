@@ -293,5 +293,3 @@ set -g mode-keys vi
 # move status line to top
 #set -g status-position top
 
-# clear current pane
-bind -n C-k send-keys -R \; clear-history
