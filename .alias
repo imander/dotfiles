@@ -1,5 +1,5 @@
 alias vi='vim'
-alias ll='ls -lh'
+alias l='ls -lh'
 alias la='ls -lah'
 alias ld='ls -dl'
 alias ltr='ls -ltrh|tail'
@@ -22,8 +22,14 @@ alias lports='netstat -ant | grep LISTEN'
 alias s='source'
 alias f=ifind
 
+# run last command as sudo
+alias S='sudo $(fc -ln -1)'
+
+# edit and last command in vim an run
+alias ee='fc -1'
+
 # Launch jupyter notebook in current directory
-alias jnb='docker run --rm -d -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v "$PWD":/home/jovyan/work jupyter/datascience-notebook'
+alias jnb='docker run --rm -d -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v "$PWD":/home/jovyan/work --name jupyter jupyter/datascience-notebook && docker logs -f jupyter'
 
 # golang stuff
 alias gtest='go test -v --bench . --benchmem'

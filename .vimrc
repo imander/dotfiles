@@ -108,3 +108,5 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 
+" load templates when files are new
+autocmd BufNewFile *.sh 0r ~/.vim/templates/sh.tmpl
