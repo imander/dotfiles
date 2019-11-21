@@ -1,3 +1,6 @@
+Xuyuanp/nerdtree-git-plugin
+cespare/vim-toml
+chiel92/vim-autoformat
 fatih/vim-go
 honza/vim-snippets
 jalvesaq/Nvim-R
@@ -10,4 +13,3 @@ tpope/vim-surround
 vim-airline/vim-airline
 vim-latex/vim-latex
 w0rp/ale
-Xuyuanp/nerdtree-git-plugin

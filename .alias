@@ -22,10 +22,18 @@ alias lports='netstat -ant | grep LISTEN'
 alias s='source'
 alias f=ifind
 
+# git/git-flow aliases
+alias gpristine='git reset --hard && git clean -df'
+alias ghb='gh -b'
+alias gffs='git flow feature start'
+alias gfrs='git flow release start'
+alias gfi='git flow init -d'
+
+
 # run last command as sudo
 alias S='sudo $(fc -ln -1)'
 
-# edit and last command in vim an run
+# edit and last command in vim and run
 alias ee='fc -1'
 
 # Launch jupyter notebook in current directory
@@ -45,8 +53,6 @@ alias dpsa="docker ps -a"
 alias dpurge="docker images |egrep '<none>'|awk '{print \$3}'|xargs docker rmi --force"
 
 # open a git repo in the browser the -b switch opens the specific branch
-alias gpristine='git reset --hard && git clean -df'
-alias ghb='gh -b'
 function gh {
   if [[ -x "$(command -v open)" ]]; then
     cmd=open
