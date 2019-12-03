@@ -31,7 +31,7 @@ function _user_shell() {
 
 function _kubectl_config() {
   if which kubectl &> /dev/null; then
-    echo "‹$(kubectl config current-context)›"
+    echo "‹$(kubectl config current-context 2>/dev/null)›"
   fi
 }
 

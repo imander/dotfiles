@@ -20,7 +20,10 @@ alias eip='curl http://ipinfo.io/ip'
 alias iip=internal_ip
 alias lports='netstat -ant | grep LISTEN'
 alias s='source'
+alias se='source $HOME/.env'
 alias f=ifind
+
+alias splunk='docker run -d -p 8000:8000 -e "SPLUNK_START_ARGS=--accept-license" -e "SPLUNK_PASSWORD=password" --name splunk splunk/splunk:latest'
 
 # run last command as sudo
 alias S='sudo $(fc -ln -1)'
@@ -80,3 +83,9 @@ function internal_ip {
 function ifind {
   find . -iname "*$1*"
 }
+
+# terraform
+function tf {
+  docker run --rm -it -w /tf -v "$HOME/.aws":/root/.aws -v "$PWD":/tf hashicorp/terraform "$@" -auto-approve
+}
+
