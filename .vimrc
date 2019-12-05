@@ -21,6 +21,10 @@ noremap <leader>q :q<cr>
 noremap <leader>qq :q!<cr>
 noremap <leader>wq :wq<cr>
 
+" set shortcuts to copy/paste using system clipboard
+noremap <Leader>y "+y
+noremap <Leader>p "+p
+
 nnoremap <leader>s :set spell!<cr>
 " fix spelling with first suggestion
 nnoremap <leader>f 1z=
