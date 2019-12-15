@@ -1,3 +1,5 @@
+alias sa='source ~/.alias'
+
 alias vi='vim'
 alias l='ls -lh'
 alias la='ls -lah'
@@ -27,17 +29,17 @@ alias f=ifind
 alias gpristine='git reset --hard && git clean -df'
 alias ghb='gh -b'
 alias gffs='git flow feature start'
+alias gfft='git flow feature track'
 alias gfrs='git flow release start'
+alias gfrt='git flow release track'
 alias gfi='git flow init -d'
 
 # run last command as sudo
-alias S='sudo $(fc -ln -1)'
-
-# edit and last command in vim and run
-alias ee='fc -1'
+alias S='sudo !!'
 
 # Launch jupyter notebook in current directory
 alias jnb='docker run --rm -d -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v "$PWD":/home/jovyan/work --name jupyter jupyter/datascience-notebook && docker logs -f jupyter'
+alias tf='docker run --rm -it -w /tf -v "$HOME/.aws":/root/.aws -v "$PWD":/tf hashicorp/terraform'
 
 # golang stuff
 alias gtest='go test -v --bench . --benchmem'
