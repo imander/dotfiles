@@ -1,0 +1,107 @@
+#!/bin/bash
+
+set -e
+
+function help() {
+  cat <<EOF
+
+Available images are:
+  centos
+  dvwa
+  fedora
+  hackazon
+  splunk
+  ubuntu
+
+Management options are:
+  help - print this help menu and exit
+  kill - remove docker container completely
+  stop - stop running container
+
+EOF
+}
+
+function splunk() {
+  docker start splunk || docker run \
+    -d -p 8000:8000 \
+    -e "SPLUNK_START_ARGS=--accept-license" \
+    -e "SPLUNK_PASSWORD=password" \
+    --name splunk \
+    splunk/splunk:latest
+  echo "splunk running at 127.0.0.1:8000 (admin:password)"
+}
+
+function dvwa() {
+  docker start dvwa >/dev/null 2>&1 || docker run \
+    --name dvwa \
+    -d -p 8001:80 \
+    cyberxsecurity/dvwa
+  echo "DVWA running at 127.0.0.1:8001"
+}
+
+function hackazon() {
+  docker start hackazon >/dev/null 2>&1 || docker run \
+    --name hackazon \
+    -d -p 8002:80 \
+    cyberxsecurity/hackazon
+  echo "hackazon running at 127.0.0.1:8002"
+}
+
+function ubuntu() {
+  _run_bash ubuntu ubuntu
+}
+
+function fedora() {
+  _run_bash fedora fedora
+}
+
+function centos() {
+  _run_bash centos:7 centos7
+}
+
+function go13() {
+  _run_bash golang:1.13 go13
+}
+
+function _run_bash() {
+  docker start $2 && _shell $2 || _run $@
+}
+
+function _shell() {
+  docker exec -it $1 /bin/bash
+}
+
+function _run() {
+  docker run -it --name $2 -v "${PWD}:/data:rw" $1 /bin/bash 
+}
+
+function stop() {
+  if [[ $2 == "all" ]]; then
+    docker stop $(docker ps -a -q) 2>/dev/null
+  fi
+
+  docker stop $2 2>/dev/null || true
+}
+
+function kill() {
+  if [[ $2 == "all" ]]; then
+    docker kill $(docker ps -a -q)
+    docker rm $(docker ps -a -q)
+  else
+    stop $@
+    docker rm $2
+  fi
+}
+
+# remove stopped containers
+function clean() {
+  docker rm $(docker ps -a -q) 2>/dev/null
+}
+
+trap help ERR
+
+if [[ -z $1 ]]; then
+  ubuntu
+else
+  $1 $@
+fi

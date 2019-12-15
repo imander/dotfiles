@@ -1,0 +1,104 @@
+#!/bin/bash
+
+function db_postgres() {
+  if running postgres; then
+    echo "Postgres already running"
+    exit 0
+  fi
+
+  docker start postgres || \
+    docker run -l 'db_start' --rm \
+    --network development \
+    --name postgres \
+    -e POSTGRES_PASSWORD=postgres \
+    -p 127.0.0.1:5432:5432 \
+    -d postgres:10
+  }
+
+function stop_postgres() {
+  if running postgres; then
+    docker kill postgres
+    if [[ "$RESET" = true ]]; then
+      db_postgres
+    fi
+  fi
+}
+
+function running(){
+  image=$(docker ps -f 'LABEL=db_start' -f "NAME=$1" | wc -l)
+
+  if [[ "$image" -gt 1 ]]; then
+    true
+  else
+    false
+  fi
+}
+
+function db_mysql() {
+  if running mysql; then
+    echo "MySQL already running"
+    exit 0
+  fi
+
+  docker run -l 'db_start' --rm \
+    --name mysql \
+    -e MYSQL_ROOT_PASSWORD=mysql \
+    -p 127.0.0.1:3306:3306 \
+    -d mysql
+  }
+
+function stop_mysql() {
+  if running mysql; then
+    docker kill mysql
+    if [[ "$RESET" = true ]]; then
+      db_mysql
+    fi
+  fi
+}
+
+function stop_databases() {
+  stop_postgres
+  stop_mysql
+}
+
+function db_shell() {
+  case $DB in
+    mysql)
+      docker exec -it mysql bash
+      ;;
+    *)
+      if running postgres; then
+        docker exec -it postgres bash -c 'psql -U postgres'
+      else
+        echo "Unable to connect to database"
+        exit 1
+      fi
+      ;;
+  esac
+}
+
+LOCAL=$2
+RESET=false
+
+case $1 in
+  postgres)
+    db_postgres
+    ;;
+  mysql)
+    db_mysql
+    ;;
+  down)
+    stop_databases
+    ;;
+  reset)
+    RESET=true
+    stop_databases
+    ;;
+  shell)
+    DB=$2
+    db_shell
+    ;;
+  *)
+    echo "Bad arguments!  Choose postgres or mysql."
+    ;;
+esac

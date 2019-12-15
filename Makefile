@@ -9,11 +9,11 @@ zsh_dir  := ~/.oh-my-zsh
 VIM_MD := .vim/after/ftplugin/markdown/instant-markdown.vim
 
 .PHONY: all
-all: submods env alias zsh bash vim tmux
+all: bin env alias zsh bash vim tmux
 
-.PHONY: submods
-submods:
-	@git submodule update --init --recursive --merge
+.PHONY: bin
+bin:
+	@ln -sfn "$(DIR)/bin" "$(HOME)/bin"
 
 .PHONY: env
 env:

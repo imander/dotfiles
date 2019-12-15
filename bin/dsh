@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+containers=( $(docker ps --format '{{.Names}}') )
+
+for (( i=0; i<${#containers[@]}; i++ ))
+do 
+  echo [$i] ${containers[i]}
+done
+
+echo -ne "\nEnter container number: "
+read choice
+
+if [[ -z ${containers[$choice]} ]]
+then
+  echo "invalid choice: $choice"
+else
+  docker exec -it -u root ${containers[$choice]} sh
+fi
