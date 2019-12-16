@@ -32,7 +32,10 @@ alias gffs='git flow feature start'
 alias gfft='git flow feature track'
 alias gfrs='git flow release start'
 alias gfrt='git flow release track'
+alias gfhs='git flow hotfix start'
+alias gfht='git flow hotfix track'
 alias gfi='git flow init -d'
+alias clean-branches="git branch | egrep -v '(develop|master)'|xargs git branch -D"
 
 # run last command as sudo
 alias S='sudo !!'
@@ -93,4 +96,3 @@ function ifind {
 function tf {
   docker run --rm -it -w /tf -v "$HOME/.aws":/root/.aws -v "$PWD":/tf hashicorp/terraform "$@" -auto-approve
 }
-
