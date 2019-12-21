@@ -53,13 +53,13 @@ alias gtest='go test -v --bench . --benchmem'
 alias gfind='find . -name "*.go" -not -path "*/vendor/*"'
 
 # Docker aliases
-alias drun="docker run --rm"
-alias drund="docker run --rm -d"
-alias dstart="docker start"
-alias dkill="docker kill"
-alias dps="docker ps"
-alias dpsa="docker ps -a"
-alias dpurge="docker images |egrep '<none>'|awk '{print \$3}'|xargs docker rmi --force"
+alias drun='docker run --rm'
+alias drund='docker run --rm -d'
+alias dstart='docker start'
+alias dkill='docker kill'
+alias dps='docker ps'
+alias dpsa='docker ps -a'
+alias dpurge='docker system prun -a -f'
 
 # open a git repo in the browser the -b switch opens the specific branch
 function gh {
@@ -71,7 +71,7 @@ function gh {
 
   url=$(git remote -v | grep origin | head -1 | awk '{print $2}' | sed -e 's/:/\//' -e 's/git@/https:\/\//' -e 's/\.git$//')
   if [[ "$url" = "" ]] || [[ "$cmd" = "" ]]; then
-    echo "Unable to open git repo!"
+    echo 'Unable to open git repo!'
     return 1
   fi
 
