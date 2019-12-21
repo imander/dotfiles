@@ -59,7 +59,7 @@ alias dstart='docker start'
 alias dkill='docker kill'
 alias dps='docker ps'
 alias dpsa='docker ps -a'
-alias dpurge='docker system prun -a -f'
+alias dpurge='docker system prune -a -f'
 
 # open a git repo in the browser the -b switch opens the specific branch
 function gh {
