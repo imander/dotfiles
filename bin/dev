@@ -47,6 +47,10 @@ function hackazon() {
   echo "hackazon running at 127.0.0.1:8002"
 }
 
+function kali() {
+  _run_bash kalilinux/kali-rolling kali
+}
+
 function ubuntu() {
   _run_bash ubuntu ubuntu
 }

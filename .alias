@@ -25,6 +25,10 @@ alias s='source'
 alias se='source $HOME/.env'
 alias f=ifind
 
+# Find biggest directories by disc usage
+alias ducks='du -cksh * | sort -rh | head -15'
+
+
 # git/git-flow aliases
 alias gpristine='git reset --hard && git clean -df'
 alias ghb='gh -b'
