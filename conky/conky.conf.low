@@ -88,15 +88,15 @@ ${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}U${color
 ${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}N${color}${font}${goto 38}Upload: ${alignr}${totalup wlp0s20f3}
 ${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}T${color}${font}${goto 38}Download: ${alignr}${totaldown wlp0s20f3}
 ${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}Z${color}${font}${goto 38}Signal: ${wireless_link_qual_perc wlp0s20f3}% ${color 7B9494}${alignr}${wireless_link_bar 8,120 wlp0s20f3}${color}
-${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}a${color}${font}${goto 38}Local Ip: ${alignr}${addr wlp0s20f3}
-${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}b${color}${font}${goto 38}Public Ip: ${alignr}${execi 15 $HOME/.config/conky/scripts/ip.sh}
+${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}a${color}${font}${goto 38}Local IP: ${alignr}${addr wlp0s20f3}
+${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}b${color}${font}${goto 38}Public IP: ${alignr}${execi 15 $HOME/.config/conky/scripts/ip.sh}
 ${else}${if_existing /proc/net/route enp0s31f6}
 ${voffset 2}${color 7B9494}${voffset -6}${font PizzaDude Bullets:size=12}O${color}${font}${goto 38}Up: ${upspeed eth0}${alignr}${color 7B9494}${upspeedgraph eth0 8,120}${color}
 ${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}U${color}${font}${goto 38}Down: ${downspeed eth0}${alignr}${color 7B9494}${downspeedgraph eth0 8,120}${color}
 ${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}N${color}${font}${goto 38}Upload: ${alignr}${totalup eth0}
 ${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}T${color}${font}${goto 38}Download: ${alignr}${totaldown eth0}
-${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}a${color}${font}${goto 38}Local Ip: ${alignr}${addr eth0}
-${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}b${color}${font}${goto 38}Public Ip: ${alignr}${execi 15 $HOME/.config/conky/scripts/ip.sh}
+${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}a${color}${font}${goto 38}Local IP: ${alignr}${addr eth0}
+${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}b${color}${font}${goto 38}Public IP: ${alignr}${execi 15 $HOME/.config/conky/scripts/ip.sh}
 ${else}
 Network Unavailable
 ${endif}

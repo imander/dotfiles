@@ -47,6 +47,14 @@ function hackazon() {
   echo "hackazon running at 127.0.0.1:8002"
 }
 
+function shellshock() {
+  docker start shellshock >/dev/null 2>&1 || docker run \
+    --name shellshock \
+    -d -p 8003:80 \
+    vulnerables/cve-2014-6271
+  echo "shellshock running at 127.0.0.1:8003"
+}
+
 function kali() {
   _run_bash kalilinux/kali-rolling kali
 }
