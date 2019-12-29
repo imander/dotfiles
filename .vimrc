@@ -4,8 +4,6 @@ set number
 set relativenumber
 set autowrite
 
-" use the system clipboard
-" set clipboard=unnamedplus
 let mapleader = "\<Space>"
 
 " shortcut to save file with sudo
@@ -17,9 +15,8 @@ inoremap jk <Esc>
 " Mappings for leader keys
 nnoremap <leader>ft :NERDTreeToggle<cr>
 nnoremap <leader>w :w<cr>
-noremap <leader>q :q<cr>
-noremap <leader>qq :q!<cr>
-noremap <leader>wq :wq<cr>
+nnoremap <leader>q :q<cr>
+nnoremap <leader>wq :wq<cr>
 
 " set shortcuts to copy/paste using system clipboard
 noremap <Leader>y "+y
@@ -43,9 +40,6 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
-" toggle through errors
-nnoremap <leader>e :lnext<cr>
 
 " execute lines with interpreters
 noremap <leader>tb :terminal bash<cr>
@@ -83,6 +77,11 @@ let NERDTreeQuitOnOpen = 1
 " Quit vim if nerdtree is only buffer open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+" load templates when files are new
+autocmd BufNewFile *.sh 0r ~/.vim/templates/sh.tmpl
+
+" CoC specific configuration
+"
 " Coc completion to use tab
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
@@ -101,6 +100,15 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" load templates when files are new
-autocmd BufNewFile *.sh 0r ~/.vim/templates/sh.tmpl
+" always show signcolumns
+set signcolumn=yes
 
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
