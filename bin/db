@@ -7,7 +7,7 @@ function db_postgres() {
   fi
 
   docker start postgres || \
-    docker run -l 'db_start' --rm \
+    docker run -l 'db_start' \
     --network development \
     --name postgres \
     -e POSTGRES_PASSWORD=postgres \
@@ -40,7 +40,7 @@ function db_mysql() {
     exit 0
   fi
 
-  docker run -l 'db_start' --rm \
+  docker start mysql || docker run -l 'db_start' \
     --name mysql \
     -e MYSQL_ROOT_PASSWORD=mysql \
     -p 127.0.0.1:3306:3306 \
