@@ -24,7 +24,7 @@ noremap <Leader>p "+p
 
 nnoremap <leader>s :set spell!<cr>
 " fix spelling with first suggestion
-nnoremap <leader>f 1z=
+nnoremap <leader>S 1z=
 
 " record macro with qq stop with q and apply with Q
 nnoremap Q @q
@@ -46,6 +46,12 @@ noremap <leader>tb :terminal bash<cr>
 noremap <leader>tp :terminal python<cr>
 noremap <leader>p3 :terminal python3<cr>
 noremap <leader>tr :terminal ruby<cr>
+
+" fzf shortcuts
+nmap <Leader>f :Files<CR>
+nmap <Leader>h :History<CR>
+nmap <Leader>H :Helptags!<CR>
+nmap <Leader>c :History:<CR>
 
 set pastetoggle=<leader>z
 set tabstop=2
