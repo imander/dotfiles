@@ -89,4 +89,6 @@ source $ZSH/oh-my-zsh.sh
 unsetopt share_history
 
 # set environment variables last to take preference
-test -s ~/.env && . ~/.env || true
+test -s ~/.env && source ~/.env || true
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

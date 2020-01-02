@@ -48,10 +48,11 @@ noremap <leader>p3 :terminal python3<cr>
 noremap <leader>tr :terminal ruby<cr>
 
 " fzf shortcuts
-nmap <Leader>f :Files<CR>
-nmap <Leader>h :History<CR>
-nmap <Leader>H :Helptags!<CR>
-nmap <Leader>c :History:<CR>
+nmap <Leader>ff :Files<CR>
+nmap <Leader>gf :GFiles<CR>
+nmap <Leader>fh :History<CR>
+nmap <Leader>fH :Helptags!<CR>
+nmap <Leader>fc :History:<CR>
 
 set pastetoggle=<leader>z
 set tabstop=2
@@ -118,3 +119,11 @@ set updatetime=300
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
+
+" Mac specific stuff
+if has("unix")
+  let s:uname = system("uname")
+  if s:uname == "Darwin\n"
+    source /usr/local/opt/fzf/plugin/fzf.vim
+  endif
+end
