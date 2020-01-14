@@ -18,6 +18,9 @@ function db_postgres() {
 function stop_postgres() {
   if running postgres; then
     docker kill postgres
+    if [[ "$KILL" = true ]]; then
+      docker rm postgres
+    fi
     if [[ "$RESET" = true ]]; then
       db_postgres
     fi
@@ -50,6 +53,9 @@ function db_mysql() {
 function stop_mysql() {
   if running mysql; then
     docker kill mysql
+    if [[ "$KILL" = true ]]; then
+      docker rm db_mysql
+    fi
     if [[ "$RESET" = true ]]; then
       db_mysql
     fi
@@ -92,6 +98,11 @@ case $1 in
     ;;
   reset)
     RESET=true
+    KILL=true
+    stop_databases
+    ;;
+  destroy)
+    KILL=true
     stop_databases
     ;;
   shell)

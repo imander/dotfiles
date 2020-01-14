@@ -8,7 +8,7 @@ function help() {
 Available images are:
   centos
   dvwa
-  fedora
+
   hackazon
   splunk
   ubuntu
@@ -73,6 +73,10 @@ function centos() {
 
 function go13() {
   _run_bash golang:1.13 go13
+}
+
+function b15() {
+  _run_bash gobuffalo/buffalo:v0.15.1 buffalo15.1
 }
 
 function _run_bash() {
