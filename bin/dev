@@ -79,6 +79,10 @@ function instance_ruby() {
   _run_bash ruby ruby
 }
 
+function instance_b15() {
+  _run_bash gobuffalo/buffalo:v0.15.1 buffalo15.1
+}
+
 function _run_bash() {
   docker start $2 && _shell $2 || _run $@
 }
