@@ -2,16 +2,16 @@
 
 set -e
 
+SELF="$(dirname $0)/$(basename $0)"
+
 function help() {
   cat <<EOF
 
 Available images are:
-  centos
-  dvwa
-  fedora
-  hackazon
-  splunk
-  ubuntu
+$(grep instance $SELF | 
+grep function | cut -f2 -d_ | 
+egrep -o '^[a-z0-9][^\(]+' | sort|
+while read line; do echo "  $line"; done)
 
 Management options are:
   help - print this help menu and exit
@@ -21,7 +21,7 @@ Management options are:
 EOF
 }
 
-function splunk() {
+function instance_splunk() {
   docker start splunk || docker run \
     -d -p 8000:8000 \
     -e "SPLUNK_START_ARGS=--accept-license" \
@@ -31,7 +31,7 @@ function splunk() {
   echo "splunk running at 127.0.0.1:8000 (admin:password)"
 }
 
-function dvwa() {
+function instance_dvwa() {
   docker start dvwa >/dev/null 2>&1 || docker run \
     --name dvwa \
     -d -p 8001:80 \
@@ -39,7 +39,7 @@ function dvwa() {
   echo "DVWA running at 127.0.0.1:8001"
 }
 
-function hackazon() {
+function instance_hackazon() {
   docker start hackazon >/dev/null 2>&1 || docker run \
     --name hackazon \
     -d -p 8002:80 \
@@ -47,7 +47,7 @@ function hackazon() {
   echo "hackazon running at 127.0.0.1:8002"
 }
 
-function shellshock() {
+function instance_shellshock() {
   docker start shellshock >/dev/null 2>&1 || docker run \
     --name shellshock \
     -d -p 8003:80 \
@@ -55,24 +55,28 @@ function shellshock() {
   echo "shellshock running at 127.0.0.1:8003"
 }
 
-function kali() {
+function instance_kali() {
   _run_bash kalilinux/kali-rolling kali
 }
 
-function ubuntu() {
+function instance_ubuntu() {
   _run_bash ubuntu ubuntu
 }
 
-function fedora() {
+function instance_fedora() {
   _run_bash fedora fedora
 }
 
-function centos() {
+function instance_centos() {
   _run_bash centos:7 centos7
 }
 
-function go13() {
+function instance_go13() {
   _run_bash golang:1.13 go13
+}
+
+function instance_ruby() {
+  _run_bash ruby ruby
 }
 
 function _run_bash() {
@@ -84,10 +88,10 @@ function _shell() {
 }
 
 function _run() {
-  docker run -it --name $2 -v "${PWD}:/data:rw" $1 /bin/bash 
+  docker run --network development -it --name $2 -v "${PWD}:/data:rw" $1 /bin/bash 
 }
 
-function stop() {
+function dev_stop() {
   if [[ $2 == "all" ]]; then
     docker stop $(docker ps -a -q) 2>/dev/null
   fi
@@ -95,25 +99,33 @@ function stop() {
   docker stop $2 2>/dev/null || true
 }
 
-function kill() {
+function dev_kill() {
   if [[ $2 == "all" ]]; then
     docker kill $(docker ps -a -q)
     docker rm $(docker ps -a -q)
   else
-    stop $@
+    dev_stop $@
     docker rm $2
   fi
 }
 
 # remove stopped containers
-function clean() {
+function dev_clean() {
   docker rm $(docker ps -a -q) 2>/dev/null
 }
 
 trap help ERR
 
 if [[ -z $1 ]]; then
-  ubuntu
+  instance_ubuntu
+elif [[ $1 == help ]]; then
+  help
+elif [[ $1 == kill ]]; then
+  dev_kill $@
+elif [[ $1 == stop ]]; then
+  dev_stop $@
+elif [[ $1 == clean ]]; then
+  dev_clean 
 else
-  $1 $@
+  instance_$1 $@
 fi
