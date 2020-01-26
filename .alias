@@ -47,10 +47,6 @@ alias clean-branches="git branch | egrep -v '(develop|master)'|xargs git branch 
 # run last command as sudo
 alias S='sudo !!'
 
-# Launch jupyter notebook in current directory
-alias jnb='docker run --rm -d -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v "$PWD":/home/jovyan/work --name jupyter jupyter/datascience-notebook && docker logs -f jupyter'
-alias tf='docker run --rm -it -w /tf -v "$HOME/.aws":/root/.aws -v "$PWD":/tf hashicorp/terraform'
-
 # golang stuff
 alias gtest='go test -v --bench . --benchmem'
 alias gfind='find . -name "*.go" -not -path "*/vendor/*"'
