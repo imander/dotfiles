@@ -8,9 +8,8 @@ function help() {
   cat <<EOF
 
 Available images are:
-$(grep instance $SELF | 
-grep function | cut -f2 -d_ | 
-egrep -o '^[a-z0-9][^\(]+' | sort|
+$(grep INSTANCE $SELF |grep -v '$SELF'| 
+cut -f2- -d: | column -t | sort |
 while read line; do echo "  $line"; done)
 
 Management options are:
@@ -21,7 +20,8 @@ Management options are:
 EOF
 }
 
-function instance_splunk() {
+# INSTANCE: splunk (splunk:latest)
+function splunk() {
   docker start splunk || docker run \
     -d -p 8000:8000 \
     -e "SPLUNK_START_ARGS=--accept-license" \
@@ -31,7 +31,8 @@ function instance_splunk() {
   echo "splunk running at 127.0.0.1:8000 (admin:password)"
 }
 
-function instance_dvwa() {
+# INSTANCE: dvwa (cyberxsecurity/dvwa)
+function dvwa() {
   docker start dvwa >/dev/null 2>&1 || docker run \
     --name dvwa \
     -d -p 8001:80 \
@@ -39,7 +40,8 @@ function instance_dvwa() {
   echo "DVWA running at 127.0.0.1:8001"
 }
 
-function instance_hackazon() {
+# INSTANCE: hackazon (cyberxsecurity/hackazon)
+function hackazon() {
   docker start hackazon >/dev/null 2>&1 || docker run \
     --name hackazon \
     -d -p 8002:80 \
@@ -47,7 +49,8 @@ function instance_hackazon() {
   echo "hackazon running at 127.0.0.1:8002"
 }
 
-function instance_shellshock() {
+# INSTANCE: shellshock (vulnerables/cve-2014-6271)
+function shellshock() {
   docker start shellshock >/dev/null 2>&1 || docker run \
     --name shellshock \
     -d -p 8003:80 \
@@ -55,32 +58,72 @@ function instance_shellshock() {
   echo "shellshock running at 127.0.0.1:8003"
 }
 
-function instance_kali() {
+# INSTANCE: tflow (jupyter/tensorflow-notebook:7a0c7325e470)
+function tflow() {
+  docker start tflow ||
+    docker run -d -p 127.0.0.1:15000:8888 \
+    -e JUPYTER_ENABLE_LAB=yes \
+    -v "$PWD:/home/jovyan/work:rw" \
+    --name tflow \
+    jupyter/tensorflow-notebook:7a0c7325e470
+  sleep 5
+  URL=$(docker logs tflow 2>&1 | egrep -o 'http://127.0.0.1:8888/\?token=[0-9a-f]+' | tail -1)
+  echo "Jupyter URL: $URL" | sed 's/8888/15000/'
+}
+
+# INSTANCE: r-notebook (jupyter/r-notebook)
+function r-notebook() {
+  docker start r-notebook ||
+    docker run -d -p 127.0.0.1:15001:8888 \
+    -e JUPYTER_ENABLE_LAB=yes \
+    -v "$PWD:/home/jovyan/work:rw" \
+    --name r-notebook \
+    jupyter/r-notebook
+  sleep 5
+  URL=$(docker logs r-notebook 2>&1 | egrep -o 'http://127.0.0.1:[0-9]+/\?token=[0-9a-f]+' | tail -1)
+  echo "Jupyter URL: $URL" | sed 's/8888/15001/'
+}
+
+# INSTANCE: kali (kalilinux/kali-rolling)
+function kali() {
   _run_bash kalilinux/kali-rolling kali
 }
 
-function instance_ubuntu() {
+# INSTANCE: ubuntu (ubuntu:latest)
+function ubuntu() {
   _run_bash ubuntu ubuntu
 }
 
-function instance_fedora() {
+# INSTANCE: fedora (fedora:latest)
+function fedora() {
   _run_bash fedora fedora
 }
 
-function instance_centos() {
-  _run_bash centos:7 centos7
+# INSTANCE: centos (centos:7)
+function centos() {
+  _run_bash centos:7 centos
 }
 
-function instance_go13() {
+# INSTANCE: go13 (golang:1.13)
+function go13() {
   _run_bash golang:1.13 go13
 }
 
-function instance_ruby() {
+# INSTANCE: ruby (ruby:latest)
+function ruby() {
   _run_bash ruby ruby
 }
 
-function instance_b15() {
-  _run_bash gobuffalo/buffalo:v0.15.1 buffalo15.1
+# INSTANCE: b15 (gobuffalo/buffalo:v0.15.1)
+function b15() {
+  _run_bash gobuffalo/buffalo:v0.15.1 b15
+}
+
+function jupyter() {
+  docker run --rm -d -p 8888:8888 \
+    -e JUPYTER_ENABLE_LAB=yes \
+    -v "$PWD":/home/jovyan/work \
+    --name jupyter jupyter/datascience-notebook && docker logs -f jupyter
 }
 
 function _run_bash() {
@@ -121,7 +164,7 @@ function dev_clean() {
 trap help ERR
 
 if [[ -z $1 ]]; then
-  instance_ubuntu
+  ubuntu
 elif [[ $1 == help ]]; then
   help
 elif [[ $1 == kill ]]; then
@@ -131,5 +174,5 @@ elif [[ $1 == stop ]]; then
 elif [[ $1 == clean ]]; then
   dev_clean 
 else
-  instance_$1 $@
+  $1 $@
 fi
