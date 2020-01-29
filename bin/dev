@@ -119,6 +119,12 @@ function b15() {
   _run_bash gobuffalo/buffalo:v0.15.1 b15
 }
 
+# INSTANCE: b13 (gobuffalo/buffalo:v0.13.1)
+function b13() {
+  _run_bash gobuffalo/buffalo:v0.13.3 b13
+}
+
+
 function jupyter() {
   docker run --rm -d -p 8888:8888 \
     -e JUPYTER_ENABLE_LAB=yes \
