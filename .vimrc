@@ -1,4 +1,6 @@
 syntax enable
+let g:go_version_warning = 0
+
 
 set number
 set relativenumber
@@ -53,6 +55,9 @@ nmap <Leader>gf :GFiles<CR>
 nmap <Leader>fh :History<CR>
 nmap <Leader>fH :Helptags!<CR>
 nmap <Leader>fc :History:<CR>
+
+" set syntax highlighting for markdown code blocks
+let g:markdown_fenced_languages = ['html', 'python', 'ruby', 'bash=sh', 'sql', 'go']
 
 set pastetoggle=<leader>z
 set tabstop=2
