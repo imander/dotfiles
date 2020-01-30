@@ -1,2 +1,2 @@
 " format json file with jq
-map <leader>f :%!jq<cr>
+map <leader>jq :%!jq<cr>
