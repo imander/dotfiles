@@ -1,10 +1,10 @@
 cespare/vim-toml
-chiel92/vim-autoformat
 fatih/vim-go
+glench/vim-jinja2-syntax
 honza/vim-snippets
-jalvesaq/Nvim-R
+jalvesaq/nvim-r
 junegunn/fzf.vim
-martinda/Jenkinsfile-vim-syntax
+martinda/jenkinsfile-vim-syntax
 scrooloose/nerdtree
 suan/vim-instant-markdown
 tpope/vim-commentary
@@ -12,4 +12,4 @@ tpope/vim-sensible
 tpope/vim-surround
 vim-airline/vim-airline
 vim-latex/vim-latex
-Xuyuanp/nerdtree-git-plugin
+xuyuanp/nerdtree-git-plugin
