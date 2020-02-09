@@ -45,9 +45,6 @@ alias gfht='git flow hotfix track'
 alias gfi='git flow init -d'
 alias clean-branches="git branch | egrep -v '(develop|master)'|xargs git branch -D"
 
-# run last command as sudo
-alias S='sudo !!'
-
 # golang stuff
 alias gtest='go test -v --bench . --benchmem'
 alias gfind='find . -name "*.go" -not -path "*/vendor/*"'
