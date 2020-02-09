@@ -8,6 +8,7 @@ martinda/jenkinsfile-vim-syntax
 scrooloose/nerdtree
 suan/vim-instant-markdown
 tpope/vim-commentary
+tpope/vim-fugitive
 tpope/vim-sensible
 tpope/vim-surround
 vim-airline/vim-airline

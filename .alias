@@ -7,7 +7,9 @@ alias la='ls -lah'
 alias ld='ls -dl'
 alias ltr='ls -ltrh|tail'
 alias c='clear'
-alias grep='rg'
+if [[ -x "$(command -v rg)" ]]; then
+  alias grep='rg'
+fi
 alias cd..='cd ..'
 alias .='cd ..'
 alias ..='cd ../..'
@@ -30,7 +32,6 @@ alias f=ifind
 
 # Find biggest directories by disc usage
 alias ducks='du -cksh * | sort -rh | head -15'
-
 
 # git/git-flow aliases
 alias gpristine='git reset --hard && git clean -df'
