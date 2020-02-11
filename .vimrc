@@ -5,6 +5,11 @@ set number
 set relativenumber
 set autowrite
 
+set list
+set tabstop=2
+set shiftwidth=2
+set expandtab
+
 let mapleader = "\<Space>"
 
 " shortcut to save file with sudo
@@ -56,9 +61,6 @@ nmap <Leader>fH :Helptags!<CR>
 nmap <Leader>fc :History:<CR>
 
 set pastetoggle=<leader>z
-set tabstop=2
-set shiftwidth=2
-set expandtab
 
 let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1

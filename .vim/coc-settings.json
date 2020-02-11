@@ -1,6 +1,7 @@
 {
   "snippets.ultisnips.directories": [
     "UltiSnips",
-    "gosnippets/UltiSnips"
+    "gosnippets/UltiSnips",
+    "ftplugin/snippets"
   ]
 }
