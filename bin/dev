@@ -104,6 +104,11 @@ function centos() {
   _run_bash centos:7 centos
 }
 
+# INSTANCE: go11 (golang:1.11)
+function go11() {
+  _run_bash golang:1.11 go11
+}
+
 # INSTANCE: go13 (golang:1.13)
 function go13() {
   _run_bash golang:1.13 go13
