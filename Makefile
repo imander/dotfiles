@@ -3,7 +3,7 @@ DIR      := $(shell pwd)
 GIT      := $(shell git describe --always --dirty)
 PLUGDIR  := $(DIR)/.vim/pack/plugins/start
 GH       := https://github.com
-zsh_dir  := ~/.oh-my-zsh
+zsh_dir  := $(HOME)/.oh-my-zsh
 
 # Filetype plugin for vim-markdown
 VIM_MD := .vim/after/ftplugin/markdown/instant-markdown.vim
@@ -67,8 +67,6 @@ vim:
 
 $(PLUGDIR)/coc.nvim-release:
 	cd $(PLUGDIR) && curl --fail -L https://github.com/neoclide/coc.nvim/archive/release.tar.gz|tar xzfv -
-	vim -c 'CocInstall -sync coc-go|q'
-	vim -c 'CocInstall -sync coc-json|q'
 	vim -c 'CocInstall -sync coc-snippets|q'
 
 $(VIM_MD):

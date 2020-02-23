@@ -129,6 +129,10 @@ function b13() {
   _run_bash gobuffalo/buffalo:v0.13.3 b13
 }
 
+# INSTANCE: arch (archlinux)
+function arch() {
+  _run_bash archlinux arch
+}
 
 function jupyter() {
   docker run --rm -d -p 8888:8888 \

@@ -1,0 +1,11 @@
+base-devel
+aws-cli
+dns-utils
+docker
+git
+go
+jq
+kubectl
+nmap
+pandoc
+vim
