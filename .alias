@@ -44,6 +44,7 @@ alias gfhs='git flow hotfix start'
 alias gfht='git flow hotfix track'
 alias gfi='git flow init -d'
 alias clean-branches="git branch | egrep -v '(develop|master)'|xargs git branch -D"
+alias gitb='git_checkout_branch'
 
 # golang stuff
 alias gtest='go test -v --bench . --benchmem'
@@ -98,3 +99,18 @@ function tf {
   docker run --rm -it -w /tf -v "$HOME/.aws":/root/.aws -v "$PWD":/tf hashicorp/terraform "$@" -auto-approve
 }
 
+function git_checkout_branch {
+  branches=( $(git branch --format '%(refname:lstrip=2)') )
+  i=0
+  if [[ "$(ps -p $$ -oargs=)" == *"zsh"* ]]; then
+    i=1
+  fi
+  for branch in ${branches[@]}; do
+    echo -e "[$i]\t$branch"
+    i=$((i+1))
+  done
+
+  echo -n "Choice: "
+  read branch_choice
+  git checkout "${branches[$branch_choice]}"
+}
