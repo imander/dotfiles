@@ -58,6 +58,16 @@ function shellshock() {
   echo "shellshock running at 127.0.0.1:8003"
 }
 
+# INSTANCE: grafana (grafana/grafana:v6.5.0)
+function grafana() {
+  docker start grafana >/dev/null 2>&1 || docker run \
+    --name grafana \
+    -d -p 8004:3000 \
+    grafana/grafana
+  echo "Grafana running at 127.0.0.1:8004"
+}
+
+
 # INSTANCE: tflow (jupyter/tensorflow-notebook:7a0c7325e470)
 function tflow() {
   docker start tflow ||
@@ -128,7 +138,6 @@ function b15() {
 function b13() {
   _run_bash gobuffalo/buffalo:v0.13.3 b13
 }
-
 
 function jupyter() {
   docker run --rm -d -p 8888:8888 \
