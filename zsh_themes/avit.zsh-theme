@@ -22,7 +22,11 @@ function _current_dir() {
 }
 
 function _user_host() {
-  echo "%{$fg[green]%}%n@%m%{$reset_color%}:"
+  local user_ssh=''
+  if [[ ! -z "$SSH_TTY" ]]; then
+    user_ssh="%{$fg[red]%}SSH:%{$reset_color%}"
+  fi
+  echo "${user_ssh}%{$fg[green]%}%n@%m%{$reset_color%}:"
 }
 
 function _user_shell() {
