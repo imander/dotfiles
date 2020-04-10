@@ -1,4 +1,5 @@
 cespare/vim-toml
+Chiel92/vim-autoformat
 fatih/vim-go
 glench/vim-jinja2-syntax
 honza/vim-snippets

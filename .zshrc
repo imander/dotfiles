@@ -92,3 +92,6 @@ unsetopt share_history
 test -s ~/.env && source ~/.env || true
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# hook direnv into shell
+eval "$(direnv hook zsh)"
