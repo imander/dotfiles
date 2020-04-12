@@ -95,3 +95,7 @@ test -s ~/.env && source ~/.env || true
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
+# hook direnv into shell
+if [ -x "$(command -v direnv)" ]; then
+  eval "$(direnv hook zsh)"
+fi

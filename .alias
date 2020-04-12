@@ -29,6 +29,7 @@ alias lports='netstat -ant | grep LISTEN'
 alias s='source'
 alias se='source $HOME/.env'
 alias f=ifind
+alias da='direnv allow'
 
 # Find biggest directories by disc usage
 alias ducks='du -cksh * | sort -rh | head -15'
@@ -40,6 +41,8 @@ alias gffs='git flow feature start'
 alias gfft='git flow feature track'
 alias gfrs='git flow release start'
 alias gfrt='git flow release track'
+alias gfbs='git flow bugfix start'
+alias gfbt='git flow bugfix track'
 alias gfhs='git flow hotfix start'
 alias gfht='git flow hotfix track'
 alias gfi='git flow init -d'
