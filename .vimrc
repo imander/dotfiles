@@ -1,5 +1,4 @@
 syntax enable
-let g:go_version_warning = 0
 
 set number
 set relativenumber
@@ -30,7 +29,7 @@ noremap <Leader>p "+p
 
 nnoremap <leader>s :set spell!<cr>
 " fix spelling with first suggestion
-nnoremap <leader>S 1z=
+nnoremap <leader>fs 1z=
 
 " record macro with qq stop with q and apply with Q
 nnoremap Q @q
@@ -131,5 +130,3 @@ if has("unix")
   endif
 end
 
-" markdown syntax highlighting
-let g:markdown_fenced_languages = ['sql', 'html', 'python', 'bash=sh']
