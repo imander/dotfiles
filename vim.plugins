@@ -6,6 +6,7 @@ honza/vim-snippets
 jalvesaq/nvim-r
 junegunn/fzf.vim
 martinda/jenkinsfile-vim-syntax
+nvie/vim-flake8
 scrooloose/nerdtree
 suan/vim-instant-markdown
 tpope/vim-commentary
