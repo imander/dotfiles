@@ -105,6 +105,9 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
+" set virtualenv directory for black python formatter
+let g:black_virtualenv="~/.black/venv"
+
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"

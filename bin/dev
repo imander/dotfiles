@@ -144,6 +144,11 @@ function arch() {
   _run_bash archlinux arch
 }
 
+# INSTANCE: python3 (python:3.7)
+function python3() {
+  _run_bash python:3.7 python3
+}
+
 function jupyter() {
   docker run --rm -d -p 8888:8888 \
     -e JUPYTER_ENABLE_LAB=yes \

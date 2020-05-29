@@ -9,20 +9,25 @@ zsh_dir  := $(HOME)/.oh-my-zsh
 VIM_MD := .vim/after/ftplugin/markdown/instant-markdown.vim
 
 .PHONY: all
-all: bin env alias zsh bash vim tmux
+all: bin env alias config zsh bash vim tmux
 
 .PHONY: bin
 bin:
-	@ln -sfn "$(DIR)/bin" "$(HOME)/bin"
+	ln -sfn "$(DIR)/bin" "$(HOME)/bin"
 
 .PHONY: env
 env:
-	@ln -sfn "$(DIR)/.env" "$(HOME)/.env"
-	@touch "$(HOME)/.env.local"
+	ln -sfn "$(DIR)/.env" "$(HOME)/.env"
+	touch "$(HOME)/.env.local"
 
 .PHONY: alias
 alias:
-	@ln -sfn "$(DIR)/.alias" "$(HOME)/.alias"
+	ln -sfn "$(DIR)/.alias" "$(HOME)/.alias"
+
+.PHONY: config
+config:
+	mkdir -p "$(HOME)/.config"
+	ln -sfn "$(DIR)/.config/flake8" "$(HOME)/.config/flake8"
 
 .PHONY: conky
 conky:
@@ -34,8 +39,8 @@ endif
 
 .PHONY: zsh
 zsh: $(zsh_dir)
-	@ln -sfn $(DIR)/.zshrc $(HOME)/.zshrc
-	@ln -sfn $(DIR)/zsh_themes/* $(HOME)/.oh-my-zsh/custom/themes/
+	ln -sfn $(DIR)/.zshrc $(HOME)/.zshrc
+	ln -sfn $(DIR)/zsh_themes/* $(HOME)/.oh-my-zsh/custom/themes/
 
 $(zsh_dir): 
 	@wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh 
@@ -44,12 +49,12 @@ $(zsh_dir):
 
 .PHONY: bash
 bash:
-	@ln -sfn "$(DIR)/.bashrc" "$(HOME)/.bashrc"
+	ln -sfn "$(DIR)/.bashrc" "$(HOME)/.bashrc"
 
 .PHONY: tmux
 tmux:
-	@ln -sfn "$(DIR)/.tmux.conf" "$(HOME)/.tmux.conf"
-	@ln -sfn "$(DIR)/.tmux.conf.local" "$(HOME)/.tmux.conf.local"
+	ln -sfn "$(DIR)/.tmux.conf" "$(HOME)/.tmux.conf"
+	ln -sfn "$(DIR)/.tmux.conf.local" "$(HOME)/.tmux.conf.local"
 
 .PHONY: vim
 vim:
@@ -61,6 +66,7 @@ vim:
 			git clone $(GH)/$$line$(GIT); \
 		fi \
 	done < $(DIR)/vim.plugins 
+	@cd $(PLUGDIR)/jedi-vim && git submodule update --init --recursive
 	@ln -sfn $(DIR)/.vimrc $(HOME)/.vimrc
 	@ln -sfn $(DIR)/.vim $(HOME)/.vim
 	@$(MAKE) $(PLUGDIR)/coc.nvim-release $(VIM_MD) clean-plugins
