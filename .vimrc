@@ -59,7 +59,7 @@ nmap <Leader>fh :History<CR>
 nmap <Leader>fH :Helptags!<CR>
 nmap <Leader>fc :History:<CR>
 
-set pastetoggle=<leader>z
+set pastetoggle=<F8>
 
 let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
@@ -67,27 +67,16 @@ let g:rehash256 = 1
 let g:molokai_original = 1
 colorscheme molokai
 
-" edit vimrc quickly and reload .vimrc
+" shortcut to edit vimrc
 map <leader>v :edit ~/.vimrc<cr>
-autocmd! bufwritepost .vimrc source %
 
 let g:airline#extensions#tabline#enabled = 1
 
-" set nerdtree toggle shortcut and make open at startup
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd VimEnter * set winfixwidth
 let g:NERDTreeNodeDelimiter = "\u00a0"
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeQuitOnOpen = 1
-
-" Quit vim if nerdtree is only buffer open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" load templates when files are new
-autocmd BufNewFile *.sh 0r ~/.vim/templates/sh.tmpl
 
 " CoC specific configuration
 "
@@ -132,4 +121,22 @@ if has("unix")
     source /usr/local/opt/fzf/plugin/fzf.vim
   endif
 end
+
+" Auto-commands in group to prevent re-loads
+augroup VimRC
+  autocmd! 
+  " reload .vimrc on write
+  autocmd bufwritepost .vimrc source %
+
+  " set nerdtree toggle shortcut and make open at startup
+  autocmd StdinReadPre * let s:std_in=1
+  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+  autocmd VimEnter * set winfixwidth
+
+  " Quit vim if nerdtree is only buffer open
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+  " load templates when files are new
+  autocmd BufNewFile *.sh 0r ~/.vim/templates/sh.tmpl
+augroup END
 

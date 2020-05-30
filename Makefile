@@ -66,7 +66,6 @@ vim:
 			git clone $(GH)/$$line$(GIT); \
 		fi \
 	done < $(DIR)/vim.plugins 
-	@cd $(PLUGDIR)/jedi-vim && git submodule update --init --recursive
 	@ln -sfn $(DIR)/.vimrc $(HOME)/.vimrc
 	@ln -sfn $(DIR)/.vim $(HOME)/.vim
 	@$(MAKE) $(PLUGDIR)/coc.nvim-release $(VIM_MD) clean-plugins
