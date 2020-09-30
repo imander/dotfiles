@@ -99,3 +99,13 @@ test -s ~/.env && source ~/.env || true
 if [ -x "$(command -v direnv)" ]; then
   eval "$(direnv hook zsh)"
 fi
+
+function chpwd {
+  if [[ -d .venv ]]; then
+    VENV_ROOT_DIR=$PWD
+    source .venv/bin/activate
+  elif [[ ! -z $VENV_ROOT_DIR ]] && [[ $PWD != ${VENV_ROOT_DIR}* ]]; then
+    unset VENV_ROOT_DIR
+    deactivate
+  fi
+}
