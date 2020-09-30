@@ -31,6 +31,7 @@ alias s='source'
 alias se='source $HOME/.env'
 alias f=ifind
 alias da='direnv allow'
+alias venv='test -d .venv || python -mvenv .venv'
 
 # Find biggest directories by disc usage
 alias ducks='du -cksh * | sort -rh | head -15'
