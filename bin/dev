@@ -3,6 +3,7 @@
 set -e
 
 SELF="$(dirname $0)/$(basename $0)"
+DOCKER_CMD="docker run -d --network development"
 
 function help() {
   cat <<EOF
@@ -22,8 +23,8 @@ EOF
 
 # INSTANCE: splunk (splunk:latest)
 function splunk() {
-  docker start splunk || docker run \
-    -d -p 8000:8000 \
+  docker start splunk || $DOCKER_CMD \
+    -p 8000:8000 \
     -e "SPLUNK_START_ARGS=--accept-license" \
     -e "SPLUNK_PASSWORD=password" \
     --name splunk \
@@ -33,36 +34,36 @@ function splunk() {
 
 # INSTANCE: dvwa (cyberxsecurity/dvwa)
 function dvwa() {
-  docker start dvwa >/dev/null 2>&1 || docker run \
+  docker start dvwa >/dev/null 2>&1 || $DOCKER_CMD \
     --name dvwa \
-    -d -p 8001:80 \
+    -p 8001:80 \
     cyberxsecurity/dvwa
   echo "DVWA running at 127.0.0.1:8001"
 }
 
 # INSTANCE: hackazon (cyberxsecurity/hackazon)
 function hackazon() {
-  docker start hackazon >/dev/null 2>&1 || docker run \
+  docker start hackazon >/dev/null 2>&1 || $DOCKER_CMD \
     --name hackazon \
-    -d -p 8002:80 \
+    -p 8002:80 \
     cyberxsecurity/hackazon
   echo "hackazon running at 127.0.0.1:8002"
 }
 
 # INSTANCE: shellshock (vulnerables/cve-2014-6271)
 function shellshock() {
-  docker start shellshock >/dev/null 2>&1 || docker run \
+  docker start shellshock >/dev/null 2>&1 || $DOCKER_CMD \
     --name shellshock \
-    -d -p 8003:80 \
+    -p 8003:80 \
     vulnerables/cve-2014-6271
   echo "shellshock running at 127.0.0.1:8003"
 }
 
 # INSTANCE: grafana (grafana/grafana:v6.5.0)
 function grafana() {
-  docker start grafana >/dev/null 2>&1 || docker run \
+  docker start grafana >/dev/null 2>&1 || $DOCKER_CMD \
     --name grafana \
-    -d -p 8004:3000 \
+    -p 8004:3000 \
     grafana/grafana
   echo "Grafana running at 127.0.0.1:8004"
 }
@@ -71,7 +72,7 @@ function grafana() {
 # INSTANCE: tflow (jupyter/tensorflow-notebook:7a0c7325e470)
 function tflow() {
   docker start tflow ||
-    docker run -d -p 127.0.0.1:15000:8888 \
+    $DOCKER_CMD -p 127.0.0.1:15000:8888 \
     -e JUPYTER_ENABLE_LAB=yes \
     -v "$PWD:/home/jovyan/work:rw" \
     --name tflow \
@@ -84,7 +85,7 @@ function tflow() {
 # INSTANCE: r-notebook (jupyter/r-notebook)
 function r-notebook() {
   docker start r-notebook ||
-    docker run -d -p 127.0.0.1:15001:8888 \
+    $DOCKER_CMD -p 127.0.0.1:15001:8888 \
     -e JUPYTER_ENABLE_LAB=yes \
     -v "$PWD:/home/jovyan/work:rw" \
     --name r-notebook \
@@ -150,10 +151,27 @@ function python3() {
 }
 
 function jupyter() {
-  docker run --rm -d -p 8888:8888 \
+  $DOCKER_CMD --rm -p 8888:8888 \
     -e JUPYTER_ENABLE_LAB=yes \
     -v "$PWD":/home/jovyan/work \
     --name jupyter jupyter/datascience-notebook && docker logs -f jupyter
+}
+
+# INSTANCE: pod (ubuntu pod in kubernetes)
+function pod() {
+  cat << EOF > pod.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dev-pod
+spec:
+  containers:
+    - name: ubuntu
+      command: ["sleep", "10000"]
+      image: ubuntu
+EOF
+  kubectl apply -f pod.yml
+  rm pod.yml
 }
 
 function _run_bash() {
