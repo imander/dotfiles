@@ -37,7 +37,7 @@ alias ducks='du -cksh * | sort -rh | head -15'
 
 # git/git-flow aliases
 alias gpristine='git reset --hard && git clean -df'
-alias ghb='gh -b'
+alias ghw='gh repo view -w'
 alias gffs='git flow feature start'
 alias gfft='git flow feature track'
 alias gfrs='git flow release start'
@@ -62,29 +62,6 @@ alias dkill='docker kill'
 alias dps='docker ps'
 alias dpsa='docker ps -a'
 alias dpurge='docker system prune -a -f'
-
-# open a git repo in the browser the -b switch opens the specific branch
-function gh {
-  if [[ -x "$(command -v open)" ]]; then
-    cmd=open
-  elif [[ -x "$(command -v xdg-open)" ]]; then
-    cmd=xdg-open
-  fi
-
-  url=$(git remote -v | grep origin | head -1 | awk '{print $2}' | sed -e 's/:/\//' -e 's/git@/https:\/\//' -e 's/\.git$//')
-  if [[ "$url" = "" ]] || [[ "$cmd" = "" ]]; then
-    echo 'Unable to open git repo!'
-    return 1
-  fi
-
-  branch=$(git rev-parse --abbrev-ref HEAD)
-  if [[ "$1" = "-b" ]]; then
-    url="$url/tree/$branch"
-  fi
-
-  echo "Fetching: ${url}"
-  $cmd $url > /dev/null 2>&1
-}
 
 function internal_ip {
   if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -117,4 +94,15 @@ function git_checkout_branch {
   echo -n "Choice: "
   read branch_choice
   git checkout "${branches[$branch_choice]}"
+}
+
+function ldap-time {
+  t=$(($1/10000000)) # divide by 10 000 000 to get seconds
+  t=$(($t-11644473600)) # 1.1.1600 -> 1.1.1970 difference in seconds
+
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    date -r $t
+  else
+    date -d @$t
+  fi
 }
