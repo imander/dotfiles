@@ -40,7 +40,7 @@ conky.config = {
     draw_outline = false,
     draw_shades = false,
     extra_newline = false,
-    font = 'DejaVu Sans Mono:size=10',
+    font = 'DejaVu Sans Mono:size=14',
     gap_x = 60,
     gap_y = 200,
     imlib_cache_size = 0,
@@ -56,32 +56,32 @@ conky.config = {
     show_graph_range = false,
     show_graph_scale = false,
     stippled_borders = 0,
-    update_interval = 1.0,
+    update_interval = 3.0,
     uppercase = false,
     use_spacer = 'none',
     use_xft = true
 }
 
 conky.text = [[
-${font OpenLogos:size=50}${color 1793d1}B${color}${font}${voffset -85}
+${font OpenLogos:size=50}${color 1793d1}B${color}${font}${voffset -55}
 ${alignr}${execi 900 whoami}@${nodename}
 ${alignr}${kernel}
 ${alignr}${execi 600 $HOME/.config/conky/scripts/updates.sh} updates available
-${voffset 5}${color 1793d1}${font :style=bold}SYSTEM${font} ${hr 2}${color}
-${voffset 5}${font StyleBats:size=16}${color 7B9494}A${color}${font}${goto 50}${voffset -5}CPU1: ${cpu cpu1}% / ${color 7B9494}${execi 10 sensors | grep "Core 0" | cut -d "+" -f2 | cut -c1-6}C${color}${alignr}${color 7B9494}${cpubar cpu1 15,200}${color}
-${voffset 5}${font StyleBats:size=16}${color 7B9494}A${color}${font}${goto 50}${voffset -5}CPU2: ${cpu cpu2}% / ${color 7B9494}${execi 10 sensors | grep "Core 1" | cut -d "+" -f2 | cut -c1-6}C${color}${alignr}${color 7B9494}${cpubar cpu2 15,200}${color}
-${voffset 5}${font StyleBats:size=16}${color 7B9494}g${color}${font}${goto 50}${voffset -5}RAM: $memperc% ${alignr}${color 7B9494}${membar 15,200}${color}
-${voffset 5}${font StyleBats:size=16}${color 7B9494}j${color}${font}${goto 50}${voffset -5}SWAP: $swapperc% ${alignr}${color 7B9494}${swapbar 15,200}${color}
-${voffset 5}${font Webdings:size=15}${color 7B9494}~${color}${font}${goto 50}${voffset -5}Battery: ${battery_percent}% ${alignr}${color 7B9494}${battery_bar 15,200}${color}
-${voffset 5}${font StyleBats:size=16}${color 7B9494}q${color}${font}${goto 50}${voffset -5}Uptime: ${alignr}${uptime}
-${voffset 5}${font StyleBats:size=16}${color 7B9494}k${color}${font}${goto 50}${voffset -5}Processes: ${alignr}$processes ($running_processes running)
-${voffset 15}${color 1793d1}${font :style=bold}FILE SYSTEM${font} ${hr 2}${color}
-${voffset 5}${offset 3}${color 7B9494}${font Weather:size=20}yz${font}${color}${goto 50}${voffset -2}Temperature: ${color 7B9494}${execi 15 smartctl -A /dev/nvme0n1 | grep Celsius | awk '{print$2}'}°C${color}${alignr}/dev/nvme0n1
+${voffset 5}${color 1793d1}${font :style=bold,:size=14}SYSTEM${font} ${hr 2}${color}
+${voffset 15}${font StyleBats:size=14}${color 7B9494}A${color}${font}${goto 50}${voffset -5}CPU1: ${cpu cpu1}% / ${color 7B9494}${execi 10 sensors | grep "Core 0" | cut -d "+" -f2 | cut -c1-6}C${color}${alignr}${color 7B9494}${cpubar cpu1 15,200}${color}
+${voffset 5}${font StyleBats:size=14}${color 7B9494}A${color}${font}${goto 50}${voffset -5}CPU2: ${cpu cpu2}% / ${color 7B9494}${execi 10 sensors | grep "Core 1" | cut -d "+" -f2 | cut -c1-6}C${color}${alignr}${color 7B9494}${cpubar cpu2 15,200}${color}
+${voffset 5}${font StyleBats:size=14}${color 7B9494}g${color}${font}${goto 50}${voffset -5}RAM: $memperc% ${alignr}${color 7B9494}${membar 15,200}${color}
+${voffset 5}${font StyleBats:size=14}${color 7B9494}j${color}${font}${goto 50}${voffset -5}SWAP: $swapperc% ${alignr}${color 7B9494}${swapbar 15,200}${color}
+${voffset 5}${font Webdings:size=14}${color 7B9494}~${color}${font}${goto 50}${voffset -5}Battery: ${battery_percent}% ${alignr}${color 7B9494}${battery_bar 15,200}${color}
+${voffset 5}${font StyleBats:size=14}${color 7B9494}q${color}${font}${goto 50}${voffset -5}Uptime: ${alignr}${uptime}
+${voffset 5}${font StyleBats:size=14}${color 7B9494}k${color}${font}${goto 50}${voffset -5}Processes: ${alignr}$processes ($running_processes running)
+${voffset 15}${color 1793d1}${font :style=bold,:size=14}FILE SYSTEM${font} ${hr 2}${color}
+${voffset 15}${offset 3}${color 7B9494}${font Weather:size=20}yz${font}${color}${goto 50}${voffset -2}Temperature: ${color 7B9494}${execi 15 smartctl -A /dev/nvme0n1 | grep Celsius | awk '{print$2}'}°C${color}${alignr}/dev/nvme0n1
 ${voffset 15}${font Poky:size=15}${color 7B9494}y${color}${font}${goto 60}${voffset -10}/: ${color 7B9494}${fs_used_perc /}%${alignr}${fs_bar 15,200 /}${color}
 ${color 7B9494}${voffset 2}${goto 60}${color}Free: ${fs_free /}${alignr}Used: ${fs_used /}
 ${voffset 15}${font Poky:size=15}${color 7B9494}y${color}${font}${goto 60}${voffset -10}/home: ${color 7B9494}${fs_used_perc /home}%${alignr}${fs_bar 15,200 /home}${color}
 ${color 7B9494}${voffset 2}${goto 60}${voffset -2}${color}Free: ${fs_free /home}${alignr}Used: ${fs_used /home}
-${voffset 15}${color 1793d1}${font :style=bold}NETWORK${font} ${hr 2}${color}
+${voffset 15}${color 1793d1}${font :style=bold,:size=14}NETWORK${font} ${hr 2}${color}
 ${if_existing /proc/net/route wlp0s20f3}
 ${voffset 2}${color 7B9494}${voffset -6}${font PizzaDude Bullets:size=12}O${color}${font}${goto 50}Up: ${upspeed wlp0s20f3}${alignr}${color 7B9494}${upspeedgraph wlp0s20f3 15,200}${color}
 ${voffset 2}${color 7B9494}${voffset 4}${font PizzaDude Bullets:size=12}U${color}${font}${goto 50}Down: ${downspeed wlp0s20f3}${alignr}${color 7B9494}${downspeedgraph wlp0s20f3 15,200}${color}
@@ -102,8 +102,8 @@ Network Unavailable
 ${endif}
 ${endif}
 ${execi 600 python $HOME/.config/conky/scripts/weather.py}
-${voffset -15}${color 1793d1}${font :style=bold}${execi 60 cat $HOME/.config/conky/location} WEATHER ${hr 2}$color${execi 600 python $HOME/.config/conky/scripts/weather.py}
-${voffset 5}${font}${execi 60 cat $HOME/.config/conky/forecast|jq -r '.properties.periods[0].name'} - ${execi 60 cat $HOME/.config/conky/forecast|jq -r '.properties.periods[0].temperature'} ${execi 60 cat $HOME/.config/conky/forecast|jq -r '.properties.periods[0].temperatureUnit'}
+${voffset -15}${color 1793d1}${font :style=bold,:size=14}${execi 60 cat $HOME/.config/conky/location} WEATHER ${hr 2}$color${execi 600 python $HOME/.config/conky/scripts/weather.py}
+${voffset 15}${font}${execi 60 cat $HOME/.config/conky/forecast|jq -r '.properties.periods[0].name'} - ${execi 60 cat $HOME/.config/conky/forecast|jq -r '.properties.periods[0].temperature'} ${execi 60 cat $HOME/.config/conky/forecast|jq -r '.properties.periods[0].temperatureUnit'}
 ${execi 60 cat $HOME/.config/conky/forecast|jq -r '.properties.periods[0].shortForecast'}, ${execi 60 cat $HOME/.config/conky/forecast|jq -r '.properties.periods[0].windSpeed'} winds
 
 ${voffset -5}${execi 60 cat $HOME/.config/conky/forecast|jq -r '.properties.periods[1].name'} - ${execi 60 cat $HOME/.config/conky/forecast|jq -r '.properties.periods[1].temperature'} ${execi 60 cat $HOME/.config/conky/forecast|jq -r '.properties.periods[1].temperatureUnit'}
@@ -111,6 +111,8 @@ ${execi 60 cat $HOME/.config/conky/forecast|jq -r '.properties.periods[1].shortF
 
 ${voffset -5}${execi 60 cat $HOME/.config/conky/forecast|jq -r '.properties.periods[2].name'} - ${execi 60 cat $HOME/.config/conky/forecast|jq -r '.properties.periods[2].temperature'} ${execi 60 cat $HOME/.config/conky/forecast|jq -r '.properties.periods[2].temperatureUnit'}
 ${execi 60 cat $HOME/.config/conky/forecast|jq -r '.properties.periods[2].shortForecast'}, ${execi 60 cat $HOME/.config/conky/forecast|jq -r '.properties.periods[2].windSpeed'} winds
+
+
 
 
 
