@@ -69,14 +69,14 @@ function grafana() {
 }
 
 
-# INSTANCE: tflow (jupyter/tensorflow-notebook:7a0c7325e470)
+# INSTANCE: tflow (jupyter/tensorflow-notebook:latest)
 function tflow() {
   docker start tflow ||
     $DOCKER_CMD -p 127.0.0.1:15000:8888 \
     -e JUPYTER_ENABLE_LAB=yes \
     -v "$PWD:/home/jovyan/work:rw" \
     --name tflow \
-    jupyter/tensorflow-notebook:7a0c7325e470
+    jupyter/tensorflow-notebook:latest
   sleep 5
   URL=$(docker logs tflow 2>&1 | egrep -o 'http://127.0.0.1:8888/\?token=[0-9a-f]+' | tail -1)
   echo "Jupyter URL: $URL" | sed 's/8888/15000/'

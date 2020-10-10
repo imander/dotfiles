@@ -3,7 +3,6 @@ cespare/vim-toml
 fatih/vim-go
 glench/vim-jinja2-syntax
 honza/vim-snippets
-jalvesaq/nvim-r
 junegunn/fzf.vim
 martinda/jenkinsfile-vim-syntax
 nvie/vim-flake8
@@ -15,5 +14,4 @@ tpope/vim-fugitive
 tpope/vim-sensible
 tpope/vim-surround
 vim-airline/vim-airline
-vim-latex/vim-latex
 xuyuanp/nerdtree-git-plugin
