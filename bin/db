@@ -1,14 +1,14 @@
 #!/bin/bash
 
 function db_postgres() {
-  docker start postgres || \
+  docker start postgres ||
     docker run -l 'db_start' \
-    --network development \
-    --name postgres \
-    -e POSTGRES_PASSWORD=postgres \
-    -p 127.0.0.1:5432:5432 \
-    -d postgres:10
-  }
+      --network development \
+      --name postgres \
+      -e POSTGRES_PASSWORD=postgres \
+      -p 127.0.0.1:5432:5432 \
+      -d postgres:10
+}
 
 function stop_postgres() {
   if running postgres; then
@@ -22,7 +22,7 @@ function stop_postgres() {
   fi
 }
 
-function running(){
+function running() {
   image=$(docker ps -f 'LABEL=db_start' -f "NAME=$1" | wc -l)
 
   if [[ "$image" -gt 1 ]]; then
@@ -38,7 +38,7 @@ function db_mysql() {
     -e MYSQL_ROOT_PASSWORD=mysql \
     -p 127.0.0.1:3306:3306 \
     -d mysql
-  }
+}
 
 function stop_mysql() {
   if running mysql; then
@@ -59,12 +59,12 @@ function stop_databases() {
 
 function db_shell() {
   case $DB in
-    mysql)
-      docker exec -it mysql bash
-      ;;
-    *)
-      docker exec -it postgres bash -c 'psql -U postgres'
-      ;;
+  mysql)
+    docker exec -it mysql bash
+    ;;
+  *)
+    docker exec -it postgres bash -c 'psql -U postgres'
+    ;;
   esac
 }
 
@@ -72,29 +72,29 @@ LOCAL=$2
 RESET=false
 
 case $1 in
-  postgres)
-    db_postgres
-    ;;
-  mysql)
-    db_mysql
-    ;;
-  down)
-    stop_databases
-    ;;
-  reset)
-    RESET=true
-    KILL=true
-    stop_databases
-    ;;
-  destroy)
-    KILL=true
-    stop_databases
-    ;;
-  shell)
-    DB=$2
-    db_shell
-    ;;
-  *)
-    echo "Bad arguments!  Choose postgres or mysql."
-    ;;
+postgres)
+  db_postgres
+  ;;
+mysql)
+  db_mysql
+  ;;
+down)
+  stop_databases
+  ;;
+reset)
+  RESET=true
+  KILL=true
+  stop_databases
+  ;;
+destroy)
+  KILL=true
+  stop_databases
+  ;;
+shell)
+  DB=$2
+  db_shell
+  ;;
+*)
+  echo "Bad arguments!  Choose postgres or mysql."
+  ;;
 esac

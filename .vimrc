@@ -59,6 +59,9 @@ nmap <Leader>fh :History<CR>
 nmap <Leader>fH :Helptags!<CR>
 nmap <Leader>fc :History:<CR>
 
+" autoformat
+nmap <Leader>af :Autoformat<CR>
+
 set pastetoggle=<F8>
 
 let g:go_highlight_functions = 1
@@ -124,7 +127,7 @@ end
 
 " Auto-commands in group to prevent re-loads
 augroup VimRC
-  autocmd! 
+  autocmd!
   " reload .vimrc on write
   autocmd bufwritepost .vimrc source %
 

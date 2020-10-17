@@ -28,6 +28,7 @@ alias:
 config:
 	mkdir -p "$(HOME)/.config"
 	ln -sfn "$(DIR)/.config/flake8" "$(HOME)/.config/flake8"
+	ln -sfn "$(DIR)/.editorconfig" "$(HOME)/.editorconfig"
 
 .PHONY: conky
 conky:
@@ -42,8 +43,8 @@ zsh: $(zsh_dir)
 	ln -sfn $(DIR)/.zshrc $(HOME)/.zshrc
 	ln -sfn $(DIR)/zsh_themes/* $(HOME)/.oh-my-zsh/custom/themes/
 
-$(zsh_dir): 
-	@wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh 
+$(zsh_dir):
+	@wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
 	@sh install.sh --unattended
 	@$(RM) install.sh
 
@@ -57,7 +58,7 @@ tmux:
 	ln -sfn "$(DIR)/.tmux.conf.local" "$(HOME)/.tmux.conf.local"
 
 .PHONY: vim
-vim:
+vim: formatters
 	$(eval GIT := .git)
 	@mkdir -p $(PLUGDIR)
 	@cd $(PLUGDIR) && while read line; do \
@@ -65,7 +66,7 @@ vim:
 		if [[ ! -z $$line ]] && [[ ! -d $$plug_dir ]]; then \
 			git clone $(GH)/$$line$(GIT); \
 		fi \
-	done < $(DIR)/vim.plugins 
+	done < $(DIR)/vim.plugins
 	@ln -sfn $(DIR)/.vimrc $(HOME)/.vimrc
 	@ln -sfn $(DIR)/.vim $(HOME)/.vim
 	@$(MAKE) $(PLUGDIR)/coc.nvim-release $(VIM_MD) clean-plugins
@@ -86,8 +87,13 @@ clean-plugins:
 	@grep -vf desired_plugins current_plugins |grep -v coc.nvim-release | while read line; do \
 		echo removing $(PLUGDIR)/$$line; \
 		rm -rf $(PLUGDIR)/$$line; \
-	done 
+	done
 	@$(RM) desired_plugins current_plugins
+
+.PHONY: formatters
+formatters:
+	pip install --user sqlparse
+	which shfmt || go get -u mvdan.cc/sh/cmd/shfmt
 
 .PHONY: commit
 commit:
@@ -97,4 +103,4 @@ ifneq (,$(findstring dirty,$(GIT)))
 	git push origin master
 endif
 
-	
+

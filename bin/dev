@@ -9,9 +9,9 @@ function help() {
   cat <<EOF
 
 Available images are:
-$(grep INSTANCE $SELF |grep -v '$SELF'| 
-cut -f2- -d: | column -t | sort |
-while read line; do echo "  $line"; done)
+$(grep INSTANCE $SELF | grep -v '$SELF' |
+    cut -f2- -d: | column -t | sort |
+    while read line; do echo "  $line"; done)
 
 Management options are:
   help - print this help menu and exit
@@ -68,15 +68,14 @@ function grafana() {
   echo "Grafana running at 127.0.0.1:8004"
 }
 
-
 # INSTANCE: tflow (jupyter/tensorflow-notebook:latest)
 function tflow() {
   docker start tflow ||
     $DOCKER_CMD -p 127.0.0.1:15000:8888 \
-    -e JUPYTER_ENABLE_LAB=yes \
-    -v "$PWD:/home/jovyan/work:rw" \
-    --name tflow \
-    jupyter/tensorflow-notebook:latest
+      -e JUPYTER_ENABLE_LAB=yes \
+      -v "$PWD:/home/jovyan/work:rw" \
+      --name tflow \
+      jupyter/tensorflow-notebook:latest
   sleep 5
   URL=$(docker logs tflow 2>&1 | egrep -o 'http://127.0.0.1:8888/\?token=[0-9a-f]+' | tail -1)
   echo "Jupyter URL: $URL" | sed 's/8888/15000/'
@@ -86,10 +85,10 @@ function tflow() {
 function r-notebook() {
   docker start r-notebook ||
     $DOCKER_CMD -p 127.0.0.1:15001:8888 \
-    -e JUPYTER_ENABLE_LAB=yes \
-    -v "$PWD:/home/jovyan/work:rw" \
-    --name r-notebook \
-    jupyter/r-notebook
+      -e JUPYTER_ENABLE_LAB=yes \
+      -v "$PWD:/home/jovyan/work:rw" \
+      --name r-notebook \
+      jupyter/r-notebook
   sleep 5
   URL=$(docker logs r-notebook 2>&1 | egrep -o 'http://127.0.0.1:[0-9]+/\?token=[0-9a-f]+' | tail -1)
   echo "Jupyter URL: $URL" | sed 's/8888/15001/'
@@ -159,7 +158,7 @@ function jupyter() {
 
 # INSTANCE: pod (ubuntu pod in kubernetes)
 function pod() {
-  cat << EOF > pod.yml
+  cat <<EOF >pod.yml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -183,7 +182,7 @@ function _shell() {
 }
 
 function _run() {
-  docker run --network development -it --name $2 -v "${PWD}:/data:rw" $1 /bin/bash 
+  docker run --network development -it --name $2 -v "${PWD}:/data:rw" $1 /bin/bash
 }
 
 function dev_stop() {
@@ -220,7 +219,7 @@ elif [[ $1 == kill ]]; then
 elif [[ $1 == stop ]]; then
   dev_stop $@
 elif [[ $1 == clean ]]; then
-  dev_clean 
+  dev_clean
 else
   $1 $@
 fi
