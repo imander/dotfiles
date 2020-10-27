@@ -92,7 +92,7 @@ clean-plugins:
 
 .PHONY: formatters
 formatters:
-	pip install --user sqlparse
+	pip3 install --user sqlparse
 	which shfmt || go get -u mvdan.cc/sh/cmd/shfmt
 
 .PHONY: commit

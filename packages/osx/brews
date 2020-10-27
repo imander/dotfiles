@@ -1,5 +1,6 @@
 awscli
 direnv
+fzf
 gh
 git
 go

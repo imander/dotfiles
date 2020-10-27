@@ -17,13 +17,15 @@ function install_homebrew() {
 
 function install_brew() {
   log "Installing $brew"
-  brew info "$brew" >/dev/null 2>&1 || brew install "$brew"
+  brew list "$brew" >/dev/null 2>&1 || brew install "$brew"
 }
 
 function install_cask() {
   log "Installing cask $cask"
-  brew info "$cask" >/dev/null 2>&1 || brew cask install "$cask"
+  brew list --cask "$cask" >/dev/null 2>&1 || brew cask install "$cask"
 }
+
+install_homebrew
 
 while read brew; do
   install_brew
