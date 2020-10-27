@@ -1,17 +1,17 @@
 #!/bin/bash
 
 function install() {
-  pacman -Qi "$1" > /dev/null || sudo pacman --noconfirm -S "$1" 
+  pacman -Qi "$1" >/dev/null || sudo pacman --noconfirm -S "$1"
 }
 
 function install_aur() {
-  pacman -Qi "$1" > /dev/null || yay -S \
-	  --answerclean N \
-	  --answerdiff N \
-	  --answeredit N \
-	  --answerupgrade N \
-	  --noconfirm \
-	  --noprovides "$1" 
+  pacman -Qi "$1" >/dev/null || yay -S \
+    --answerclean N \
+    --answerdiff N \
+    --answeredit N \
+    --answerupgrade N \
+    --noconfirm \
+    --noprovides "$1"
 }
 
 function install_yay() {
@@ -26,11 +26,10 @@ function install_yay() {
 
 while read package; do
   install "$package"
-done < package_os
+done <package_os
 
-pacman -Qi yay > /dev/null || install_yay
+pacman -Qi yay >/dev/null || install_yay
 
 while read package; do
   install_aur "$package"
-done < package_aur
-
+done <package_aur

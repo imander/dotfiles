@@ -1,6 +1,6 @@
 alias sa='source ~/.alias'
 
-alias vim='vim -X' # improve startup time by not connecting to x-server
+# alias vim='vim -X' # improve startup time by not connecting to x-server
 alias vi='vim'
 alias vf='vim $(fzf -m)'
 alias l='ls -lh'
