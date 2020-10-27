@@ -3,11 +3,12 @@ direnv
 fzf
 gh
 git
+git-flow-avh
 go
 htop
 jq
 kubectl
-libpq
+libpq-dev
 nmap
 npm
 pyenv
