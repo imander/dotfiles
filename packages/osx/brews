@@ -7,10 +7,10 @@ git-flow-avh
 go
 htop
 jq
-kubectl
+kubernetes-cli
 libpq-dev
 nmap
-npm
+node
 pyenv
 ripgrep
 tmux

@@ -8,8 +8,16 @@ zsh_dir  := $(HOME)/.oh-my-zsh
 # Filetype plugin for vim-markdown
 VIM_MD := .vim/after/ftplugin/markdown/instant-markdown.vim
 
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	PKG_DIR = packages/arch
+endif
+ifeq ($(UNAME_S),Darwin)
+	PKG_DIR = packages/osx
+endif
+
 .PHONY: all
-all: bin env alias config zsh bash vim tmux
+all: zsh bash bin env alias config vim tmux packages
 
 .PHONY: bin
 bin:
@@ -59,12 +67,11 @@ tmux:
 
 .PHONY: vim
 vim: formatters
-	$(eval GIT := .git)
 	@mkdir -p $(PLUGDIR)
 	@cd $(PLUGDIR) && while read line; do \
 		plug_dir=`cut -d/ -f2 <<< $$line`; \
 		if [[ ! -z $$line ]] && [[ ! -d $$plug_dir ]]; then \
-			git clone $(GH)/$$line$(GIT); \
+			git clone $(GH)/$${line}.git; \
 		fi \
 	done < $(DIR)/vim.plugins
 	@ln -sfn $(DIR)/.vimrc $(HOME)/.vimrc
@@ -94,6 +101,10 @@ clean-plugins:
 formatters:
 	pip3 install --user sqlparse
 	which shfmt || go get -u mvdan.cc/sh/cmd/shfmt
+
+.PHONY: packages
+packages:
+	$(PKG_DIR)/install.sh
 
 .PHONY: commit
 commit:

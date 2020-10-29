@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SCRIPT_DIR=$(dirname $0)
+
 function install() {
   pacman -Qi "$1" >/dev/null || sudo pacman --noconfirm -S "$1"
 }
@@ -26,10 +28,10 @@ function install_yay() {
 
 while read package; do
   install "$package"
-done <package_os
+done <"${SCRIPT_DIR}/package_os"
 
 pacman -Qi yay >/dev/null || install_yay
 
 while read package; do
   install_aur "$package"
-done <package_aur
+done <"${SCRIPT_DIR}/package_aur"
