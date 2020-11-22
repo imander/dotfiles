@@ -9,6 +9,9 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
+" Ensure undo history is not lost with buffer changes
+set hidden
+
 let mapleader = "\<Space>"
 
 " shortcut to save file with sudo
@@ -139,7 +142,11 @@ augroup VimRC
   " Quit vim if nerdtree is only buffer open
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+  " set syntax for odd file extensions
+  autocmd BufNewFile,BufRead .envrc set syntax=sh
+
   " load templates when files are new
   autocmd BufNewFile *.sh 0r ~/.vim/templates/sh.tmpl
+  autocmd BufNewFile *.py 0r ~/.vim/templates/python.tmpl
 augroup END
 

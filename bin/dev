@@ -21,6 +21,17 @@ Management options are:
 EOF
 }
 
+# INSTANCE: jenkins (jenkins/jenkins:lts)
+function jenkins() {
+  docker start jenkins || $DOCKER_CMD \
+    -p 8080:8080 \
+    -p 50000:50000 \
+    -v /Users/ian.anderson/jenkins_home:/var/jenkins_home \
+    --name jenkins \
+    jenkins/jenkins:lts
+  echo "jenkins running at 127.0.0.1:8080"
+}
+
 # INSTANCE: splunk (splunk:latest)
 function splunk() {
   docker start splunk || $DOCKER_CMD \

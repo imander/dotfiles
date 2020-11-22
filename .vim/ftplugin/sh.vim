@@ -1,4 +1,4 @@
 augroup imander-shell
   autocmd!
-  autocmd BufWritePre * :Autoformat
+  autocmd BufWritePre *.sh :Autoformat
 augroup END
