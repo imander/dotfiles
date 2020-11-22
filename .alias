@@ -32,6 +32,9 @@ alias se='source $HOME/.env'
 alias f=ifind
 alias da='direnv allow'
 alias venv='test -d .venv || python -mvenv .venv && source .venv/bin/activate'
+if [[ -x "$(command -v xclip)" ]]; then
+  alias pbcopy='xclip -selection clipboard'
+fi
 
 # Find biggest directories by disc usage
 alias ducks='du -cksh * | sort -rh | head -15'
