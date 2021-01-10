@@ -80,12 +80,18 @@ vim: formatters
 
 $(PLUGDIR)/coc.nvim-release:
 	cd $(PLUGDIR) && curl --fail -L https://github.com/neoclide/coc.nvim/archive/release.tar.gz|tar xzfv -
-	vim -c 'CocInstall -sync coc-snippets|q'
+	vim nonexistent -c 'CocInstall -sync coc-snippets|q'
+	vim nonexistent -c 'CocInstall -sync coc-go|q'
 
 $(VIM_MD):
 	mkdir -p '.vim/after/ftplugin/markdown/'
 	cp $(PLUGDIR)/vim-instant-markdown/after/ftplugin/markdown/instant-markdown.vim .vim/after/ftplugin/markdown/
 	sudo npm -g install instant-markdown-d
+
+.PHONY: update-plugins
+update-plugins:
+	rm -rf $(PLUGDIR)/*
+	@$(MAKE) vim
 
 .PHONY: clean-plugins
 clean-plugins:
