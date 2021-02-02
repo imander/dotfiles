@@ -57,6 +57,7 @@ alias gitb='git_checkout_branch'
 # golang stuff
 alias gtest='go test -v --bench . --benchmem'
 alias gfind='find . -name "*.go" -not -path "*/vendor/*"'
+alias nancy='go list -json -m all | docker run --rm -i sonatypecommunity/nancy:latest sleuth'
 
 # Docker aliases
 alias drun='docker run --rm'

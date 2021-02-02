@@ -1,11 +1,13 @@
-Chiel92/vim-autoformat
+aserebryakov/vim-todo-lists
 cespare/vim-toml
+chiel92/vim-autoformat
 editorconfig/editorconfig-vim
 fatih/vim-go
 glench/vim-jinja2-syntax
 honza/vim-snippets
 junegunn/fzf.vim
 martinda/jenkinsfile-vim-syntax
+neoclide/coc.nvim
 psf/black
 scrooloose/nerdtree
 suan/vim-instant-markdown

@@ -66,7 +66,13 @@ tmux:
 	ln -sfn "$(DIR)/.tmux.conf.local" "$(HOME)/.tmux.conf.local"
 
 .PHONY: vim
-vim: formatters
+vim: formatters vim-plugins
+	@ln -sfn $(DIR)/.vimrc $(HOME)/.vimrc
+	@ln -sfn $(DIR)/.vim $(HOME)/.vim
+	@$(MAKE) coc-install
+
+.PHONY: vim-plugins
+vim-plugins:
 	@mkdir -p $(PLUGDIR)
 	@cd $(PLUGDIR) && while read line; do \
 		plug_dir=`cut -d/ -f2 <<< $$line`; \
@@ -74,12 +80,10 @@ vim: formatters
 			git clone $(GH)/$${line}.git; \
 		fi \
 	done < $(DIR)/vim.plugins
-	@ln -sfn $(DIR)/.vimrc $(HOME)/.vimrc
-	@ln -sfn $(DIR)/.vim $(HOME)/.vim
-	@$(MAKE) $(PLUGDIR)/coc.nvim-release $(VIM_MD) clean-plugins
+	@$(MAKE) clean-plugins
 
-$(PLUGDIR)/coc.nvim-release:
-	cd $(PLUGDIR) && curl --fail -L https://github.com/neoclide/coc.nvim/archive/release.tar.gz|tar xzfv -
+.PHONY: coc-install
+coc-install:
 	vim nonexistent -c 'CocInstall -sync coc-snippets|q'
 	vim nonexistent -c 'CocInstall -sync coc-go|q'
 
