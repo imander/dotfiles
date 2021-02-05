@@ -1,0 +1,69 @@
+#!/usr/bin/env python
+# expect creds to be configured in ~/.netrc
+
+import sys
+from urllib.parse import urlparse, urlunparse
+import requests
+
+
+script = r"""
+def sout = new StringBuilder(), serr = new StringBuilder()
+def proc = ['/bin/bash', '-c', /{command}/].execute()
+proc.consumeProcessOutput(sout, serr)
+proc.waitForOrKill(60000)
+println "$sout$serr"
+"""
+
+
+class Jenkins:
+    def __init__(self, url):
+        self.current_dir = None
+        u = urlparse(url)
+        self.url = urlunparse(u._replace(path="/scriptText"))
+
+    def _change_dir(self, cmd):
+        if cmd == "cd":
+            self.current_dir = None
+            return True
+        elif cmd.startswith("cd "):
+            new_dir = cmd[3:].strip()
+            if self.current_dir is None or new_dir.startswith("/"):
+                self.current_dir = new_dir
+            else:
+                self.current_dir += "/" + new_dir
+            return True
+        return False
+
+    def _prompt(self):
+        if self.current_dir is None:
+            return "jenkins >>> "
+        return f"jenkins {self.current_dir} >>> "
+
+    def _parse_cmd(self, cmd):
+        # escape the slash
+        cmd = cmd.replace("/", "\\/")
+        if self.current_dir:
+            _dir = self.current_dir.replace("/", "\\/")
+            return f"cd {_dir} && {cmd}"
+        return cmd
+
+    def run(self):
+        while True:
+            try:
+                cmd = input(self._prompt())
+            except EOFError:
+                break
+            if cmd == "exit":
+                break
+            if self._change_dir(cmd):
+                continue
+            s = script.format(command=self._parse_cmd(cmd))
+            x = requests.post(self.url, data={"script": s})
+            print(x.text)
+
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("URL required")
+        sys.exit()
+    Jenkins(sys.argv[1]).run()
