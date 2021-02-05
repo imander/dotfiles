@@ -35,6 +35,7 @@ alias venv='test -d .venv || python -mvenv .venv && source .venv/bin/activate'
 if [[ -x "$(command -v xclip)" ]]; then
   alias pbcopy='xclip -selection clipboard'
 fi
+alias pandoc='docker run --rm -u "$UID:$GID" -v $(pwd):/data -w /data pandoc/core'
 
 # Find biggest directories by disc usage
 alias ducks='du -cksh * | sort -rh | head -15'
