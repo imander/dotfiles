@@ -35,10 +35,10 @@ function install_node() {
   curl -sL install-node.now.sh/lts | bash
 }
 
-sudo add-apt-repository ppa:jonathonf/vim
+sudo add-apt-repository -y ppa:jonathonf/vim
 sudo apt-get update
 # ensure latest vim
-sudo apt install vim
+sudo apt install -y vim
 
 while read package; do
   install "$package"
