@@ -24,7 +24,7 @@ function install_brew() {
 
 function install_cask() {
   log "Installing cask $cask"
-  brew cask install "$cask"
+  brew install --cask "$cask"
 }
 
 install_homebrew

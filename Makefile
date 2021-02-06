@@ -17,7 +17,7 @@ ifeq ($(UNAME_S),Darwin)
 endif
 
 .PHONY: all
-all: zsh bash bin env alias config vim tmux packages
+all: packages zsh bash bin env alias config vim tmux
 
 .PHONY: bin
 bin:
@@ -37,6 +37,14 @@ config:
 	mkdir -p "$(HOME)/.config"
 	ln -sfn "$(DIR)/.config/flake8" "$(HOME)/.config/flake8"
 	ln -sfn "$(DIR)/.editorconfig" "$(HOME)/.editorconfig"
+	@$(MAKE) $(UNAME_S)-config
+
+.PHONY: Darwin-config
+Darwin-config:
+	ln -sfn "$(DIR)/.config/karabiner.json" "$(HOME)/.config/karabiner/karabiner.json"
+
+.PHONY: Linux-config
+Linux-config:
 
 .PHONY: conky
 conky:

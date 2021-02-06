@@ -1,11 +1,12 @@
 base-devel
-aws-cli
+zsh
 dns-utils
 docker
 git
+vim
 go
+pyenv
+aws-cli
 jq
 kubectl
 nmap
-pandoc
-vim
