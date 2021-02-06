@@ -24,11 +24,17 @@ function install() {
 
 function install_golang() {
   GO_VERSION='1.15.8'
+  log "installing golang $GO_VERSION"
   wget https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz
   sudo tar -C /usr/local -xzf "go${GO_VERSION}.linux-amd64.tar.gz"
+  rm -f "go${GO_VERSION}.linux-amd64.tar.gz"
 }
 
+sudo add-apt-repository ppa:jonathonf/vim
 sudo apt-get update
+# ensure latest vim
+sudo apt install vim
+
 while read package; do
   install "$package"
 done <"${SCRIPT_DIR}/packages"
