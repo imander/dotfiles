@@ -37,6 +37,7 @@ config:
 	mkdir -p "$(HOME)/.config"
 	ln -sfn "$(DIR)/.config/flake8" "$(HOME)/.config/flake8"
 	ln -sfn "$(DIR)/.editorconfig" "$(HOME)/.editorconfig"
+	git config --global pull.ff only
 	@$(MAKE) $(UNAME_S)-config
 
 .PHONY: Darwin-config
