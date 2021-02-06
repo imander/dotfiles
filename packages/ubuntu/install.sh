@@ -45,6 +45,6 @@ while read package; do
 done <"${SCRIPT_DIR}/packages"
 
 which go || install_golang
-which node || install_golang
+which node || install_node
 
 exit 0
