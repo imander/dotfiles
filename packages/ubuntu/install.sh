@@ -32,7 +32,7 @@ function install_golang() {
 
 function install_node() {
   log "installing nodejs"
-  curl -sL install-node.now.sh/lts | bash
+  curl -sL install-node.now.sh/lts | sudo bash
 }
 
 sudo add-apt-repository -y ppa:jonathonf/vim
