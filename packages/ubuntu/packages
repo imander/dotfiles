@@ -1,0 +1,8 @@
+make
+build-essential
+docker.io
+git
+jq
+zsh
+npm
+golang
