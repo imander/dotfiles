@@ -8,6 +8,8 @@ zsh_dir  := $(HOME)/.oh-my-zsh
 # Filetype plugin for vim-markdown
 VIM_MD := .vim/after/ftplugin/markdown/instant-markdown.vim
 
+export PATH := $(PATH):/usr/local/go/bin:/usr/local/bin:$(HOME)/bin:$(HOME)/go/bin
+
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
 	ID = $(shell grep -oP '(?<=^ID=).+' /etc/os-release | tr -d '"')
