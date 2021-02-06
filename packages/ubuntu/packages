@@ -5,4 +5,5 @@ git
 jq
 zsh
 npm
-golang
+python3-pip
+wget

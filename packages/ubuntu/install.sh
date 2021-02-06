@@ -22,9 +22,17 @@ function install() {
   fi
 }
 
+function install_golang() {
+  GO_VERSION='1.15.8'
+  wget https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz
+  sudo tar -C /usr/local -xzf "go${GO_VERSION}.linux-amd64.tar.gz"
+}
+
 sudo apt-get update
 while read package; do
   install "$package"
 done <"${SCRIPT_DIR}/packages"
+
+which go || install_golang
 
 exit 0
