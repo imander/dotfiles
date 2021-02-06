@@ -1,23 +1,14 @@
-PS1='
-\[\033[01;32m\]\u@\h:\[\033[00m\]\[\033[01;31m\]$0\[\033[00m\] \[\033[01;34m\]\w\[\033[00m\]\n▶ '
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+function _ssh_connection() {
+  [ -z ${SSH_TTY+x} ] || echo -n "${RED}SSH:${NC}"
+}
+
+PS1="
+$(_ssh_connection)${GREEN}\u@\h:${RED}$0 ${BLUE}\w${NC}\n▶ "
 
 test -s ~/.env && source ~/.env || true
-
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/imander/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/imander/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/imander/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/imander/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+test -f ~/.fzf.bash && source ~/.fzf.bash
