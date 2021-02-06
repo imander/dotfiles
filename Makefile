@@ -10,7 +10,8 @@ VIM_MD := .vim/after/ftplugin/markdown/instant-markdown.vim
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
-	PKG_DIR = packages/arch
+	ID = $(shell grep -oP '(?<=^ID=).+' /etc/os-release | tr -d '"')
+	PKG_DIR = packages/$(ID)
 endif
 ifeq ($(UNAME_S),Darwin)
 	PKG_DIR = packages/osx
@@ -97,9 +98,11 @@ coc-install:
 	vim nonexistent -c 'CocInstall -sync coc-go|q'
 
 $(VIM_MD):
+ifneq (,$(DISPLAY))
 	mkdir -p '.vim/after/ftplugin/markdown/'
 	cp $(PLUGDIR)/vim-instant-markdown/after/ftplugin/markdown/instant-markdown.vim .vim/after/ftplugin/markdown/
 	sudo npm -g install instant-markdown-d
+endif
 
 .PHONY: update-plugins
 update-plugins:
@@ -118,12 +121,14 @@ clean-plugins:
 
 .PHONY: formatters
 formatters:
-	pip3 install --user sqlparse
+	which sqlformat || pip3 install --user sqlparse
 	which shfmt || go get -u mvdan.cc/sh/cmd/shfmt
 
 .PHONY: packages
 packages:
+ifneq (,$(PKG_DIR))
 	$(PKG_DIR)/install.sh
+endif
 
 .PHONY: commit
 commit:
