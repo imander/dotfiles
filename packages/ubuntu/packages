@@ -4,6 +4,5 @@ docker.io
 git
 jq
 zsh
-npm
 python3-pip
 wget

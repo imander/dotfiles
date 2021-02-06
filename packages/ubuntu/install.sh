@@ -30,6 +30,11 @@ function install_golang() {
   rm -f "go${GO_VERSION}.linux-amd64.tar.gz"
 }
 
+function install_node() {
+  log "installing nodejs"
+  curl -sL install-node.now.sh/lts | bash
+}
+
 sudo add-apt-repository ppa:jonathonf/vim
 sudo apt-get update
 # ensure latest vim
@@ -40,5 +45,6 @@ while read package; do
 done <"${SCRIPT_DIR}/packages"
 
 which go || install_golang
+which node || install_golang
 
 exit 0
