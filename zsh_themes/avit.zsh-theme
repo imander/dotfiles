@@ -1,7 +1,7 @@
 # AVIT ZSH Theme
 
 PROMPT='
-$(_user_host)$(_user_shell) ${_current_dir}$(git_prompt_info) $(_kubectl_config)
+$(_user_host)$(_user_shell $0) ${_current_dir}$(git_prompt_info) $(_kubectl_config)
 %{$fg[$CARETCOLOR]%}▶%{$resetcolor%} '
 
 PROMPT2='%{$fg[$CARETCOLOR]%}◀%{$reset_color%} '
@@ -30,7 +30,8 @@ function _user_host() {
 }
 
 function _user_shell() {
-  echo "$fg[red]$(basename $SHELL)%{$reset_color%}"
+  s=${1:-$SHELL}
+  echo "$fg[red]$(tr -cd '[:alnum:]' <<<$s)%{$reset_color%}"
 }
 
 function _kubectl_config() {
