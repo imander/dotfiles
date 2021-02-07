@@ -86,6 +86,9 @@ let NERDTreeQuitOnOpen = 1
 
 " CoC specific configuration
 "
+"default extensions to install on first load
+let g:coc_global_extensions = ['coc-go', 'coc-snippets', 'coc-python']
+
 " Coc completion to use tab
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :

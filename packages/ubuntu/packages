@@ -1,8 +1,9 @@
-make
 build-essential
 docker.io
 git
 jq
 zsh
 python3-pip
+python3-venv
+curl
 wget

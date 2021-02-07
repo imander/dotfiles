@@ -81,7 +81,6 @@ tmux:
 vim: formatters vim-plugins
 	@ln -sfn $(DIR)/.vimrc $(HOME)/.vimrc
 	@ln -sfn $(DIR)/.vim $(HOME)/.vim
-	@$(MAKE) coc-install
 
 .PHONY: vim-plugins
 vim-plugins:
@@ -93,11 +92,6 @@ vim-plugins:
 		fi \
 	done < $(DIR)/vim.plugins
 	@$(MAKE) clean-plugins
-
-.PHONY: coc-install
-coc-install:
-	vim nonexistent -c 'CocInstall -sync coc-snippets|q'
-	vim nonexistent -c 'CocInstall -sync coc-go|q'
 
 $(VIM_MD):
 ifneq (,$(DISPLAY))
