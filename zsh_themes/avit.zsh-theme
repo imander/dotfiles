@@ -30,7 +30,7 @@ function _user_host() {
 }
 
 function _user_shell() {
-  s=${1:-$SHELL}
+  s=$(sed 's/-//' <<<${1:-$SHELL})
   echo "$fg[red]$(basename $s | tr -cd '[:alnum:]')%{$reset_color%}"
 }
 
