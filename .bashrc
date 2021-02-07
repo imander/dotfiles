@@ -12,8 +12,16 @@ function _user_shell() {
   echo -n "${RED}$(basename "$s" | tr -cd '[:alnum:]')${NC}"
 }
 
+function _prompt_caret() {
+  if [[ $USER == "root" ]]; then
+    echo "\n${RED}▶${NC} "
+  else
+    echo "\n▶ "
+  fi
+}
+
 PS1="
-$(_ssh_connection)${GREEN}\u@\h:$(_user_shell $0) ${BLUE}\w${NC}\n▶ "
+$(_ssh_connection)${GREEN}\u@\h:$(_user_shell $0) ${BLUE}\w${NC}$(_prompt_caret)"
 
 test -s ~/.env && source ~/.env || true
 test -f ~/.fzf.bash && source ~/.fzf.bash
