@@ -14,9 +14,8 @@ UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
 	ID = $(shell grep -oP '(?<=^ID=).+' /etc/os-release | tr -d '"')
 	PKG_DIR = packages/$(ID)
-endif
-ifeq ($(UNAME_S),Darwin)
-	PKG_DIR = packages/osx
+else ifeq ($(UNAME_S),Darwin)
+	PKG_DIR = packages/darwin
 endif
 
 .PHONY: all
@@ -49,14 +48,10 @@ Darwin-config:
 
 .PHONY: Linux-config
 Linux-config:
-
-.PHONY: conky
-conky:
-ifeq (, $(shell which conky))
-	sudo pacman -S conky
-endif
+ifneq (,$(DISPLAY))
 	cp -r conky-fonts "$(HOME)/.local/share/fonts/"
 	ln -sfn "$(DIR)/conky" "$(HOME)/.config/conky"
+endif
 
 .PHONY: zsh
 zsh: $(zsh_dir)

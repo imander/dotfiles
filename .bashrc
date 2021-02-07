@@ -9,7 +9,7 @@ function _ssh_connection() {
 
 function _user_shell() {
   s=${1:-$SHELL}
-  echo -n "${RED}$(tr -cd '[:alnum:]' <<<$s)${NC}"
+  echo -n "${RED}$(basename "$s" | tr -cd '[:alnum:]')${NC}"
 }
 
 PS1="

@@ -4,9 +4,11 @@ dns-utils
 docker
 git
 vim
+tmux
 go
 pyenv
 aws-cli
 jq
 kubectl
 nmap
+conky

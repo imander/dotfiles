@@ -31,7 +31,7 @@ function _user_host() {
 
 function _user_shell() {
   s=${1:-$SHELL}
-  echo "$fg[red]$(tr -cd '[:alnum:]' <<<$s)%{$reset_color%}"
+  echo "$fg[red]$(basename $s | tr -cd '[:alnum:]')%{$reset_color%}"
 }
 
 function _kubectl_config() {
