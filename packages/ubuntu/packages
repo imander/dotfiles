@@ -1,6 +1,7 @@
 build-essential
 docker.io
 git
+git-flow
 jq
 zsh
 python3-pip
