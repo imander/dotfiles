@@ -35,6 +35,19 @@ function install_node() {
   curl -sL install-node.now.sh/lts | sudo bash -s -- --yes
 }
 
+function install_kubectl() {
+  curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+  sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+  rm -f kubectl
+}
+
+function install_gh() {
+  VER=1.5.0
+  curl -LO "https://github.com/cli/cli/releases/download/v1.5.0/gh_${VER}_linux_amd64.deb"
+  sudo apt install "./gh_${VER}_linux_amd64.deb"
+  rm -f "gh_${VER}_linux_amd64.deb"
+}
+
 sudo add-apt-repository -y ppa:jonathonf/vim
 sudo apt-get update
 # ensure latest vim
@@ -46,5 +59,7 @@ done <"${SCRIPT_DIR}/packages"
 
 which go || install_golang
 which node || install_node
+which kubectl || install_kubectl
+which gh || install_gh
 
 exit 0
