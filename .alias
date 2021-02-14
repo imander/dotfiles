@@ -112,3 +112,16 @@ function ldap-time {
     date -d @$t
   fi
 }
+
+# convert https git remotes to ssh
+function gssh {
+  git remote -v | awk '{print $1,$2}' | uniq | while read repo; do
+    url=$(awk '{print $2}' <<<$repo)
+    remote=$(awk '{print $1}' <<<$repo)
+    if [[ $url == https* ]]; then
+      ssh_repo=$(sed -e 's|https://|git@|' -e 's|/|:|' <<<$url)
+      git remote remove "$remote"
+      git remote add "$remote" "$ssh_repo"
+    fi
+  done
+}
