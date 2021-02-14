@@ -40,7 +40,11 @@ config:
 	ln -sfn "$(DIR)/.config/flake8" "$(HOME)/.config/flake8"
 	ln -sfn "$(DIR)/.editorconfig" "$(HOME)/.editorconfig"
 	git config --global pull.ff only
+	git config --global user.name imander
+	git config --global user.email 'github@imand3r.io'
 	@$(MAKE) $(UNAME_S)-config
+	git remote remove origin
+	git remote add origin git@github.com:imander/dotfiles.git
 
 .PHONY: Darwin-config
 Darwin-config:
