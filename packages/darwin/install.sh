@@ -42,4 +42,7 @@ while read cask; do
   install_cask
 done < <(grep -vf installed_brew_casks "${SCRIPT_DIR}/casks")
 
+# install key bindings for fzf
+$(brew --prefix)/opt/fzf/install --all
+
 exit 0
