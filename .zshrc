@@ -92,3 +92,4 @@ function chpwd {
     deactivate
   fi
 }
+test -d .venv && chpwd || true

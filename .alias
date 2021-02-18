@@ -37,6 +37,15 @@ if [[ -x "$(command -v xclip)" ]]; then
 fi
 alias pandoc='docker run --rm -u "$UID:$GID" -v $(pwd):/data -w /data pandoc/core'
 
+# Automatically set user-agent for curl and wget to Chrome on OS type
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  export AGENT='Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36'
+else
+  export AGENT='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36'
+fi
+alias curl="curl -A '$AGENT'"
+alias wget="wget -U '$AGENT'"
+
 # Find biggest directories by disc usage
 alias ducks='du -cksh * | sort -rh | head -15'
 
