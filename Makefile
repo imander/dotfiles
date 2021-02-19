@@ -39,12 +39,14 @@ config:
 	mkdir -p "$(HOME)/.config"
 	ln -sfn "$(DIR)/.config/flake8" "$(HOME)/.config/flake8"
 	ln -sfn "$(DIR)/.editorconfig" "$(HOME)/.editorconfig"
+	ln -sfn "$(DIR)/gitignore" "$(HOME)/.gitignore"
 	git config --global pull.ff only
 	git config --global user.name imander
 	git config --global user.email 'github@imand3r.io'
-	@$(MAKE) $(UNAME_S)-config
+	git config --global core.excludesfile "$(HOME)/.gitignore"
 	git remote remove origin
 	git remote add origin git@github.com:imander/dotfiles.git
+	@$(MAKE) $(UNAME_S)-config
 
 .PHONY: Darwin-config
 Darwin-config:
@@ -54,6 +56,7 @@ Darwin-config:
 
 .PHONY: Linux-config
 Linux-config:
+	which zsh && sudo chsh -s "$$(which zsh)" "$(USER)"
 ifneq (,$(DISPLAY))
 	cp -r conky-fonts "$(HOME)/.local/share/fonts/"
 	ln -sfn "$(DIR)/conky" "$(HOME)/.config/conky"
