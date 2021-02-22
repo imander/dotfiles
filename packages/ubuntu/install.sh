@@ -48,6 +48,11 @@ function install_gh() {
   rm -f "gh_${VER}_linux_amd64.deb"
 }
 
+function install_fzf() {
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install --all
+}
+
 sudo add-apt-repository -y ppa:jonathonf/vim
 sudo apt-get update
 # ensure latest vim
@@ -61,5 +66,6 @@ which go || install_golang
 which node || install_node
 which kubectl || install_kubectl
 which gh || install_gh
+which fzf || install_fzf
 
 exit 0

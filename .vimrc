@@ -1,3 +1,4 @@
+set rtp+=~/.fzf
 syntax enable
 
 set number
@@ -138,9 +139,9 @@ augroup VimRC
   autocmd bufwritepost .vimrc source %
 
   " set nerdtree toggle shortcut and make open at startup
-  autocmd StdinReadPre * let s:std_in=1
-  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-  autocmd VimEnter * set winfixwidth
+  " autocmd StdinReadPre * let s:std_in=1
+  " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+  " autocmd VimEnter * set winfixwidth
 
   " Quit vim if nerdtree is only buffer open
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
