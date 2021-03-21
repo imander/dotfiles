@@ -71,13 +71,6 @@ bindkey "^u" backward-kill-line
 
 unsetopt share_history
 
-# set environment variables last to take preference
-test -s ~/.env && source ~/.env || true
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
-[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
-
 # hook direnv into shell
 if [ -x "$(command -v direnv)" ]; then
   eval "$(direnv hook zsh)"
@@ -93,3 +86,15 @@ function chpwd {
   fi
 }
 test -d .venv && chpwd || true
+
+[ -s ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -s /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
+[ -s /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
+[ -s ~/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source ~/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+(( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[path]=none
+ZSH_HIGHLIGHT_STYLES[path_prefix]=none
+
+# set environment variables last to take preference
+[ -s ~/.env ] && source ~/.env || true
