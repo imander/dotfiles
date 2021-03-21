@@ -1,5 +1,13 @@
 # AVIT ZSH Theme
 
+if [[ $USER == "root" ]]; then
+  CARETCOLOR="red"
+  USERCOLOR="red"
+else
+  CARETCOLOR="white"
+  USERCOLOR="244"
+fi
+
 PROMPT='
 $(_user_host)$(_user_shell $0) ${_current_dir}$(git_prompt_info) $(_kubectl_config)
 %{$fg[$CARETCOLOR]%}▶%{$resetcolor%} '
@@ -24,14 +32,14 @@ function _current_dir() {
 function _user_host() {
   local user_ssh=''
   if [[ ! -z "$SSH_TTY" ]]; then
-    user_ssh="%{$fg[red]%}SSH:%{$reset_color%}"
+    user_ssh="%{$FG[196]%}SSH:%{$reset_color%}"
   fi
-  echo "${user_ssh}%{$fg[green]%}%n@%m%{$reset_color%}:"
+  echo "${user_ssh}%{$FG[$USERCOLOR]%}%n@%m%{$reset_color%}:"
 }
 
 function _user_shell() {
   s=$(sed 's/-//' <<<${1:-$SHELL})
-  echo "$fg[red]$(basename $s | tr -cd '[:alnum:]')%{$reset_color%}"
+  echo "$FG[196]$(basename $s | tr -cd '[:alnum:]')%{$reset_color%}"
 }
 
 function _kubectl_config() {
@@ -43,22 +51,16 @@ function _kubectl_config() {
   fi
 }
 
-if [[ $USER == "root" ]]; then
-  CARETCOLOR="red"
-else
-  CARETCOLOR="white"
-fi
-
 MODE_INDICATOR="%{$fg_bold[yellow]%}❮%{$reset_color%}%{$fg[yellow]%}❮❮%{$reset_color%}"
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[green]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 
-ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}✗%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY=" %{$FG[196]%}✗%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN=" %{$fg[green]%}✔%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[green]%}✚ "
 ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[yellow]%}⚑ "
-ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%}✖ "
+ZSH_THEME_GIT_PROMPT_DELETED="%{$FG[196]%}✖ "
 ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[blue]%}▴ "
 ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[cyan]%}§ "
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[white]%}◒ "
@@ -66,7 +68,7 @@ ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[white]%}◒ "
 # Colors vary depending on time lapsed.
 ZSH_THEME_GIT_TIME_SINCE_COMMIT_SHORT="%{$fg[green]%}"
 ZSH_THEME_GIT_TIME_SHORT_COMMIT_MEDIUM="%{$fg[yellow]%}"
-ZSH_THEME_GIT_TIME_SINCE_COMMIT_LONG="%{$fg[red]%}"
+ZSH_THEME_GIT_TIME_SINCE_COMMIT_LONG="%{$FG[196]%}"
 ZSH_THEME_GIT_TIME_SINCE_COMMIT_NEUTRAL="%{$fg[white]%}"
 
 export GREP_COLOR='1;33'
