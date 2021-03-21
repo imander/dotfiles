@@ -1,18 +1,16 @@
 # AVIT ZSH Theme
 
 if [[ $USER == "root" ]]; then
-  CARETCOLOR="red"
-  USERCOLOR="red"
+  CARETCOLOR="$FG[196]"
 else
-  CARETCOLOR="white"
-  USERCOLOR="244"
+  CARETCOLOR="$FG[007]"
 fi
 
 PROMPT='
 $(_user_host)$(_user_shell $0) ${_current_dir}$(git_prompt_info) $(_kubectl_config)
-%{$fg[$CARETCOLOR]%}▶%{$resetcolor%} '
+%{$CARETCOLOR%}▶%{$resetcolor%} '
 
-PROMPT2='%{$fg[$CARETCOLOR]%}◀%{$reset_color%} '
+PROMPT2='%{$CARETCOLOR%}◀%{$reset_color%} '
 
 RPROMPT='%{$(echotc UP 1)%}$(git_prompt_status) ${_return_status}%{$(echotc DO 1)%}'
 
@@ -30,11 +28,16 @@ function _current_dir() {
 }
 
 function _user_host() {
+  if [[ $USER == "root" ]]; then
+    UCOLOR="$FG[196]%n$FG[244]"
+  else
+    UCOLOR="$FG[244]%n"
+  fi
   local user_ssh=''
   if [[ ! -z "$SSH_TTY" ]]; then
     user_ssh="%{$FG[196]%}SSH:%{$reset_color%}"
   fi
-  echo "${user_ssh}%{$FG[$USERCOLOR]%}%n@%m%{$reset_color%}:"
+  echo "${user_ssh}%{$UCOLOR%}@%m%{$reset_color%}:"
 }
 
 function _user_shell() {
