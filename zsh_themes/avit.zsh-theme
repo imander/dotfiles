@@ -49,7 +49,7 @@ function _kubectl_config() {
   if which kubectl &> /dev/null; then
     context=$(kubectl config current-context 2>/dev/null)
     if [[ -n "$context" ]]; then
-      echo "‹$context›"
+      echo "%{$FG[213]%}$context%{$reset_color%}"
     fi
   fi
 }
