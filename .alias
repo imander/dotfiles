@@ -10,6 +10,7 @@ alias ltr='ls -ltrh|tail'
 alias c='clear'
 if [[ -x "$(command -v rg)" ]]; then
   alias grep='rg'
+  export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --ignore-file ~/.fzf.ignore'
 fi
 alias cd..='cd ..'
 alias .='cd ..'

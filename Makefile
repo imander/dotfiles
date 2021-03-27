@@ -40,6 +40,7 @@ config:
 	ln -sfn "$(DIR)/.config/flake8" "$(HOME)/.config/flake8"
 	ln -sfn "$(DIR)/.editorconfig" "$(HOME)/.editorconfig"
 	ln -sfn "$(DIR)/gitignore" "$(HOME)/.gitignore"
+	ln -sfn "$(DIR)/fzf.ignore" "$(HOME)/.fzf.ignore"
 	[ -d "$(HOME)/.config/zsh-syntax-highlighting" ] || git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$(HOME)/.config/zsh-syntax-highlighting"
 	git config --global pull.ff only
 	git config --global user.name imander
