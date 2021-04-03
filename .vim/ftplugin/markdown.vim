@@ -4,7 +4,6 @@ let g:instant_markdown_mathjax = 1
 
 " set syntax highlighting and folding for markdown
 let g:markdown_fenced_languages = ['html', 'python', 'ruby', 'bash=sh', 'sql', 'go']
-let g:markdown_folding = 1
 
 map <leader>rr :InstantMarkdownPreview<cr>
 map <leader>rs :InstantMarkdownStop<cr>
