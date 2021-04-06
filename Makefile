@@ -58,7 +58,9 @@ Darwin-config:
 
 .PHONY: Linux-config
 Linux-config:
+ifneq (,$(USER))
 	which zsh && sudo chsh -s "$$(which zsh)" "$(USER)"
+endif
 ifneq (,$(DISPLAY))
 	cp -r conky-fonts "$(HOME)/.local/share/fonts/"
 	ln -sfn "$(DIR)/conky" "$(HOME)/.config/conky"
