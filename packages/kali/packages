@@ -1,0 +1,9 @@
+build-essential
+git
+jq
+zsh
+python3-pip
+python3-venv
+curl
+wget
+tmux
