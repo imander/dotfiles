@@ -6,6 +6,11 @@ IFS=$'\n\t'
 SCRIPT_DIR=$(dirname $0)
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
+SUDO='sudo'
+
+if [ $(id -u) -eq 0 ]; then
+  SUDO=''
+fi
 
 function log() {
   msg=${1:-}
@@ -17,7 +22,7 @@ function install() {
   if [[ -n "$pkg" ]]; then
     apt -qq list "$pkg" 2>/dev/null | grep -q 'installed' || (
       log "installing $pkg"
-      sudo apt-get install -y "$pkg"
+      $SUDO apt-get install -y "$pkg"
     )
   fi
 }
@@ -26,13 +31,13 @@ function install_golang() {
   GO_VERSION='1.16.3'
   log "installing golang $GO_VERSION"
   wget https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz
-  sudo tar -C /usr/local -xzf "go${GO_VERSION}.linux-amd64.tar.gz"
+  $SUDO tar -C /usr/local -xzf "go${GO_VERSION}.linux-amd64.tar.gz"
   rm -f "go${GO_VERSION}.linux-amd64.tar.gz"
 }
 
 function install_node() {
   log "installing nodejs"
-  curl -sL install-node.now.sh/lts | sudo bash -s -- --yes
+  curl -sL install-node.now.sh/lts | $SUDO bash -s -- --yes
 }
 
 function install_fzf() {
@@ -40,10 +45,10 @@ function install_fzf() {
   ~/.fzf/install --all
 }
 
-sudo add-apt-repository -y ppa:jonathonf/vim
-sudo apt-get update
+$SUDO add-apt-repository -y ppa:jonathonf/vim
+$SUDO apt-get update
 # ensure latest vim
-sudo apt install -y vim
+$SUDO apt install -y vim
 
 while read package; do
   install "$package"
