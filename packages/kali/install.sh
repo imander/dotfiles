@@ -45,10 +45,7 @@ function install_fzf() {
   ~/.fzf/install --all
 }
 
-$SUDO add-apt-repository -y ppa:jonathonf/vim
 $SUDO apt-get update
-# ensure latest vim
-$SUDO apt install -y vim
 
 while read package; do
   install "$package"
