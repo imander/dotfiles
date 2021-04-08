@@ -136,3 +136,8 @@ function gssh {
     fi
   done
 }
+
+# fix ssh variables when connecting through tmux
+function fixssh() {
+  eval $(tmux show-env -s |grep '^SSH_')
+}
