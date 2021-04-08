@@ -38,6 +38,7 @@ if [[ -x "$(command -v xclip)" ]]; then
 fi
 alias pandoc='docker run --rm -u "$UID:$GID" -v $(pwd):/data -w /data pandoc/core'
 alias serve='python -m http.server'
+alias fs="fixssh"
 
 # Automatically set user-agent for curl and wget to Chrome on OS type
 if [[ "$(uname -s)" == "Darwin" ]]; then
