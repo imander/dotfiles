@@ -80,6 +80,7 @@ alias dkill='docker kill'
 alias dps='docker ps'
 alias dpsa='docker ps -a'
 alias dpurge='docker system prune -a -f'
+alias dhist='docker history --format "{{.CreatedBy}}" --no-trunc'
 
 function internal_ip {
   if [[ "$OSTYPE" == "darwin"* ]]; then
