@@ -5,6 +5,7 @@ import sys
 from urllib.parse import urlparse, urlunparse
 import requests
 
+import cmd
 
 script = r"""
 def sout = new StringBuilder(), serr = new StringBuilder()
@@ -15,8 +16,12 @@ println "$sout$serr"
 """
 
 
-class Jenkins:
+class Jenkins(cmd.Cmd):
+    _default_prompt = "jenkins >>> "
+    prompt = _default_prompt
+
     def __init__(self, url):
+        super().__init__()
         self.current_dir = None
         u = urlparse(url)
         self.url = urlunparse(u._replace(path="/scriptText"))
@@ -36,7 +41,7 @@ class Jenkins:
 
     def _prompt(self):
         if self.current_dir is None:
-            return "jenkins >>> "
+            return self._default_prompt
         return f"jenkins {self.current_dir} >>> "
 
     def _parse_cmd(self, cmd):
@@ -47,23 +52,19 @@ class Jenkins:
             return f"cd {_dir} && {cmd}"
         return cmd
 
-    def run(self):
-        while True:
-            try:
-                cmd = input(self._prompt())
-            except EOFError:
-                break
-            if cmd == "exit":
-                break
-            if self._change_dir(cmd):
-                continue
-            s = script.format(command=self._parse_cmd(cmd))
-            x = requests.post(self.url, data={"script": s})
-            print(x.text)
+    def default(self, cmd):
+        if cmd == "exit":
+            sys.exit(0)
+        if self._change_dir(cmd):
+            Jenkins.prompt = self._prompt()
+            return
+        s = script.format(command=self._parse_cmd(cmd))
+        x = requests.post(self.url, data={"script": s})
+        print(x.text)
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("URL required")
         sys.exit()
-    Jenkins(sys.argv[1]).run()
+    Jenkins(sys.argv[1]).cmdloop()

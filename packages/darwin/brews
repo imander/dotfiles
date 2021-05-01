@@ -1,3 +1,4 @@
+alacritty
 awscli
 direnv
 fzf
@@ -5,6 +6,7 @@ gh
 git
 git-flow-avh
 go
+hammerspoon
 htop
 jq
 kubernetes-cli
