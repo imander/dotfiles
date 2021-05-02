@@ -70,9 +70,10 @@ set pastetoggle=<F8>
 
 let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
-let g:rehash256 = 1
-let g:molokai_original = 1
-colorscheme molokai
+" let g:rehash256 = 1
+" let g:molokai_original = 1
+" colorscheme molokai
+colorscheme imander
 
 " shortcut to edit vimrc
 map <leader>v :edit ~/.vimrc<cr>
@@ -113,6 +114,9 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " always show signcolumns
 set signcolumn=yes
+
+" highlight the cursorline
+set cursorline
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
