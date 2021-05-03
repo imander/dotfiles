@@ -14,7 +14,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-hi Normal     guifg=#c6c6c6 guibg=#161616
+hi Normal     guifg=#c6c6c6 guibg=#1F1F1F
 hi Comment    guifg=#707070
 hi NonText    guifg=#707070
 hi Delimiter  guifg=#707070
@@ -27,7 +27,7 @@ hi VertSplit  guifg=bg      guibg=#F1FF00
 hi clear CursorLine
 hi CursorLineNR guifg=#F1FF00 cterm=none
 
-hi String       guifg=#E2D065
+hi String       guifg=#CAC75E
 hi Number       guifg=#9940E9
 hi Float        guifg=#9940E9
 hi Boolean      guifg=#9940E9
