@@ -15,4 +15,5 @@ tpope/vim-fugitive
 tpope/vim-sensible
 tpope/vim-surround
 vim-airline/vim-airline
+vim-airline/vim-airline-themes
 xuyuanp/nerdtree-git-plugin
