@@ -28,13 +28,11 @@ hi clear CursorLine
 hi CursorLineNR guifg=#F1FF00 cterm=none
 
 hi String       guifg=#FFE548
+hi Character    guifg=#FFE548
 
 hi Number       guifg=#FD971F
 hi Float        guifg=#FD971F
 hi Boolean      guifg=#FD971F
-" hi Number       guifg=#AA4BFF
-" hi Float        guifg=#AA4BFF
-" hi Boolean      guifg=#AA4BFF
 
 hi Keyword      guifg=#C76DFF
 hi Operator     guifg=#C76DFF
@@ -43,13 +41,6 @@ hi SpecialChar  guifg=#C76DFF
 hi Statement    guifg=#C76DFF
 hi Tag          guifg=#C76DFF
 hi Conditional  guifg=#C76DFF
-" hi Keyword      guifg=#EF005F
-" hi Operator     guifg=#EF005F
-" hi Repeat       guifg=#EF005F
-" hi SpecialChar  guifg=#EF005F
-" hi Statement    guifg=#EF005F
-" hi Tag          guifg=#EF005F
-" hi Conditional  guifg=#EF005F
 
 hi Visual       guibg=#403D3D
 hi Identifier   guifg=#50DF28
