@@ -27,19 +27,32 @@ hi VertSplit  guifg=bg      guibg=#F1FF00
 hi clear CursorLine
 hi CursorLineNR guifg=#F1FF00 cterm=none
 
-hi String       guifg=#CAC75E
-hi Number       guifg=#9940E9
-hi Float        guifg=#9940E9
-hi Boolean      guifg=#9940E9
-hi Keyword      guifg=#FF00A5
-hi Operator     guifg=#FF00A5
-hi Repeat       guifg=#FF00A5
-hi SpecialChar  guifg=#FF00A5
-hi Statement    guifg=#FF00A5
-hi Tag          guifg=#FF00A5
-hi Conditional  guifg=#FF00A5
+hi String       guifg=#FFE548
+
+hi Number       guifg=#FD971F
+hi Float        guifg=#FD971F
+hi Boolean      guifg=#FD971F
+" hi Number       guifg=#AA4BFF
+" hi Float        guifg=#AA4BFF
+" hi Boolean      guifg=#AA4BFF
+
+hi Keyword      guifg=#C76DFF
+hi Operator     guifg=#C76DFF
+hi Repeat       guifg=#C76DFF
+hi SpecialChar  guifg=#C76DFF
+hi Statement    guifg=#C76DFF
+hi Tag          guifg=#C76DFF
+hi Conditional  guifg=#C76DFF
+" hi Keyword      guifg=#EF005F
+" hi Operator     guifg=#EF005F
+" hi Repeat       guifg=#EF005F
+" hi SpecialChar  guifg=#EF005F
+" hi Statement    guifg=#EF005F
+" hi Tag          guifg=#EF005F
+" hi Conditional  guifg=#EF005F
+
 hi Visual       guibg=#403D3D
-hi Identifier   guifg=#FD971F
+hi Identifier   guifg=#50DF28
 hi Function     guifg=#50DF28
 hi PreCondit    guifg=#50DF28
 hi PreProc      guifg=#50DF28
@@ -61,6 +74,7 @@ hi Directory         guifg=#7b7b7b
 hi NERDTreeDirSlash  guifg=#FF0000
 hi NERDTreeExecFile  guifg=#38FF00
 hi NERDTreeCWD       guifg=#0045FF
+hi NERDTreeLinkFile  guifg=#FF00FC
 
 " Spelling
 hi SpellBad  guifg=#FF0000 cterm=underline

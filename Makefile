@@ -14,8 +14,10 @@ UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
 	ID = $(shell grep -oP '(?<=^ID=).+' /etc/os-release | tr -d '"')
 	PKG_DIR = packages/$(ID)
+	SED_CMD = sed -i
 else ifeq ($(UNAME_S),Darwin)
 	PKG_DIR = packages/darwin
+	SED_CMD = sed -i ''
 endif
 
 .PHONY: all
@@ -102,6 +104,7 @@ vim-plugins:
 		fi \
 	done < $(DIR)/vim.plugins
 	@$(MAKE) clean-plugins
+	$(SED_CMD) 's/9cffd3/00CFFC/g' .vim/pack/plugins/start/vim-airline/autoload/airline/themes/dark.vim
 
 $(VIM_MD):
 ifneq (,$(DISPLAY))
