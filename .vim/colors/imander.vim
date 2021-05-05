@@ -30,9 +30,10 @@ hi CursorLineNR guifg=#F1FF00 cterm=none
 hi String       guifg=#FFE548
 hi Character    guifg=#FFE548
 
-hi Number       guifg=#FD971F
-hi Float        guifg=#FD971F
-hi Boolean      guifg=#FD971F
+hi Number       guifg=#FD8900
+hi Float        guifg=#FD8900
+hi Boolean      guifg=#FD8900
+hi Identifier   guifg=#FD8900
 
 hi Keyword      guifg=#C76DFF
 hi Operator     guifg=#C76DFF
@@ -41,9 +42,9 @@ hi SpecialChar  guifg=#C76DFF
 hi Statement    guifg=#C76DFF
 hi Tag          guifg=#C76DFF
 hi Conditional  guifg=#C76DFF
+hi Constant  guifg=#FFFFFF
 
 hi Visual       guibg=#403D3D
-hi Identifier   guifg=#50DF28
 hi Function     guifg=#50DF28
 hi PreCondit    guifg=#50DF28
 hi PreProc      guifg=#50DF28
