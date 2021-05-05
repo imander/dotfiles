@@ -30,10 +30,11 @@ hi CursorLineNR guifg=#F1FF00 cterm=none
 hi String       guifg=#FFE548
 hi Character    guifg=#FFE548
 
-hi Number       guifg=#FD8900
-hi Float        guifg=#FD8900
 hi Boolean      guifg=#FD8900
+hi Constant     guifg=#FD8900
+hi Float        guifg=#FD8900
 hi Identifier   guifg=#FD8900
+hi Number       guifg=#FD8900
 
 hi Keyword      guifg=#C76DFF
 hi Operator     guifg=#C76DFF
