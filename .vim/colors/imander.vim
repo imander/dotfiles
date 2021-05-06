@@ -36,14 +36,15 @@ hi Float        guifg=#FD8900
 hi Identifier   guifg=#FD8900
 hi Number       guifg=#FD8900
 
-hi Keyword      guifg=#C76DFF
-hi Operator     guifg=#C76DFF
-hi Repeat       guifg=#C76DFF
-hi SpecialChar  guifg=#C76DFF
-hi Statement    guifg=#C76DFF
-hi Tag          guifg=#C76DFF
-hi Conditional  guifg=#C76DFF
-hi Constant     guifg=#C76DFF
+hi Keyword      guifg=#AB59FF
+hi Operator     guifg=#AB59FF
+hi Repeat       guifg=#AB59FF
+hi SpecialChar  guifg=#AB59FF
+hi Statement    guifg=#AB59FF
+hi Tag          guifg=#AB59FF
+hi Conditional  guifg=#AB59FF
+hi Constant     guifg=#AB59FF
+hi makeCommands guifg=#AB59FF
 
 hi Visual       guibg=#403D3D
 hi Function     guifg=#50DF28
