@@ -43,7 +43,7 @@ hi SpecialChar  guifg=#C76DFF
 hi Statement    guifg=#C76DFF
 hi Tag          guifg=#C76DFF
 hi Conditional  guifg=#C76DFF
-hi Constant  guifg=#FFFFFF
+hi Constant     guifg=#C76DFF
 
 hi Visual       guibg=#403D3D
 hi Function     guifg=#50DF28
