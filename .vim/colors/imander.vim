@@ -35,6 +35,8 @@ hi Constant     guifg=#FD8900
 hi Float        guifg=#FD8900
 hi Identifier   guifg=#FD8900
 hi Number       guifg=#FD8900
+hi MatchParen   guifg=#000000 guibg=#FD8900
+hi Todo         guifg=#FD8900 guibg=bg
 
 hi Keyword      guifg=#AB59FF
 hi Operator     guifg=#AB59FF
@@ -55,9 +57,6 @@ hi Typedef      guifg=#00CFFC
 hi Type         guifg=#00CFFC
 hi Special      guifg=#00CFFC
 hi Define       guifg=#00CFFC
-
-hi MatchParen   guifg=#000000 guibg=#FD971F
-hi Todo         guifg=#FD971F guibg=bg
 
 " Folds
 hi FoldColumn  guifg=#707070 guibg=#252525
