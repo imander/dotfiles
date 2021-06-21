@@ -1,5 +1,6 @@
 BLUE='\033[0;34m'
 GREEN='\033[0;32m'
+MAGENTA='\033[0;95m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
@@ -20,8 +21,17 @@ function _prompt_caret() {
   fi
 }
 
+function _kubectl_config() {
+  if which kubectl &> /dev/null; then
+    context=$(kubectl config current-context 2>/dev/null)
+    if [[ -n "$context" ]]; then
+      echo " ${MAGENTA}$context${NC} "
+    fi
+  fi
+}
+
 PS1="
-$(_ssh_connection)${GREEN}\u@\h:$(_user_shell $0) ${BLUE}\w${NC}$(_prompt_caret)"
+$(_ssh_connection)${GREEN}\u@\h:$(_user_shell $0) ${BLUE}\w${NC}$(_kubectl_config)$(_prompt_caret)"
 
 test -s ~/.env && source ~/.env || true
 test -f ~/.fzf.bash && source ~/.fzf.bash
