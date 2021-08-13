@@ -9,6 +9,7 @@ set list
 set tabstop=2
 set shiftwidth=2
 set expandtab
+set smartcase
 
 " Ensure undo history is not lost with buffer changes
 set hidden
@@ -26,6 +27,7 @@ nnoremap <leader>ft :NERDTreeToggle<cr>
 nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q<cr>
 nnoremap <leader>wq :wq<cr>
+nnoremap <leader>wa :wa<cr>
 
 " set shortcuts to copy/paste using system clipboard
 noremap <Leader>y "+y

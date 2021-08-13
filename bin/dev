@@ -167,6 +167,10 @@ function jupyter() {
     --name jupyter jupyter/datascience-notebook && docker logs -f jupyter
 }
 
+function generic() {
+  docker run --network development -it -v "${PWD}:/data:rw" $1 /bin/bash
+}
+
 # INSTANCE: pod (ubuntu pod in kubernetes)
 function pod() {
   cat <<EOF >pod.yml
@@ -231,6 +235,8 @@ elif [[ $1 == stop ]]; then
   dev_stop $@
 elif [[ $1 == clean ]]; then
   dev_clean
+elif [[ $1 == run ]]; then
+  generic $2
 else
   $1 $@
 fi
