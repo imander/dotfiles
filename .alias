@@ -143,3 +143,8 @@ function gssh {
 function fixssh() {
   eval $(tmux show-env -s |grep '^SSH_')
 }
+
+# generate a self-signed TLS certificate
+function cert() {
+  openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365 -subj "/CN=$1" -nodes
+}
