@@ -86,7 +86,7 @@ function internal_ip {
   if [[ "$OSTYPE" == "darwin"* ]]; then
     ifconfig| egrep '(^[a-zA-Z]|\sinet[^6])' | egrep -B1 '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | awk -v RS=$'--' 'NF {print $1, $6}'|column -t
   else
-    ip addr | egrep -o '(^[0-9]+:\s+[0-9a-z]+|\sinet[^6].*)' | egrep -B1 '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | awk -v RS=$'[0-9]:' 'NF {print $1, $3}' | column -t
+    ip -br -c addr | column -t
   fi
 }
 
