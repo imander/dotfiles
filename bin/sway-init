@@ -1,0 +1,10 @@
+#!/usr/bin/bash
+if grep -q open /proc/acpi/button/lid/LID/state; then
+    swaymsg output eDP-1 enable
+else
+    swaymsg output eDP-1 disable
+fi
+
+if ! pgrep slack >/dev/null; then echo "Launching slack..." && swaymsg "workspace 2; exec /usr/bin/slack"; fi
+if ! pgrep brave >/dev/null; then echo "Launching brave..." && swaymsg "workspace 2; exec /usr/bin/brave"; fi
+if ! pgrep mailspring >/dev/null; then echo "Launching mailspring..." && swaymsg "workspace 2; exec /usr/bin/mailspring"; fi
