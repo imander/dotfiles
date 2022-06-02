@@ -1,7 +1,8 @@
 alias sa='source ~/.alias'
 
 # alias vim='vim -X' # improve startup time by not connecting to x-server
-alias vi='vim'
+alias vi='nvim'
+alias vim='nvim'
 alias vf='vim $(fzf -m)'
 alias l='ls -lh'
 alias la='ls -lah'
@@ -32,7 +33,7 @@ alias s='source'
 alias se='source $HOME/.env'
 alias f=ifind
 alias da='direnv allow'
-alias venv='test -d .venv || python -mvenv .venv && source .venv/bin/activate'
+alias venv='test -d .venv || python -mvenv .venv && source .venv/bin/activate && pip install pynvim'
 if [[ -x "$(command -v xclip)" ]]; then
   alias pbcopy='xclip -selection clipboard'
 fi
@@ -96,7 +97,7 @@ function ifind {
 
 # terraform
 function tf {
-  docker run --rm -it -w /tf -v "$HOME/.aws":/root/.aws -v "$PWD":/tf hashicorp/terraform "$@" -auto-approve
+  docker run --rm -it -w /tf -v "$HOME/.aws":/root/.aws -v "$PWD":/tf hashicorp/terraform "$@"
 }
 
 function git_checkout_branch {

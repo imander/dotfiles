@@ -15,6 +15,7 @@ set smartcase
 set hidden
 
 let mapleader = "\<Space>"
+let g:python3_host_prog = $HOME . '/.asdf/shims/python'
 
 " shortcut to save file with sudo
 command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
@@ -154,6 +155,8 @@ augroup VimRC
 
   " set syntax for odd file extensions
   autocmd BufNewFile,BufRead .envrc set syntax=sh
+  au BufNewFile,BufRead,BufReadPost Dockerfile.* set syntax=dockerfile
+
 
   " load templates when files are new
   autocmd BufNewFile *.sh 0r ~/.vim/templates/sh.tmpl

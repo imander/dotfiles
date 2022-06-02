@@ -28,6 +28,7 @@ function jenkins() {
     -p 50000:50000 \
     -v /Users/ian.anderson/jenkins_home:/var/jenkins_home \
     --name jenkins \
+    --user "$(id -u):$(id -g)" \
     jenkins/jenkins:lts
   echo "jenkins running at 127.0.0.1:8080"
 }
@@ -82,14 +83,17 @@ function grafana() {
 # INSTANCE: tflow (jupyter/tensorflow-notebook:latest)
 function tflow() {
   docker start tflow ||
-    $DOCKER_CMD -p 127.0.0.1:15000:8888 \
+    $DOCKER_CMD -p 127.0.0.1:8888:8888 \
       -e JUPYTER_ENABLE_LAB=yes \
-      -v "$PWD:/home/jovyan/work:rw" \
+      -e NB_UID="$(id -u)" \
+      -e NB_GID="$(id -g)" \
+      -u root \
+      -v "${PWD}":/home/jovyan/work \
       --name tflow \
       jupyter/tensorflow-notebook:latest
   sleep 5
-  URL=$(docker logs tflow 2>&1 | egrep -o 'http://127.0.0.1:8888/\?token=[0-9a-f]+' | tail -1)
-  echo "Jupyter URL: $URL" | sed 's/8888/15000/'
+  URL=$(docker logs tflow 2>&1 | egrep -o 'http://127.0.0.1:8888/lab\?token=[0-9a-f]+' | tail -1)
+  echo "Jupyter URL: $URL"
 }
 
 # INSTANCE: r-notebook (jupyter/r-notebook)
@@ -99,6 +103,7 @@ function r-notebook() {
       -e JUPYTER_ENABLE_LAB=yes \
       -v "$PWD:/home/jovyan/work:rw" \
       --name r-notebook \
+      --user "$(id -u):$(id -g)" \
       jupyter/r-notebook
   sleep 5
   URL=$(docker logs r-notebook 2>&1 | egrep -o 'http://127.0.0.1:[0-9]+/\?token=[0-9a-f]+' | tail -1)
@@ -168,6 +173,7 @@ function jupyter() {
 }
 
 function generic() {
+  # docker run --user "$(id -u):$(id -g)" --network development -it -v "${PWD}:/data:rw" $1 /bin/bash
   docker run --network development -it -v "${PWD}:/data:rw" $1 /bin/bash
 }
 

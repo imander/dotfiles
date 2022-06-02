@@ -1,11 +1,12 @@
 build-essential
+curl
 docker.io
 git
 git-flow
 jq
-zsh
+nvim
 python3-pip
 python3-venv
-curl
-wget
 tmux
+wget
+zsh

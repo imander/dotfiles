@@ -40,13 +40,14 @@ alias:
 config:
 	mkdir -p "$(HOME)/.config"
 	ln -sfn "$(DIR)/.config/flake8" "$(HOME)/.config/flake8"
+	ln -sfn "$(DIR)/.config/nvim" "$(HOME)/.config/nvim"
 	ln -sfn "$(DIR)/.editorconfig" "$(HOME)/.editorconfig"
-	ln -sfn "$(DIR)/gitignore" "$(HOME)/.gitignore"
 	ln -sfn "$(DIR)/fzf.ignore" "$(HOME)/.fzf.ignore"
+	ln -sfn "$(DIR)/gitignore" "$(HOME)/.gitignore"
 	[ -d "$(HOME)/.config/zsh-syntax-highlighting" ] || git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$(HOME)/.config/zsh-syntax-highlighting"
+	git config user.name imander
+	git config user.email 'github@imand3r.io'
 	git config --global pull.ff only
-	git config --global user.name imander
-	git config --global user.email 'github@imand3r.io'
 	git config --global core.excludesfile "$(HOME)/.gitignore"
 	git remote remove origin
 	git remote add origin git@github.com:imander/dotfiles.git
@@ -93,6 +94,7 @@ tmux:
 vim: formatters vim-plugins
 	@ln -sfn $(DIR)/.vimrc $(HOME)/.vimrc
 	@ln -sfn $(DIR)/.vim $(HOME)/.vim
+	python3 -m pip install --user --upgrade pynvim
 
 .PHONY: vim-plugins
 vim-plugins:
