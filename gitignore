@@ -1,9 +1,8 @@
 # Directories
 __pycache__/
 tmp/
-ssl/
 **/.venv/
 
-# ML model files
-
 # Files
+.env*
+*.swp
