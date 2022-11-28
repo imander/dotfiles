@@ -83,31 +83,22 @@ function grafana() {
 # INSTANCE: tflow (jupyter/tensorflow-notebook:latest)
 function tflow() {
   docker start tflow ||
-    $DOCKER_CMD -p 127.0.0.1:8888:8888 \
-      -e JUPYTER_ENABLE_LAB=yes \
-      -e NB_UID="$(id -u)" \
-      -e NB_GID="$(id -g)" \
-      -u root \
-      -v "${PWD}":/home/jovyan/work \
+    $DOCKER_CMD  \
       --name tflow \
-      jupyter/tensorflow-notebook:latest
-  sleep 5
-  URL=$(docker logs tflow 2>&1 | egrep -o 'http://127.0.0.1:8888/lab\?token=[0-9a-f]+' | tail -1)
-  echo "Jupyter URL: $URL"
-}
-
-# INSTANCE: r-notebook (jupyter/r-notebook)
-function r-notebook() {
-  docker start r-notebook ||
-    $DOCKER_CMD -p 127.0.0.1:15001:8888 \
+      -e CHOWN_HOME=yes \
       -e JUPYTER_ENABLE_LAB=yes \
-      -v "$PWD:/home/jovyan/work:rw" \
-      --name r-notebook \
-      --user "$(id -u):$(id -g)" \
-      jupyter/r-notebook
-  sleep 5
-  URL=$(docker logs r-notebook 2>&1 | egrep -o 'http://127.0.0.1:[0-9]+/\?token=[0-9a-f]+' | tail -1)
-  echo "Jupyter URL: $URL" | sed 's/8888/15001/'
+      -e NB_GID="$(id -g)" \
+      -e NB_UID="$(id -u)" \
+      -e NB_USER="$USER" \
+      -p 127.0.0.1:8888:8888 \
+      -u root \
+      -v "${PWD}":"/home/$USER/work" \
+      -w "/home/$USER" \
+      jupyter/tensorflow-notebook:tensorflow-2.10.0
+  until URL=$(docker logs tflow 2>&1 | egrep -m1 -o 'http://127.0.0.1:8888/lab\?token=[0-9a-f]+'); do
+    sleep 1
+  done
+  echo "Jupyter URL: $URL"
 }
 
 # INSTANCE: kali (kalilinux/kali-rolling)
@@ -160,9 +151,9 @@ function arch() {
   _run_bash archlinux arch
 }
 
-# INSTANCE: python3 (python:3.7)
+# INSTANCE: python3 (python:3.9)
 function python3() {
-  _run_bash python:3.7 python3
+  _run_bash python:3.9 python3
 }
 
 function jupyter() {
