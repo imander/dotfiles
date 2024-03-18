@@ -147,6 +147,7 @@ ifneq (,$(findstring dirty,$(GIT)))
 	git add --all
 	git commit -m 'Update dotfiles'
 	git push origin master
+	git push gitlab master
 endif
 
 
