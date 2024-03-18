@@ -23,7 +23,7 @@ function install() {
 }
 
 function install_golang() {
-  GO_VERSION='1.16.3'
+  GO_VERSION='1.21.5'
   log "installing golang $GO_VERSION"
   wget https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz
   sudo tar -C /usr/local -xzf "go${GO_VERSION}.linux-amd64.tar.gz"

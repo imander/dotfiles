@@ -4,7 +4,7 @@ docker.io
 git
 git-flow
 jq
-nvim
+neovim
 python3-pip
 python3-venv
 tmux

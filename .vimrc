@@ -15,7 +15,7 @@ set smartcase
 set hidden
 
 let mapleader = "\<Space>"
-let g:python3_host_prog = $HOME . '/.asdf/shims/python'
+" let g:python3_host_prog = $HOME . '/.asdf/shims/python'
 
 " shortcut to save file with sudo
 command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
