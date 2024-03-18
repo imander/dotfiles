@@ -150,3 +150,8 @@ function fixssh() {
 function cert() {
   openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365 -subj "/CN=$1" -nodes
 }
+
+# Fetch a remote forked MR locally
+function fetch-mr() {
+  git fetch origin merge-requests/$1/head:mr/$1 && git checkout mr/$1
+}
