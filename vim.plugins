@@ -5,12 +5,12 @@ fatih/vim-go
 glench/vim-jinja2-syntax
 hashivim/vim-terraform
 honza/vim-snippets
+instant-markdown/vim-instant-markdown
 junegunn/fzf.vim
 martinda/jenkinsfile-vim-syntax
 neoclide/coc.nvim
 psf/black
 scrooloose/nerdtree
-suan/vim-instant-markdown
 tpope/vim-commentary
 tpope/vim-fugitive
 tpope/vim-sensible
