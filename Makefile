@@ -2,7 +2,6 @@ SHELL    := '/bin/bash'
 DIR      := $(shell pwd)
 GIT      := $(shell git describe --always --dirty)
 PLUGDIR  := $(DIR)/.vim/pack/plugins/start
-GH       := https://github.com
 zsh_dir  := $(HOME)/.oh-my-zsh
 
 # Filetype plugin for vim-markdown
@@ -100,13 +99,13 @@ vim: formatters vim-plugins
 vim-plugins:
 	@mkdir -p $(PLUGDIR)
 	@cd $(PLUGDIR) && while read line; do \
-		plug_dir=`cut -d/ -f2 <<< $$line`; \
+		plug_dir=`sed -E 's|https://.*/||' <<< $$line`; \
 		if [[ ! -z $$line ]] && [[ ! -d $$plug_dir ]]; then \
-			git clone $(GH)/$${line}.git; \
+			git clone $${line}.git; \
 		fi \
 	done < $(DIR)/vim.plugins
 	@$(MAKE) clean-plugins
-	$(SED_CMD) 's/9cffd3/00CFFC/g' .vim/pack/plugins/start/vim-airline/autoload/airline/themes/dark.vim
+	@$(SED_CMD) 's/9cffd3/00CFFC/g' .vim/pack/plugins/start/vim-airline/autoload/airline/themes/dark.vim
 
 $(VIM_MD):
 ifneq (,$(DISPLAY))
