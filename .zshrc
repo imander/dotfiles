@@ -76,6 +76,9 @@ if [ -x "$(command -v direnv)" ]; then
   eval "$(direnv hook zsh)"
 fi
 
+# hook mise into shell
+test -f ~/.local/bin/mise && eval "$(~/.local/bin/mise activate zsh)" || true
+
 function chpwd {
   if [[ -d .venv ]]; then
     VENV_ROOT_DIR=$PWD
@@ -98,3 +101,4 @@ ZSH_HIGHLIGHT_STYLES[path_prefix]=none
 
 # set environment variables last to take preference
 [ -s ~/.env ] && source ~/.env || true
+

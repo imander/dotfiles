@@ -34,4 +34,8 @@ PS1="
 $(_ssh_connection)${GREEN}\u@\h:$(_user_shell $0) ${BLUE}\w${NC}$(_kubectl_config)$(_prompt_caret)"
 
 test -s ~/.env && source ~/.env || true
-test -f ~/.fzf.bash && source ~/.fzf.bash
+test -f ~/.fzf.bash && source ~/.fzf.bash || true
+
+# hook mise into shell
+test -f ~/.local/bin/mise && eval "$(~/.local/bin/mise activate bash)" || true
+

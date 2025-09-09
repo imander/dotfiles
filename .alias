@@ -41,6 +41,7 @@ fi
 alias pandoc='docker run --rm -u "$UID:$GID" -v $(pwd):/data -w /data pandoc/core'
 alias serve='python -m http.server'
 alias fs="fixssh"
+alias ops='eval $(op signin)'
 
 # Automatically set user-agent for curl and wget to Chrome on OS type
 if [[ "$(uname -s)" == "Darwin" ]]; then

@@ -11,6 +11,9 @@ set shiftwidth=2
 set expandtab
 set smartcase
 
+" Disable annoying mouse stuff
+set mouse=
+
 " Ensure undo history is not lost with buffer changes
 set hidden
 
@@ -29,6 +32,12 @@ nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q<cr>
 nnoremap <leader>wq :wq<cr>
 nnoremap <leader>wa :wa<cr>
+
+" Split screen vertical
+nnoremap <leader>vs :vsplit<cr>
+
+" Split screen horizontal
+nnoremap <leader>hs :split<cr>
 
 " set shortcuts to copy/paste using system clipboard
 noremap <Leader>y "+y
@@ -69,6 +78,9 @@ nmap <Leader>fc :History:<CR>
 " autoformat
 nmap <Leader>af :Autoformat<CR>
 
+" Open current file in web UI
+nmap <Leader>gb :GBrowse<CR>
+
 set pastetoggle=<F8>
 
 let g:go_highlight_functions = 1
@@ -79,7 +91,7 @@ let g:go_highlight_function_calls = 1
 colorscheme imander
 
 " shortcut to edit vimrc
-map <leader>v :edit ~/.vimrc<cr>
+map <leader>vv :edit ~/.vimrc<cr>
 
 let g:airline#extensions#tabline#enabled = 1
 
