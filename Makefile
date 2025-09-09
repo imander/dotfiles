@@ -38,7 +38,8 @@ alias:
 .PHONY: config
 config:
 	mkdir -p "$(HOME)/.config"
-	ln -sfn "$(DIR)/.config/flake8" "$(HOME)/.config/flake8"
+	ln -sfn "$(DIR)/.config/alacritty" "$(HOME)/.config/alacritty"
+	ln -sfn "$(DIR)/.config/flake9" "$(HOME)/.config/flake8"
 	ln -sfn "$(DIR)/.config/nvim" "$(HOME)/.config/nvim"
 	ln -sfn "$(DIR)/.editorconfig" "$(HOME)/.editorconfig"
 	ln -sfn "$(DIR)/fzf.ignore" "$(HOME)/.fzf.ignore"
@@ -58,7 +59,6 @@ Darwin-config:
 	ln -sfn "$(DIR)/.config/karabiner.json" "$(HOME)/.config/karabiner/karabiner.json"
 	ln -sfn "$(DIR)/.config/com.googlecode.iterm2.plist" "$(HOME)/.config/iterm/com.googlecode.iterm2.plist"
 	ln -sfn "$(DIR)/hammerspoon" "$(HOME)/.hammerspoon"
-	ln -sfn "$(DIR)/alacritty.yml" "$(HOME)/.alacritty.yml"
 
 .PHONY: Linux-config
 Linux-config:
