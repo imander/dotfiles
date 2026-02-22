@@ -23,6 +23,16 @@ if !exists('g:instant_markdown_mathjax')
     let g:instant_markdown_mathjax = 0
 endif
 
+if !exists('g:instant_markdown_mermaid')
+    let g:instant_markdown_mermaid = 0
+endif
+
+if !exists('g:instant_markdown_theme')
+    let g:instant_markdown_theme = 'light'
+endif
+
+
+
 if !exists('g:instant_markdown_logfile')
     let g:instant_markdown_logfile = (has('win32') || has('win64') ? 'NUL' : '/dev/null')
 elseif filereadable(g:instant_markdown_logfile)
@@ -44,6 +54,7 @@ endif
 
 
 " # Utility Functions
+let s:ROOT_DIR = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 let s:shell_redirect = ' 1>> '. g:instant_markdown_logfile . ' 2>&1 '
 " Simple system wrapper that ignores empty second args
 function! s:system(cmd, stdin)
@@ -111,16 +122,23 @@ function! s:startDaemon(initialMDLines)
         if g:instant_markdown_mathjax
             let argv .= ' --mathjax'
         endif
+        if g:instant_markdown_mermaid
+            let argv .= ' --mermaid'
+        endif
     endif
     if exists('g:instant_markdown_browser')
-        let argv .= ' --browser '.g:instant_markdown_browser
+        let argv .= " --browser '".g:instant_markdown_browser."'"
     endif
     let argv .= ' --port '.g:instant_markdown_port
+
+    if exists('g:instant_markdown_theme')
+        let argv .= ' --theme '.g:instant_markdown_theme
+    endif
 
     if g:instant_markdown_python
         call s:systemasync(env.'smdv --stdin'.argv, a:initialMDLines)
     else
-        call s:systemasync(env.'instant-markdown-d'.argv, a:initialMDLines)
+        call s:systemasync(env.s:ResolveExecutable(s:ROOT_DIR).argv, a:initialMDLines)
     endif
 endfu
 
@@ -149,8 +167,21 @@ function! s:bufGetLines(bufnr)
 
   if g:instant_markdown_autoscroll
     " inject row marker
-    let row_num = max([0, line(".") - 5])
-    let lines[row_num] = join([lines[row_num], '<a name="#marker" id="marker"></a>'], ' ')
+
+    " The marker is inserted after an empty line to prevent it from interfering with
+    " mathjax/latex equations (which do not allow empty lines). The marker needs to be inserted
+    " before a non-empty line. 
+
+    " start of line followed by optional whitespace
+    " followed by one of '\r\n', '\r' or '\n' optionally followed by white
+    " space followed by non-whitespace '\S'
+    let pattern = '^\s*\(\(\r\n\|[\n\r]\).*\S\)\@='
+
+    " search backwards from cursor and don't wrap around and don't move cursor
+    let row_num = search(pattern,'bnW')
+
+    " The marker needs to be inserted on new line otherwise two paragraphs might be fused.
+    call insert(lines, '<a name="#marker" id="marker"></a>', row_num)
   endif
 
   return lines
@@ -237,5 +268,65 @@ if g:instant_markdown_autostart
     aug END
 endif
 
+" Searches for the existence of a directory accross
+" ancestral parents
+function! s:TraverseAncestorDirSearch(rootDir) abort
+  let l:root = a:rootDir
+  let l:dir = 'node_modules'
+
+  while 1
+    let l:searchDir = l:root . '/' . l:dir
+    if isdirectory(l:searchDir)
+      return l:searchDir
+    endif
+
+    let l:parent = fnamemodify(l:root, ':h')
+    if l:parent == l:root
+      return -1
+    endif
+
+    let l:root = l:parent
+  endwhile
+endfunction
+
+function! s:ResolveExecutable(...) abort
+  let l:rootDir = a:0 > 0 ? a:1 : 0
+  let l:exec = -1
+
+  if executable('instant-markdown-d')
+    let l:exec = 'instant-markdown-d'
+  elseif isdirectory(l:rootDir)
+    let l:dir = s:TraverseAncestorDirSearch(l:rootDir)
+    if l:dir != -1
+      let l:exec = s:GetExecPath(l:dir)
+    endif
+  else
+    let l:exec = s:GetExecPath()
+  endif
+
+  if l:exec == -1
+    echoerr "Node.js server instant-markdown-d is unavailable. See https://github.com/instant-markdown/instant-markdown-d for installation instructions"
+  endif
+
+  return l:exec
+endfunction
+
+function! s:GetExecPath(...) abort
+  let l:rootDir = a:0 > 0 ? a:1 : -1
+  let l:dir = l:rootDir != -1 ? l:rootDir . '/.bin/' : ''
+  let l:path = l:dir . 'instant-markdown-d'
+  if executable(l:path)
+    return l:path
+  else
+    return l:dir . 'instant-markdown-d'
+  endif
+endfunction
+
+function! s:instant_markdown_d_path()
+  let l:pluginExec = s:ResolveExecutable(s:ROOT_DIR)
+  echom l:pluginExec
+endfu
+
 command! -buffer InstantMarkdownPreview call s:previewMarkdown()
 command! -buffer InstantMarkdownStop call s:cleanUp()
+command! InstantMarkdownDPath call s:instant_markdown_d_path()

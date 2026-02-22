@@ -17,6 +17,10 @@ set mouse=
 " Ensure undo history is not lost with buffer changes
 set hidden
 
+" Use language syntax for folding and default to all folds open
+set foldmethod=syntax
+set nofoldenable
+
 let mapleader = "\<Space>"
 " let g:python3_host_prog = $HOME . '/.asdf/shims/python'
 
@@ -55,6 +59,7 @@ vnoremap Q :norm @q<cr>
 noremap <S-l> :bnext<cr>
 noremap <S-h> :bprevious<cr>
 noremap <leader>bd :bdelete<cr>
+noremap <leader>bdd ::bufdo bwipeout<cr>
 
 " better defaults for moving between panes
 nnoremap <C-J> <C-W><C-J>
@@ -168,6 +173,7 @@ augroup VimRC
   " set syntax for odd file extensions
   autocmd BufNewFile,BufRead .envrc set syntax=sh
   au BufNewFile,BufRead,BufReadPost Dockerfile.* set syntax=dockerfile
+  au BufRead,BufNewFile *.zed set syntax=spicedb
 
 
   " load templates when files are new
