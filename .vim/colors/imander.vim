@@ -16,6 +16,10 @@ endif
 
 hi Normal     guifg=#c6c6c6 guibg=#1F1F1F
 hi Comment    guifg=#707070
+" Treat doc comments (Rust ///, /** */) as ordinary comments instead of the
+" blue SpecialComment/Special they default-link to.
+hi link rustCommentLineDoc   Comment
+hi link rustCommentBlockDoc  Comment
 hi NonText    guifg=#707070
 hi Delimiter  guifg=#707070
 hi LineNr     guifg=#707070

@@ -1,11 +1,47 @@
 {
-  "snippets.ultisnips.pythonPrompt": false
+  "snippets.ultisnips.pythonPrompt": false,
+  "snippets.ultisnips.directories": [
+    "UltiSnips",
+    "gosnippets/UltiSnips",
+    "ftplugin/snippets"
+  ],
   "languageserver": {
     "go": {
       "command": "gopls",
       "rootPatterns": ["go.mod"],
       "trace.server": "verbose",
       "filetypes": ["go"]
+    },
+    "ruby-lsp": {
+      "command": "ruby-lsp",
+      "filetypes": ["ruby"],
+      "rootPatterns": ["Gemfile", ".git"]
+    },
+    "rubocop": {
+      "command": "bundle",
+      "args": ["exec", "rubocop", "--lsp"],
+      "filetypes": ["ruby"],
+      "rootPatterns": [".git", "Gemfile"],
+      "requireRootPattern": true
+    }
+  },
+  "diagnostic-languageserver.linters": {
+    "rubocop": {
+      "command": "bundle",
+      "sourceName": "rubocop",
+      "debounce": 101,
+      "args": ["exec", "rubocop", "--format", "json", "--force-exclusion", "%filepath"],
+      "parseJson": {
+        "errorsRoot": "files.offenses",
+        "line": "location.line",
+        "column": "location.column",
+        "message": "[${cop_name}] ${message}",
+        "security": "severity"
+      },
+      "securities": {
+        "fatal": "error",
+        "warning": "warning"
+      }
     }
   }
 }

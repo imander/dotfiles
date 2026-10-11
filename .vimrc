@@ -46,6 +46,7 @@ nnoremap <leader>hs :split<cr>
 " set shortcuts to copy/paste using system clipboard
 noremap <Leader>y "+y
 noremap <Leader>p "+p
+set clipboard=unnamedplus
 
 nnoremap <leader>s :set spell!<cr>
 " fix spelling with first suggestion
@@ -147,6 +148,9 @@ set updatetime=300
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
+
+" CoC go to definition
+nmap gd <Plug>(coc-definition)
 
 " Mac specific stuff
 if has("unix")

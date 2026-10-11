@@ -39,3 +39,4 @@ test -f ~/.fzf.bash && source ~/.fzf.bash || true
 # hook mise into shell
 test -f ~/.local/bin/mise && eval "$(~/.local/bin/mise activate bash)" || true
 
+. "$HOME/.cargo/env"

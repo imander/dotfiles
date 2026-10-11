@@ -20,7 +20,7 @@ else ifeq ($(UNAME_S),Darwin)
 endif
 
 .PHONY: all
-all: packages zsh bash bin env alias config vim tmux
+all: packages zsh bash bin env alias config vim tmux ssh
 
 .PHONY: bin
 bin:
@@ -88,6 +88,12 @@ bash:
 tmux:
 	ln -sfn "$(DIR)/.tmux.conf" "$(HOME)/.tmux.conf"
 	ln -sfn "$(DIR)/.tmux.conf.local" "$(HOME)/.tmux.conf.local"
+
+.PHONY: ssh
+ssh:
+	mkdir -p "$(HOME)/.ssh"
+	chmod 700 "$(HOME)/.ssh"
+	ln -sfn "$(DIR)/.ssh/rc" "$(HOME)/.ssh/rc"
 
 .PHONY: vim
 vim: formatters vim-plugins

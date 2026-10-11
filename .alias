@@ -21,6 +21,7 @@ alias ...='cd ../../..'
 alias ....='cd ../../../..'
 alias docs='cd ~/Documents'
 alias dl='cd ~/Downloads'
+alias cdg='cd ~/gitlab-development-kit/gitlab'
 alias cdl='rm -rf ~/Downloads/*'
 alias ipgrep='egrep -o '\''[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'\'''
 alias foo='cat > ~/foo'
@@ -54,6 +55,9 @@ alias wget="wget -U '$AGENT'"
 
 # Find biggest directories by disc usage
 alias ducks='du -cksh * | sort -rh | head -15'
+
+alias gpwip='git push -o ci.skip'
+alias gpsupwip='git push -o ci.skip --set-upstream origin $(git_current_branch)'
 
 # git/git-flow aliases
 alias gpristine='git reset --hard && git clean -df'

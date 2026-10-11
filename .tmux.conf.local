@@ -299,3 +299,7 @@ tmux_conf_copy_to_os_clipboard=false
 
 # move status line to top
 #set -g status-position top
+
+# use the stable agent socket from ~/.ssh/rc instead of each login's socket
+set -g update-environment "DISPLAY SSH_ASKPASS SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY"
+setenv -g SSH_AUTH_SOCK "$HOME/.ssh/ssh_auth_sock"

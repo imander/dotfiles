@@ -1,0 +1,53 @@
+#!/bin/bash
+# Bootstrap one tmux session per GDK instance, each with a 5-pane layout,
+# then attach to GDK1. Re-running is safe: existing sessions are left alone.
+#
+# Layout (5 panes, all cd'd into the GDK dir):
+#   +-------+-------+
+#   |       |       |
+#   |  TL   |  TR   |
+#   |       |       |
+#   +-------+-------+
+#   |  BL1  |       |
+#   +-------+  BR   |
+#   |  BL2  |       |
+#   +-------+-------+
+set -eu
+
+# Use the attached client's size (or the outer terminal's, if launched
+# outside tmux) so splits divide a realistically-sized window instead of
+# the default-size (80x24). Without this, tmux rounds the splits at 24
+# rows and then distributes the extra rows equally per pane on resize,
+# producing a lopsided layout.
+if [ -n "${TMUX:-}" ]; then
+  size=$(tmux display-message -p '#{client_width}x#{client_height}')
+else
+  size="$(tput cols 2>/dev/null || echo 200)x$(tput lines 2>/dev/null || echo 50)"
+fi
+width=${size%x*}
+height=${size#*x}
+
+create_session() {
+  name=$1
+  dir=$2
+  tl=$(tmux new-session -ds "$name" -x "$width" -y "$height" -c "$dir" -P -F '#{pane_id}')
+  tr=$(tmux split-window -h -t "$tl" -c "$dir" -P -F '#{pane_id}')
+  tmux split-window -v -t "$tr" -c "$dir"        # BR (below TR)
+  bl1=$(tmux split-window -v -t "$tl" -c "$dir" -P -F '#{pane_id}')
+  tmux split-window -v -t "$bl1" -c "$dir" # BL2 (below BL1)
+  tmux select-pane -t "$tl"
+}
+
+for entry in GDK1 GDK2 GDK3; do
+  name=${entry}
+  dir="${HOME}/${entry,,}/gitlab"
+  if ! tmux has-session -t="$name" 2>/dev/null; then
+    create_session "$name" "$dir"
+  fi
+done
+
+if [ -n "${TMUX:-}" ]; then
+  tmux switch-client -t GDK1
+else
+  exec tmux attach -t GDK1
+fi
