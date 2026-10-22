@@ -1,2 +1,8 @@
 .vim/pack/plugins
 *.swp
+claude/skills/*
+!claude/skills/authz-review/
+!claude/skills/catchup/
+!claude/skills/mr-shepherd/
+claude/skills/*/state.json
+__pycache__/
