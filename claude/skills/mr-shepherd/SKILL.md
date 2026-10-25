@@ -1,25 +1,45 @@
 ---
 name: mr-shepherd
-description: Watch a set of GitLab merge requests and keep them moving. Reports new reviewer and GitLab Duo comments, failed pipelines, merge conflicts and merges, then addresses each one (fixes review feedback, rebases conflicts, triages CI failures) within the user's rules. Use when the user asks to monitor, babysit or shepherd MRs through review, or invoke with /mr-shepherd [mr-iids...].
-argument-hint: "[mr-iids...]"
+description: Watch a set of GitLab merge requests and keep them moving. Reports new reviewer and GitLab Duo comments, failed pipelines, merge conflicts and merges, then addresses each one (fixes review feedback, rebases conflicts, triages CI failures) within the user's rules. One hub session watches every MR; other sessions hand MRs to it with `add`. Use when the user asks to monitor, babysit or shepherd MRs through review, or invoke with /mr-shepherd [add] [mr-iids...].
+argument-hint: "[add] [mr-iids...]"
 ---
 
 # MR shepherd
 
-Watch MRs **$ARGUMENTS** (or the ones the user names) in `gitlab-org/gitlab` until they merge, and handle what comes up.
+All MRs are watched from one place: a single hub session and one shared state dir, `~/.claude/mr-shepherd/`. This avoids two sessions acting on the same event.
 
-## Start the watch
+- **`/mr-shepherd add <iids>`** (in any session): hand the MRs to the hub. See "Hand off MRs". Don't start a watcher.
+- **`/mr-shepherd [iids]`**: become the hub and watch **$ARGUMENTS** (or the ones the user names) in `gitlab-org/gitlab` until they merge, and handle what comes up. If a hub is already running, hand the MRs off instead.
 
-1. Pick a state dir in the session scratchpad, e.g. `<scratchpad>/mr-shepherd/`.
-2. Write the MR IIDs to `<state-dir>/mrs.txt`, space separated. Add MRs later by editing this file; the watcher re-reads it.
-3. Start one Monitor (never two at once):
+## Hand off MRs
+
+1. Add them: `python3 ~/.claude/skills/mr-shepherd/scripts/watch.py add <iids>`. It prints each handoff note's path and whether a watcher is running.
+2. For each MR, write the handoff note at that path (`~/.claude/mr-shepherd/notes/<iid>.md`), so the hub doesn't start from nothing. Keep it short:
    ```
-   python3 ~/.claude/skills/mr-shepherd/scripts/watch.py --state-dir <state-dir> 2>&1 | grep --line-buffered -E '^!|Traceback|Error'
+   # !<iid> <title>
+   Why: <what the MR is for, one or two lines>
+   Reviewers: <who, and whether they've been asked>
+   Approved by the user: <actions already OK'd, e.g. "resolve answered Duo threads", or "none">
+   Open: <anything still pending or waiting on the user>
    ```
-   with `timeout_ms: 1800000`. When it expires, re-arm it with the same command. The state file stops events repeating.
-4. Before the first event, check each MR once by hand: pipeline, approvals, unresolved threads, conflicts. The first pass only records existing notes.
+   If a note already exists, add to it rather than replacing it.
+3. If a hub is running, tell it: use `ListAgents`, find the session named `mr-shepherd`, and `SendMessage` it `added !<iid>, see notes/<iid>.md`. If there's no hub, tell the user the MRs are queued and that `/mr-shepherd` in any session starts the hub.
+4. Stop. The hub handles everything from here, so don't watch, fix or post for these MRs in this session.
 
-Events look like `!123 user: comment… <link>`, `!123 PIPELINE failed: <url>`, `!123 HAS CONFLICTS (branch)`, `!123 AUTO-MERGE BLOCKED by 2 unresolved thread(s) started by: …`, `!123 APPROVAL RESET for: alice (…)`, `!123 MERGED, no longer watching`.
+## Start the watch (hub)
+
+1. Name this session `mr-shepherd` (`/rename mr-shepherd`) so other sessions can find it.
+2. Add any MRs from the arguments with `watch.py add` (as in "Hand off MRs").
+3. Start one Monitor:
+   ```
+   python3 ~/.claude/skills/mr-shepherd/scripts/watch.py 2>&1 | grep --line-buffered -E '^!|Traceback|Error'
+   ```
+   with `timeout_ms: 1800000`. The watcher exits on its own before the timeout (`! WATCH WINDOW ENDED`); re-arm it with the same command. The state file stops events repeating.
+4. If it prints `! WATCHER ALREADY RUNNING (pid …, cwd …)`, another session is the hub. Don't start a second one: hand the MRs off instead, and tell the user where the hub is running. If the user says that hub is gone, check the pid with `ps` before killing it.
+5. Before the first event, check each MR once by hand: pipeline, approvals, unresolved threads, conflicts, and its handoff note if it has one. The first pass only records existing notes.
+6. Each time an MR is added later, the watcher prints `!123 ADDED to watch; handoff note: <path>`. Read the note, then do the same check by hand. Its existing comments aren't replayed.
+
+Events look like `!123 user: comment… <link>`, `!123 BOT OPEN THREAD project_278964_bot_…: suggestion… <link>`, `!123 PIPELINE failed: <url>`, `!123 HAS CONFLICTS (branch)`, `!123 AUTO-MERGE BLOCKED by 2 unresolved thread(s) started by: …`, `!123 APPROVAL RESET for: alice (…)`, `!123 ADDED to watch; …`, `!123 MERGED, no longer watching`.
 
 ## Work in a separate worktree
 
@@ -38,6 +58,12 @@ Never edit or switch branches in the user's checkout. Use a scratch worktree on 
 - Verify the finding. If it's right, fix it and say so. If it's wrong, reply with the evidence (file:line, gem version, the rule that covers it). Don't just disagree.
 - If Duo's state stays "requested changes" after it accepts a reply, offer to re-request its review (`/request_review @GitLabDuo` as a quick-action-only note).
 - Resolve an answered Duo thread only if the user has said that's OK.
+
+### Other bot comments (Danger, test summaries, and similar)
+The watcher reports every bot comment, tagged `BOT`. Never ignore them. Danger's suggestions open resolvable threads (tagged `OPEN THREAD`) that block merging just like a reviewer's.
+- **Status notes** with no thread, such as the reviewer roulette table or a test result summary: read them for anything actionable, such as suggested reviewers or failed tests, and mention what matters in the update. Nothing to reply to.
+- **Suggestion threads:** check each suggestion against the code. Apply it if it's right and in scope, then push. If it's wrong or out of scope, reply with the reason (for example, "order matters here, so `match_array` would hide a swap"). Bring the list to the user with a recommendation for each, since replying and resolving need their OK.
+- A thread is still open until it's resolved, even after a reply. Check `detailed_merge_status` for `discussions_not_resolved`.
 
 ### Approval bot risk-rating thread
 - It's informational, but it blocks merging while it's unresolved. Resolve it only with the user's OK. It may re-post after a push.
