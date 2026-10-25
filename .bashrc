@@ -35,8 +35,7 @@ $(_ssh_connection)${GREEN}\u@\h:$(_user_shell $0) ${BLUE}\w${NC}$(_kubectl_confi
 
 test -s ~/.env && source ~/.env || true
 test -f ~/.fzf.bash && source ~/.fzf.bash || true
+test -f ~/.cargo/env && source ~/.cargo/env || true
 
 # hook mise into shell
 test -f ~/.local/bin/mise && eval "$(~/.local/bin/mise activate bash)" || true
-
-. "$HOME/.cargo/env"
